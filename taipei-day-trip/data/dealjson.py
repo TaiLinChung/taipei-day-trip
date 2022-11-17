@@ -36,7 +36,9 @@ sql="CREATE DATABASE IF NOT EXISTS taipei_day_trip"
 mycursor.execute(sql)
 sql="USE taipei_day_trip"
 mycursor.execute(sql)
-sql="CREATE TABLE IF NOT EXISTS datas(id INT,name VARCHAR(20),category VARCHAR(20),description VARCHAR(500) ,address VARCHAR(500),transport VARCHAR(500),mrt VARCHAR(200),longitude FLOAT,latitude FLOAT,file VARCHAR(500))"
+# sql="CREATE TABLE IF NOT EXISTS datas(id INT,name VARCHAR(20),category VARCHAR(20),description VARCHAR(1000) ,address VARCHAR(1000),transport VARCHAR(1000),mrt VARCHAR(200),longitude FLOAT,latitude FLOAT,images VARCHAR(2000))"
+# mycursor.execute(sql)
+sql="CREATE TABLE IF NOT EXISTS datas2(id INT,name VARCHAR(20),category VARCHAR(20),description VARCHAR(1000) ,address VARCHAR(1000),transport VARCHAR(1000),mrt VARCHAR(200),longitude FLOAT,latitude FLOAT,images TEXT)"
 mycursor.execute(sql)
 
 
@@ -54,28 +56,29 @@ for item in data["result"]["results"]:
     print("7_mrt: ",item["MRT"])
     print("8_lat: ",item["latitude"])
     print("9_lng: ",item["longitude"])
-    # print("10_images: ",item["file"].replace(" ","").upper().replace("\\","//").replace(".JPG",".JPG ").split(" "))
-    # print("10_images: ",item["file"].replace(" ","").upper().replace(".JPG",".JPG ").split(" "))
-    item["file"]=item["file"].replace(" ","").upper().replace(".JPG",".JPG ").split(" ")
-    # print(item["file"])
-    len_file=len(item["file"])
-    new_itemfile=[]
-    for i in range(len_file):
-        if item["file"][i] != "" and ".MP3" not in item["file"][i] and ".FLV" not in item["file"][i]:
-            new_itemfile.append(item["file"][i])
-    # print("new_itemfile",new_itemfile)
-    #回填處理過的
-    item["file"]=new_itemfile
+    # item["file"]=item["file"].replace(" ","").upper().replace(".JPG",".JPG ").split(" ")
+    item["file"]=item["file"].replace(" ","").upper().replace(".JPG",".JPG ")
     print("10_images: ",item["file"])
-    print()
-    print()
+    # print(item["file"])
+    # len_file=len(item["file"])
+    # new_itemfile=[]
+    # for i in range(len_file):
+    #     if item["file"][i] != "" and ".MP3" not in item["file"][i] and ".FLV" not in item["file"][i]:
+    #         new_itemfile.append(item["file"][i])
+    # # print("new_itemfile",new_itemfile)
+    # #回填處理過的
+    # item["file"]=new_itemfile
+    # print("10_images: ",item["file"])
+    # print()
+    # print()
     
     mycursor=mydb.cursor()
-    sql="INSERT INTO datas(id,name,category,description,address,transport,mrt,latitude,longitude,file) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    val=(item["_id"],item["name"],item["CAT"],item["description"],item["address"],item["direction"],item["MRT"],item["latitude"],item["longitude"],str(item["file"]))
+    sql="INSERT INTO datas2(id,name,category,description,address,transport,mrt,latitude,longitude,images) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    val=(item["_id"],item["name"],item["CAT"],item["description"],item["address"],item["direction"],item["MRT"],item["latitude"],item["longitude"],item["file"])
     mycursor.execute(sql,val)
     mydb.commit()
 
 
-
-
+    # sql="INSERT INTO datas(name,category) VALUES(%s,%s)
+    # val=(item["_id"],item["name"])
+    # mycursor.execute(sql,val)
