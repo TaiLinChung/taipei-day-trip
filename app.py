@@ -50,6 +50,8 @@ def api_attractions():
 	# print(myresult)
 	# ct=0
 	
+# sss=img.jpg img.jpg 
+# sss=sss[0:-1]
 	for i in range(total_amount):
 		# print(ct)
 		# ct+=1
@@ -58,6 +60,7 @@ def api_attractions():
 		
 		myresult[i]=list(myresult[i])
 		myresult[i][9]=myresult[i][9].split(" ")
+		print(myresult[i][9])
 		myresult_real=[]
 		for e in myresult[i][9]:
 			if e!="" and ".MP3" not in e and ".FLV" not in e:
