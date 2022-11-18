@@ -78,7 +78,7 @@ def api_attractions():
 		# list2.append(list(e))
 	# print(category_data)
 	# print(list2)
-	
+	print("keyword= ",keyword==None)
 	##判斷比對方式
 	if keyword != "" and keyword in category_data:
 		# return "YES"
@@ -100,17 +100,21 @@ def api_attractions():
 		print("不比了")
 
 	else:
-		print("name模糊比對")
-		mycursor=mydb.cursor()
-		# sql_vague="SELECT *FROM datas WHERE name like '% %s %'"
-		print(keyword)
-		sql_vague="SELECT *FROM datas2 WHERE name like concat('%',%s,'%')"
-		adr_vague=(keyword,)
-		mycursor.execute(sql_vague,adr_vague)
-		myresult_vague=mycursor.fetchall()
-		vague_search_amount=len(myresult_vague)
-		total_amount=vague_search_amount
-		myresult=myresult_vague
+		#完全沒用到&keyword時的判定
+		if keyword == None:
+			pass
+		else:
+			print("name模糊比對")
+			mycursor=mydb.cursor()
+			# sql_vague="SELECT *FROM datas WHERE name like '% %s %'"
+			print(keyword)
+			sql_vague="SELECT *FROM datas2 WHERE name like concat('%',%s,'%')"
+			adr_vague=(keyword,)
+			mycursor.execute(sql_vague,adr_vague)
+			myresult_vague=mycursor.fetchall()
+			vague_search_amount=len(myresult_vague)
+			total_amount=vague_search_amount
+			myresult=myresult_vague
 
 	
 	if (page_num)*12 > total_amount or page_num<0:
@@ -342,4 +346,4 @@ def api_cotegories():
 
 
 
-app.run(port=3000)
+app.run(host='0.0.0.0',port=3000)

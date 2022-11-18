@@ -29,7 +29,9 @@ import mysql.connector
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
-    password="Bb0970662139"
+    password="Bb0970662139",
+    # auth_plugin='mysql_native_password'
+    # port="3306"
 )
 mycursor=mydb.cursor()
 sql="CREATE DATABASE IF NOT EXISTS taipei_day_trip"
@@ -38,7 +40,7 @@ sql="USE taipei_day_trip"
 mycursor.execute(sql)
 # sql="CREATE TABLE IF NOT EXISTS datas(id INT,name VARCHAR(20),category VARCHAR(20),description VARCHAR(1000) ,address VARCHAR(1000),transport VARCHAR(1000),mrt VARCHAR(200),longitude FLOAT,latitude FLOAT,images VARCHAR(2000))"
 # mycursor.execute(sql)
-sql="CREATE TABLE IF NOT EXISTS datas2(id INT,name VARCHAR(20),category VARCHAR(20),description VARCHAR(1000) ,address VARCHAR(1000),transport VARCHAR(1000),mrt VARCHAR(200),longitude FLOAT,latitude FLOAT,images TEXT)"
+sql="CREATE TABLE IF NOT EXISTS datas2(id INT,name VARCHAR(20),category VARCHAR(20),description TEXT ,address VARCHAR(1000),transport VARCHAR(1000),mrt VARCHAR(200),longitude FLOAT,latitude FLOAT,images TEXT)"
 mycursor.execute(sql)
 
 
