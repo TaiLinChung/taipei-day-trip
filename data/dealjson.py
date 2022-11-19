@@ -2,26 +2,6 @@ import json
  
 with open('taipei-attractions.json',"r", encoding="utf-8") as fp:
     data = json.load(fp)
-# print(data["result"]["results"][0]["CAT"])
-# sss=""
-# for item in data["result"]["results"]:
-#     if item["_id"]==1:
-#         print(item["file"])
-#         sss=item["file"]
-#     # print(item["_id"])
-#     # print()
-#     # print()
-# print()
-# sss=sss.upper()
-# print(sss)
-# print()
-# sss=sss.replace(" ","").replace(".JPG",".JPG ")
-# sss=sss.split(" ")
-# print(sss)
-# # https://www.runoob.com/python/att-string-replace.html
-# # print(type(sss))
-# # print(sss.replace(".JPG",".JPG "))
-
 
 
 ##前置作業與資料庫連線創建資料庫跟表

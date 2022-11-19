@@ -7,7 +7,6 @@ app.config["TEMPLATES_AUTO_RELOAD"]=True
 
 import mysql.connector
 mydb=mysql.connector.connect(
-# mydb=MySQLConnection(
     host="localhost",
     user="root",
     password="Bb0970662139"
@@ -34,31 +33,19 @@ def thankyou():
 
 
 
-@app.route("/api/attractions",methods=["GET"])
-def api_attractions():
+@app.route("/api/attraction",methods=["GET"])
+def api_attraction():
 	page_num=request.args.get("page",None)
 	page_num=int(page_num)
 	keyword=request.args.get("keyword",None)
-	# print("page_num",page_num)
-	# print(keyword)
 	
 	mycursor=mydb.cursor()
 	sql="SELECT *FROM datas2"
 	mycursor.execute(sql)
 	myresult=mycursor.fetchall()
 	total_amount=len(myresult)
-	# print("total_amount= ",total_amount)
-	# print(myresult)
-	# ct=0
-	
-# sss=img.jpg img.jpg 
-# sss=sss[0:-1]
+
 	for i in range(total_amount):
-		# print(ct)
-		# ct+=1
-		# print("777",(myresult[i]))
-		# print(list(myresult[i])[9].split(" "))
-		
 		myresult[i]=list(myresult[i])
 		myresult[i][9]=myresult[i][9].split(" ")
 		print(myresult[i][9])
@@ -75,17 +62,11 @@ def api_attractions():
 	sql2="SELECT DISTINCT category FROM datas2"
 	mycursor2.execute(sql2)
 	myresult_category=mycursor2.fetchall()
-	# print(myresult_category[0])
-	# print(myresult_category)
 	for e in myresult_category:
 		category_data.append(str(e).replace("(","").replace(")","").replace(",","").replace("'","").replace("\\u3000",""))
-		# list2.append(list(e))
-	# print(category_data)
-	# print(list2)
 	print("keyword= ",keyword==None)
 	##判斷比對方式
 	if keyword != "" and keyword in category_data:
-		# return "YES"
 		print("category完全比對")
 		if keyword=="其他":
 			keyword="其  他"
@@ -98,7 +79,6 @@ def api_attractions():
 		keyword_search_amount=len(myresult_keyword)
 		total_amount=keyword_search_amount
 		myresult=myresult_keyword
-		#----------------
 
 	elif keyword == "":
 		print("不比了")
@@ -110,7 +90,6 @@ def api_attractions():
 		else:
 			print("name模糊比對")
 			mycursor=mydb.cursor()
-			# sql_vague="SELECT *FROM datas WHERE name like '% %s %'"
 			print(keyword)
 			sql_vague="SELECT *FROM datas2 WHERE name like concat('%',%s,'%')"
 			adr_vague=(keyword,)
@@ -129,42 +108,11 @@ def api_attractions():
 
 	#正常+有下一頁
 	elif (page_num+1)*12<=total_amount:
-		# if key_word != None:
-
-		# 	return "woooooo"
-
-
 		mytitle = mycursor.description
 		column_name =[col[0] for col in mytitle]
-		# column_name=[]
-		# for col in mytitle:
-		# 	column_name.append(col[0])
-
-		# data = [dict(zip(column_name, list(row)))for row in myresult]
-		# print(myresult)
 		data=[]
 		for i in range((page_num)*12,(page_num+1)*12):
 			data.append(dict(zip(column_name,list(myresult[i]))))
-		# for row in myresult:
-			# data.append(dict(zip(column_name,list(row))))
-
-			# print(list(zip(column_name,list(row))))
-			# print()
-			# print()
-		# print(data)
-		# print(mytitle)
-		# print("----------------------")
-		# print(column_name)
-		# print("----------------------")
-
-		#觀念嘗試
-		# aaa=[(1, 4), (2, 5), (3, 6)]
-		# bbb=dict(aaa)
-		# print(bbb)
-
-		
-
-
 		return jsonify({                              
 			"nextPage": page_num+1,
 			"data": data		
@@ -172,13 +120,6 @@ def api_attractions():
 
 	#正常+無下一頁
 	else:
-		#取剩餘所有
-		# overage=total_amount%12
-		# last_start=total_amount-overage+1
-		# sql="SELECT *from datas limit %s,%s"
-		# adr=(last_start,total_amount)
-		# mycursor.execute(sql,adr)
-		# myresult=mycursor.fetchall()
 		mytitle = mycursor.description
 		column_name =[col[0] for col in mytitle]
 		data=[]
@@ -245,28 +186,37 @@ def api_cotegories():
 					"data": category_data
 					
 				})
+
 	except TypeError:
 		return jsonify({
 					"error": True,
 					"message":"型別發生錯誤"
 				})
+
 	except NameError:
 		return jsonify({
 					"error": True,
 					"message":"使用沒有被定義的對象"
 				})
+				
 	except Exception:
 		return jsonify({
 					"error": True,
 					"message":"不知道怎麼了，反正發生錯誤惹"
 				})
 
+app.run(host='0.0.0.0',port=3000)
+
+
+
+
+
 
 
 #參考
 
 
-	# #冠妤推薦
+	# #推薦
 	# # sql="SELECT *from datas limit 0,12"
 	# sql="SELECT *from datas limit %s,%s"
 	# # mycursor.execute(sql)
@@ -350,4 +300,3 @@ def api_cotegories():
 
 
 
-app.run(host='0.0.0.0',port=3000)
