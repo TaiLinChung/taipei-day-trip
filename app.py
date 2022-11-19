@@ -191,7 +191,7 @@ def api_attractions():
 		})
 
 
-@app.route("/api/attractions/<attractionId>",methods=["GET"])
+@app.route("/api/attraction/<attractionId>",methods=["GET"])
 def api_attractionId(attractionId):
 	get_attractionId=attractionId
 	# print(content)
@@ -228,7 +228,7 @@ def api_attractionId(attractionId):
 			})
 
 
-@app.route("/api/cotegories",methods=["GET"])
+@app.route("/api/categories",methods=["GET"])
 def api_cotegories():
 	try:	
 		category_data=[]
