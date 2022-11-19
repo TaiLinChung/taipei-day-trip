@@ -33,7 +33,7 @@ def thankyou():
 
 
 
-@app.route("/api/attraction",methods=["GET"])
+@app.route("/api/attractions",methods=["GET"])
 def api_attraction():
 	page_num=request.args.get("page",None)
 	page_num=int(page_num)
