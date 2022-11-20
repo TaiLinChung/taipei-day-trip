@@ -20,7 +20,7 @@ sql="USE taipei_day_trip"
 mycursor.execute(sql)
 # sql="CREATE TABLE IF NOT EXISTS datas(id INT,name VARCHAR(20),category VARCHAR(20),description VARCHAR(1000) ,address VARCHAR(1000),transport VARCHAR(1000),mrt VARCHAR(200),longitude FLOAT,latitude FLOAT,images VARCHAR(2000))"
 # mycursor.execute(sql)
-sql="CREATE TABLE IF NOT EXISTS datas2(id INT,name VARCHAR(20),category VARCHAR(20),description TEXT ,address VARCHAR(1000),transport VARCHAR(1000),mrt VARCHAR(200),longitude FLOAT,latitude FLOAT,images TEXT)"
+sql="CREATE TABLE IF NOT EXISTS datas3(id INT,name VARCHAR(20),category VARCHAR(20),description TEXT ,address VARCHAR(1000),transport VARCHAR(1000),mrt VARCHAR(200),longitude FLOAT,latitude FLOAT,images TEXT)"
 mycursor.execute(sql)
 
 
@@ -38,28 +38,33 @@ for item in data["result"]["results"]:
     print("7_mrt: ",item["MRT"])
     print("8_lat: ",item["latitude"])
     print("9_lng: ",item["longitude"])
+    # print()
     # item["file"]=item["file"].replace(" ","").upper().replace(".JPG",".JPG ").split(" ")
-    item["file"]=item["file"].replace(" ","").upper().replace(".JPG",".JPG ")
-    print("10_images: ",item["file"])
-    # print(item["file"])
-    # len_file=len(item["file"])
-    # new_itemfile=[]
-    # for i in range(len_file):
-    #     if item["file"][i] != "" and ".MP3" not in item["file"][i] and ".FLV" not in item["file"][i]:
-    #         new_itemfile.append(item["file"][i])
-    # # print("new_itemfile",new_itemfile)
-    # #回填處理過的
-    # item["file"]=new_itemfile
-    # print("10_images: ",item["file"])
-    # print()
-    # print()
+    # item["file"]=item["file"].replace(" ","").upper().replace(".JPG",".JPG ")
+    item["file"]=item["file"].replace(" ","").upper().split("HTTPS")
     
+    # print("10_images: ",item["file"])
+    # print(item["file"])
+    len_file=len(item["file"])
+    new_itemfile=[]
+    for i in range(len_file):
+        if item["file"][i] != "" and ".MP3" not in item["file"][i] and ".FLV" not in item["file"][i]:
+            new_itemfile.append("HTTPS"+item["file"][i])
+    new_itemfile=str(new_itemfile).replace("[","").replace("]","").replace(",","").replace("'","")
+    # new_itemfile=new_itemfile.split(" ")
+    # print("new_itemfile: ",new_itemfile)
+    # #回填處理過的
+    item["file"]=new_itemfile
+    print("10_images: ",item["file"])
+    # print()
+    # print()
+# ##----------------------
     mycursor=mydb.cursor()
-    sql="INSERT INTO datas2(id,name,category,description,address,transport,mrt,latitude,longitude,images) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    sql="INSERT INTO datas3(id,name,category,description,address,transport,mrt,latitude,longitude,images) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
     val=(item["_id"],item["name"],item["CAT"],item["description"],item["address"],item["direction"],item["MRT"],item["latitude"],item["longitude"],item["file"])
     mycursor.execute(sql,val)
     mydb.commit()
-
+# ##----------------------
 
     # sql="INSERT INTO datas(name,category) VALUES(%s,%s)
     # val=(item["_id"],item["name"])
