@@ -205,7 +205,7 @@ def api_cotegories():
 
 
 
-
+app.run(host='0.0.0.0',port=3000)
 
 
 
@@ -471,7 +471,7 @@ def api_cotegories():
 # 					"message":"不知道怎麼了，反正發生錯誤惹"
 # 				})
 
-app.run(host='0.0.0.0',port=3000)
+# app.run(host='0.0.0.0',port=3000)
 
 
 
