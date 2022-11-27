@@ -29,18 +29,16 @@ mycursor.execute(sql)
 
 ##整理開始
 for item in data["result"]["results"]:
-    print("1_id: ",item["_id"])
-    print("2_name: ",item["name"])
+    # print("1_id: ",item["_id"])
+    # print("2_name: ",item["name"])
     print("3_category: ",item["CAT"])
-    print("4_description: ",item["description"])
-    print("5_address: ",item["address"])
-    print("6_transport: ",item["direction"])
-    print("7_mrt: ",item["MRT"])
-    print("8_lat: ",item["latitude"])
-    print("9_lng: ",item["longitude"])
-    # print()
-    # item["file"]=item["file"].replace(" ","").upper().replace(".JPG",".JPG ").split(" ")
-    # item["file"]=item["file"].replace(" ","").upper().replace(".JPG",".JPG ")
+    # print("4_description: ",item["description"])
+    # print("5_address: ",item["address"])
+    # print("6_transport: ",item["direction"])
+    # print("7_mrt: ",item["MRT"])
+    # print("8_lat: ",item["latitude"])
+    # print("9_lng: ",item["longitude"])
+  
     item["file"]=item["file"].replace(" ","").upper().split("HTTPS")
     
     # print("10_images: ",item["file"])
@@ -55,15 +53,15 @@ for item in data["result"]["results"]:
     # print("new_itemfile: ",new_itemfile)
     # #回填處理過的
     item["file"]=new_itemfile
-    print("10_images: ",item["file"])
+    # print("10_images: ",item["file"])
     # print()
     # print()
 # ##----------------------
-    mycursor=mydb.cursor()
-    sql="INSERT INTO datas3(id,name,category,description,address,transport,mrt,latitude,longitude,images) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    val=(item["_id"],item["name"],item["CAT"],item["description"],item["address"],item["direction"],item["MRT"],item["latitude"],item["longitude"],item["file"])
-    mycursor.execute(sql,val)
-    mydb.commit()
+    # mycursor=mydb.cursor()
+    # sql="INSERT INTO datas3(id,name,category,description,address,transport,mrt,latitude,longitude,images) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    # val=(item["_id"],item["name"],item["CAT"],item["description"],item["address"],item["direction"],item["MRT"],item["latitude"],item["longitude"],item["file"])
+    # mycursor.execute(sql,val)
+    # mydb.commit()
 # ##----------------------
 
     # sql="INSERT INTO datas(name,category) VALUES(%s,%s)

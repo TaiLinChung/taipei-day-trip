@@ -177,8 +177,11 @@ def api_cotegories():
 		sql2="SELECT DISTINCT category FROM datas3"
 		mycursor2.execute(sql2)
 		myresult_category=mycursor2.fetchall()
-		for e in myresult_category:
-			category_data.append(str(e).replace("(","").replace(")","").replace(",","").replace("'","").replace("\\u3000",""))
+		# for e in myresult_category:
+		# 	category_data.append(str(e).replace("(","").replace(")","").replace(",","").replace("'",""))
+		category_data = [cat[0] for cat in myresult_category]
+		
+		# print(myresult_category)
 		print(category_data)
 		return jsonify({
 					"data": category_data
