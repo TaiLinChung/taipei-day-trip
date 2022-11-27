@@ -156,6 +156,7 @@ def api_attractionId(attractionId):
 			if e!="" and ".MP3" not in e and ".FLV" not in e:
 				imgs_notnull.append(e)
 		data["images"]=imgs_notnull
+		print(data)
 
 		return jsonify({
 				"data": data
