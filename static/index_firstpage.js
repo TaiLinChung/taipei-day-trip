@@ -23,7 +23,7 @@ if (nextPage==0){
 }
 
 
-function loadinPicture(){
+function loadingPicture(){
     for(let i = 0; i < attractionAmount; i++){
         // let containerBlock=document.createElement("div")
         // containerBlock.setAttribute("class","container-block")
@@ -94,7 +94,7 @@ function getData(){
             // let attractionLocation="";
             // let attractionSort="";
             attractionAmount=attractions.length
-            loadinPicture();
+            loadingPicture();
 
             if (data["nextPage"]!=null){
                 judgeContinue=1
@@ -164,7 +164,7 @@ function loadmore(){
                 // attractionLocation=""
                 // attractionSort=""
                 attractionAmount=data["data"].length;
-                loadinPicture();
+                loadingPicture();
                 
                 console.log("接下來的頁數",data["nextPage"])
                 if (data["nextPage"]!=null){
@@ -279,3 +279,48 @@ function icon(){
 icon();
 
 
+
+
+
+// let src="https://api.kcg.gov.tw/api/service/Get/9c8e1450-e833-499c-8320-29b36b7ace5c";
+    
+// fetch(src).then((response)=>{
+//     return response.json();
+// }).then((data)=>{
+//     console.log("Fetch 1");
+//     console.log(data["data"]["XML_Head"]["Listname"]);
+// });
+
+// fetch(src).then((response)=>{
+//     return response.json();
+// }).then((data)=>{
+//     console.log("Fetch 2");
+//     console.log(data["data"]["XML_Head"]["Listname"]);
+// });
+
+// fetch(src).then((response)=>{
+//     return response.json();
+// }).then((data)=>{
+//     console.log("Fetch 3");
+//     console.log(data["data"]["XML_Head"]["Listname"]);
+// });
+
+// let src="https://api.kcg.gov.tw/api/service/Get/9c8e1450-e833-499c-8320-29b36b7ace5c";
+// function ajax(){
+//     return fetch(src).then((response)=>{
+//         return response.json();
+//     });
+// }
+// ajax().then((data1)=>{
+//     console.log("Fetch 1");
+//     // console.log(response);
+//     console.log(data1["data"]["XML_Head"]["Listname"]);
+//     return ajax();
+// }).then((data2)=>{
+//     console.log("Fetch 2");
+//     console.log(data2["data"]["XML_Head"]["Listname"]);
+//     return ajax();
+// }).then((data3)=>{
+//     console.log("Fetch 3");
+//     console.log(data3["data"]["XML_Head"]["Listname"]);
+// })
