@@ -22,6 +22,7 @@ def index():
 	return render_template("index.html")
 @app.route("/attraction/<id>")
 def attraction(id):
+	# 參考WEEK04把網址id訊息丟給前端
 	return render_template("attraction.html")
 @app.route("/booking")
 def booking():

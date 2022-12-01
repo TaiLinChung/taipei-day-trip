@@ -1,0 +1,139 @@
+//  全域變數
+//getUrl/<id>
+let urlAttraction="";
+let urlModel="/api";
+urlAttraction=urlModel+location.pathname
+// console.log('location.href: '+location.href);
+// console.log('location.pathname: '+(urlModel+location.pathname));
+
+//sectionLeft
+let imgBackground=document.querySelector(".imgBackground");
+let imgBackgroundList=[];
+let imgAmounts=0;
+
+//sectionRight
+let attractionName=document.querySelector(".attractionName");
+let attractionSort=document.querySelector(".attractionSort");
+let dateIn=document.querySelector(".dateIn");
+let Btnmorning=document.querySelector(".Btnmorning");
+let Btnnoon=document.querySelector(".Btnnoon");
+let fee=document.querySelector(".fee");
+
+let describe=document.querySelector(".describe");
+let address=document.querySelector(".address");
+let transport=document.querySelector(".transport");
+
+
+
+//goBackToHome
+let goBackToHome=document.querySelector(".leftBar");
+goBackToHome.addEventListener('click',function(e){
+    let url="/"
+    window.location.href = url;
+},false)
+
+
+
+//Price of morning & noon 
+Btnmorning.addEventListener('click',function(e){
+    fee.textContent="新台幣 2000 元"
+},false)
+Btnnoon.addEventListener('click',function(e){
+    fee.textContent="新台幣 2500 元"
+},false)
+
+
+
+//getAttractionDatas
+//urlAttraction=urlModel+"{id}"
+function getAttractionData(){
+    fetch(urlAttraction).then(function(response){
+        return response.json();
+    }).then(function(data){
+        // console.log(data["data"]["images"][0]);
+        imgBackgroundList=data["data"]["images"]
+        // console.log(imgBackgroundList);
+        imgBackground.setAttribute('src',imgBackgroundList[0]);
+        console.log(data["data"]);
+        attractionName.textContent=data["data"]["name"];
+        attractionSort.textContent=(data["data"]["category"]+"at"+data["data"]["mrt"])
+        describe.textContent=data["data"]["description"];
+        address.textContent=data["data"]["address"];
+        transport.textContent=data["data"]["transport"];
+        carouselFunction();
+    })
+}
+getAttractionData();
+
+
+
+//carouselfunction
+let carouseBlackPoint="";
+let carousePosition=0;
+function carouselFunction(){
+    carousePosition=0;
+    console.log(carousePosition);
+    imgAmounts=imgBackgroundList.length;
+    console.log(imgAmounts);
+    //createBlackPoint
+    let carouselUnderBlock=document.querySelector(".carouselUnderBlock");
+    for(let i=0;i<imgAmounts;i++){
+        let carouselInturn=document.createElement('div');
+        carouselInturn.setAttribute('class','carouselInturn');
+        let carouselInturnshow=document.createElement('div');
+        carouselInturnshow.setAttribute('class','carouselInturnshow');
+        carouselInturn.appendChild(carouselInturnshow);
+        carouselUnderBlock.appendChild(carouselInturn);
+    }
+    //Default Black Point show the first one
+    let carouseBlackPoint=document.querySelectorAll(".carouselInturnshow");
+    carouseBlackPoint[0].style.display="block";
+
+    //BtnLeft
+    let BtnLeft=document.querySelector(".carouselBtnleft");
+    BtnLeft.addEventListener('click',function(e){
+        carousePosition-=1
+        carouseReturnJudge();
+        setBlackPoint();
+        console.log("left");
+        console.log(carousePosition);
+    },false)
+
+    //BtnRight
+    let BtnRight=document.querySelector(".carouselBtnright");
+    BtnRight.addEventListener('click',function(e){       
+        carousePosition+=1
+        carouseReturnJudge();
+        setBlackPoint();
+        console.log("right");
+        console.log(carousePosition);
+    },false)
+}
+
+
+
+//ReturnJudge
+function carouseReturnJudge(){
+    if(carousePosition<0){
+        carousePosition=imgAmounts-1;
+    }
+    else if(carousePosition==imgAmounts){
+        carousePosition=0;
+    }
+}
+
+
+
+//  displayNoneBlackPoint and set the BlackPoint
+function setBlackPoint(){
+    //  displayNoneBlackPoint
+    let carouseBlackPoint=document.querySelectorAll(".carouselInturnshow");
+    let length=carouseBlackPoint.length;
+    for(let i=0;i<length;i++){
+        carouseBlackPoint[i].style.display="none";
+    }
+    //  set the position
+    carouseBlackPoint[carousePosition].style.display="block";
+    imgBackground.setAttribute('src',imgBackgroundList[carousePosition]);
+}
+
