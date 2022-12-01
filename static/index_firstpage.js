@@ -1,305 +1,281 @@
-// // console.log("666")
-// nextPage=0; //下一頁變數
-// let urlModel="/api/attractions?page="  //網址模版
-// let urlPage=""                         //可讀取網址
 
-// if (nextPage==0){
-//     getData();
+//全域變數===========================================================
+let nextPage=0;                         //下一頁變數
+let urlModel="/api/attractions?page=";  //網址模版
+let urlPage="";                         //可讀取網址
+let judgeContinue=0;                    //判斷是否可以loadmore
+let urlKeywordmodel="/api/attractions?page=0&keyword=";
+let keyword="";
+
+//loadinPicture()
+let attractions = "";
+let attractionImg = "";
+let attractionName ="";
+let attractionLocation="";
+let attractionSort="";
+let attractionAmount=0;
+
+
+if (nextPage==0){
+    urlPage=urlModel+nextPage
+    getData();
     
-// }
-
-// function getData(){
-//         fetch("/api/attractions?page=0").then(function(response){
-//             return response.json();
-//         }).then(function(data){
-//             // console.log(data)
-//             // console.log("----------------")
-//             // console.log(data["data"][0])
-//             let attractions = data["data"];
-//             let attractionImg = "";
-//             let attractionName ="";
-//             let attractionLocation="";
-//             let attractionSort="";
-
-            
-//             for(let i = 0; i < 12; i++){
-//                 // // console.log(attractions)
-//                 // console.log((attractions[i]["images"]))
-//                 attractionImg=attractions[i]["images"][0];
-//                 // console.log(attractionImg);
-//                 attractionName=attractions[i]["name"];
-//                 attractionLocation=attractions[i]["mrt"];
-//                 attractionSort=attractions[i]["category"];
-
-//                 let newImg = document.createElement("img");
-//                 newImg.setAttribute("class","img-block");
-//                 // console.log(newImg.class)
-//                 newImg.setAttribute("src",attractionImg);
-//                 let imgTwelve=document.querySelectorAll(".apple");
-
-                
-//                 imgTwelve[i].appendChild(newImg);
-
-//                 let newName = document.createElement("p");
-//                 newName.textContent=attractionName;
-//                 // console.log(newName)
-//                 document.querySelectorAll('.apple')[i].appendChild(newName);
-
-//                 let newMrt = document.createElement("p");
-//                 newMrt.textContent=attractionLocation;
-//                 document.querySelectorAll('.sort')[i].appendChild(newMrt);
-
-//                 let newCategory = document.createElement("p");
-//                 newCategory.textContent=attractionSort;
-//                 document.querySelectorAll('.sort')[i].appendChild(newCategory);
-                
-//             }
+}
 
 
-//             // console.log("the type is ",typeof(data["nextPage"]))
-//             // console.log(data["nextPage"])
-//             console.log("*****");
-//             urlPage=urlModel+0;
-//             console.log(urlPage);
-//             if (data["nextPage"]!=null){
-//                 nextPage=data["nextPage"];  //下一頁變數更新
-//                 urlPage=urlModel+nextPage;
-//                 console.log(urlPage);
-//                 loadmore();
-//             }
-//             // judgeNextpage()
-            
+function loadinPicture(){
+    for(let i = 0; i < attractionAmount; i++){
+        // let containerBlock=document.createElement("div")
+        // containerBlock.setAttribute("class","container-block")
+        // let tweleve =document.createElement('div')
+        // tweleve.setAttribute('class',"container-twelve")
 
-//         });
-// }
-// // getData();
+        // console.log(i);
+        let item = document.createElement('div')
+        item.setAttribute('class','item') 
+        let imgBlock = document.createElement('div')
+        imgBlock.setAttribute('class','img-block')
+        let sort = document.createElement('div')
+        sort.setAttribute('class','sort')
+        item.appendChild(imgBlock)
+        item.appendChild(sort)
 
-// // function judgeNextpage(){
-// //     if (data["nextPage"]!=null){
-// //         nextPage=data["nextPage"];
-// //         url=url+nextPage;
-// //         loadmore();
-// //     }
-// // }
+        let containerBlock = document.querySelector('.container-block')
+        containerBlock.appendChild(item)
+        // let containerTwelve =document.querySelector('.container-twelve')
+        // containerTwelve.appendChild(containerBlock);
 
 
+        // tweleve.appendChild(position)
+        // containerBlock.appendChild(more)
 
-// function loadmore(){
-//     const loading = document.querySelector('.loading');
+        attractionImg=attractions[i]["images"][0]
+        attractionName=attractions[i]["name"]
+        attractionLocation=attractions[i]["mrt"]
+        attractionSort=attractions[i]["category"]
 
-//     window.addEventListener("scroll",()=>{
-//         // let scrolled = window.scrollY;
-//         // console.log(scrolled);
-
-//         let scrollable = document.documentElement.scrollHeight-window.innerHeight;
-//         // let scrollable= window.outerHeight - window.innerHeight;
-//         let scrolled = window.scrollY;
-//         // console.log(scrolled);
+        let newImg = document.createElement("img")
+        newImg.setAttribute("class","img-block")
+        newImg.setAttribute("src",attractionImg)
         
+        let newName = document.createElement("p")
+        newName.textContent=attractionName
+        document.querySelectorAll('.img-block')[i].appendChild(newName)
 
-//         if (Math.ceil(scrolled)===scrollable){
-//             // alert("You\'ve reached the bottom!");
-//             showLoading();
-//         }
+        let newMrt = document.createElement("p")
+        newMrt.textContent=attractionLocation
+        document.querySelectorAll('.sort')[i].appendChild(newMrt)
 
-//     });
-
-//     function showLoading() {
-//         loading.classList.add('show');
+        let newCategory = document.createElement("p")
+        newCategory.textContent=attractionSort
+        document.querySelectorAll('.sort')[i].appendChild(newCategory)
         
-//         // load more data
-//         setTimeout(getPost, 1000)
-//     }
+        imgBlock.appendChild(newImg)
+        imgBlock.appendChild(newName)
+        sort.appendChild(newMrt)
+        sort.appendChild(newCategory)
+    }
+}
 
-//     function getPost(){
-//         fetch(urlPage).then(function(response){
-//             return response.json();
-//         }).then(function(data){
-//             // console.log(data)
-//             // console.log("----------------")
-//             // console.log(data["data"][0])
-//             let attractions = data["data"]
-//             let attractionImg = ""
-//             let attractionName =""
-//             let attractionLocation=""
-//             let attractionSort=""
+
+function getData(){
+    // loadPicture();
+    fetch(urlPage).then(function(response){
+        return response.json();
+    }).then(function(data){
+
+        if (data["error"]==true){
+            console.log("the end");
+        }else{
+            console.log("continue")
+            attractions = data["data"];
+            // let attractionImg = "";
+            // let attractionName ="";
+            // let attractionLocation="";
+            // let attractionSort="";
+            attractionAmount=attractions.length
+            loadinPicture();
+
+            if (data["nextPage"]!=null){
+                judgeContinue=1
+            }else{
+                judgeContinue=0
+            }
+
+            if(urlPage.includes("keyword")){
+                console.log("keyword 判定");
+                urlPage="/api/attractions?page="+data["nextPage"]+"&keyword="+keyword;
+            }else{
+                console.log("nextPage= ",data["nextPage"]);
+                urlPage=urlModel+data["nextPage"];
+                // console.log("777",urlPage);
+                judgeContinue=1;
+                loadmore();
+
+            }
             
-//             for(let i = 0; i < 12; i++){
-
-//                 let more = document.createElement('div')
-//                 more.setAttribute('class','item')
-//                 let position =document.querySelector('.container-block')
-//                 position.appendChild(more)
-//                 let apple = document.createElement('div')
-//                 apple.setAttribute('class','img-block')
-//                 let sort = document.createElement('div')
-//                 sort.setAttribute('class','sort')
-//                 more.appendChild(apple)
-//                 more.appendChild(sort)
-
-//                 attractionImg=attractions[i]["images"][0]
-//                 attractionName=attractions[i]["name"]
-//                 attractionLocation=attractions[i]["mrt"]
-//                 attractionSort=attractions[i]["category"]
-
-//                 let newImg = document.createElement("img")
-//                 newImg.setAttribute("class","img-block")
-//                 newImg.setAttribute("src",attractionImg)
-                
-                
-//                 let newName = document.createElement("p")
-//                 newName.textContent=attractionName
-//                 // newName.setAttribute("class","")
-//                 // console.log(newName)
-//                 document.querySelectorAll('.apple')[i].appendChild(newName)
-
-//                 let newMrt = document.createElement("p")
-//                 newMrt.textContent=attractionLocation
-//                 document.querySelectorAll('.sort')[i].appendChild(newMrt)
-
-//                 let newCategory = document.createElement("p")
-//                 newCategory.textContent=attractionSort
-//                 document.querySelectorAll('.sort')[i].appendChild(newCategory)
-                
-//                 apple.appendChild(newImg)
-//                 apple.appendChild(newName)
-//                 sort.appendChild(newMrt)
-//                 sort.appendChild(newCategory)
-//             }
-
-//             // const container = document.getElementById('container');
-//             // const containerTwelve = document.getElementsByClassName('container-twelve');
-//             // container.appendChild(containerTwelve);
             
+        }
+    });
+}
 
-//             // console.log(data["nextPage"])
+
+
+
+function loadmore(){
+    if (judgeContinue==1){
+        // console.log("我有在loadmore");
+        const loading = document.querySelector('.loading');
+
+        window.addEventListener("scroll",()=>{
+            // let scrolled = window.scrollY;
+            // console.log(scrolled);
+
+            // let scrollable = document.documentElement.scrollHeight-window.innerHeight;
+            // let scrollable= window.outerHeight - window.innerHeight;
+            let scrolled = window.scrollY;
+            // console.log(scrolled);
             
-//             // container.appendChild(containerTwelve);
-//             // loading.classList.remove('show');
+            if ((scrolled+ window.innerHeight>document.documentElement.scrollHeight-50) && judgeContinue==1){
+            // if (Math.ceil(scrolled)===scrollable){
+                // alert("You\'ve reached the bottom!");
+                judgeContinue=0;
+                showLoading();
+                console.log("觸發");
+                console.log(urlPage);
+            }
+
+        });
+
+        function showLoading() {
+            // loading.classList.add('show');
+            // console.log(urlPage);
+            setTimeout(getPost(), 1000);
+        }
 
 
-//                 // console.log("目前頁數",)
-//                 // console.log("接下來的頁數",data["nextPage"])
-//                 if (data["nextPage"]!=null){
-//                     urlPage=urlModel+data["nextPage"];
-//                     console.log("接下來要讀取的頁數",urlPage);
-//                     // console.log("接下來要讀取的頁數",data["nextPage"])
-//                     // loadmore();
-//                 }else{
-//                     alert("You\'ve reached the bottom!");
-//                 }
-
-//                 //urlModel
-//                 // if (data["nextPage"]!=null){
-//                 //     nextPage=data["nextPage"];
-//                 //     urlPage=urlPage+nextPage;
-//                 //     loadmore();
-//                 // }
+        function getPost(){
+            fetch(urlPage).then(function(response){
+                return response.json();
+            }).then(function(data){
+                attractions = data["data"]
+                // attractionImg = ""
+                // attractionName =""
+                // attractionLocation=""
+                // attractionSort=""
+                attractionAmount=data["data"].length;
+                loadinPicture();
                 
+                console.log("接下來的頁數",data["nextPage"])
+                if (data["nextPage"]!=null){
+                    urlPage=urlModel+data["nextPage"];
+
+                    judgeContinue=1
+                    loadmore();
+                }else{
+                    // alert("You\'ve reached the bottom!");
+                }             
+
+            });
+        }
+
+
+    }else{
+        console.log("結束loadmore");
+    }
+
+
+}
 
 
 
-//         });
-//     }
 
 
-// }
+//20221125
+// =================display search bar and create items
 
+let searchBlock = document.querySelector(".search");
+// 觸發searchname事件
+function submitBtn() {
+    let searchcontainer = document.querySelector(".searchcontainer");
+    let searchItemall = document.querySelectorAll(".searchItem");
+    // console.log("first",searchItemall.length);
+    let searchItemform=document.querySelector(".searchForm");
 
-
-
-
-
-// // const loading = document.querySelector('.loading');
-
-// // // getPost();
-
-// // window.addEventListener("scroll",()=>{
-// //     // let scrolled = window.scrollY;
-// //     // console.log(scrolled);
-
-// //     let scrollable = document.documentElement.scrollHeight-window.innerHeight;
-// //     // let scrollable= window.outerHeight - window.innerHeight;
-// //     let scrolled = window.scrollY;
-// //     console.log(scrolled);
-
-// //     if (Math.ceil(scrolled)===scrollable){
-// //         // alert("You\'ve reached the bottom!");
-// //         showLoading();
-// //     }
-
-// // });
-
-// // function showLoading() {
-// // 	loading.classList.add('show');
-	
-// // 	// load more data
-// // 	setTimeout(getPost, 1000)
-// // }
-
-// // function getPost(){
-// //     // alert("You\'ve reached the bottom!");
-// //     fetch("/api/attractions?page=1").then(function(response){
-// //         return response.json();
-// //     }).then(function(data){
-// //         // console.log(data)
-// //         // console.log("----------------")
-// //         // console.log(data["data"][0])
-// //         let attractions = data["data"]
-// //         let attractionImg = ""
-// //         let attractionName =""
-// //         let attractionLocation=""
-// //         let attractionSort=""
-
+    if(searchItemall.length!=0){
+        // console.log("即將刪幾個",searchItemall.length);
+        searchItemform.innerHTML="";
+        // //確認被刪除的物件唯一性 address ------------------------
+        // for(let i=0; i<searchItemall.length; i++){
+        //     console.log(i);
+        //     searchItemform.removeChild(searchItemform.childNodes[0]);
+        // }
+    }
+    searchcontainer.style.display="block";
+    fetch("/api/categories").then(function(response){
+        return response.json();
+    }).then(function(data){
         
-// //         for(let i = 0; i < 12; i++){
-// //             // // console.log(attractions)
-// //             // console.log((attractions[i]["images"]))
-// //             attractionImg=attractions[i]["images"][0]
-// //             // console.log(attractionImg);
-// //             attractionName=attractions[i]["name"]
-// //             attractionLocation=attractions[i]["mrt"]
-// //             attractionSort=attractions[i]["category"]
-
-// //             let newImg = document.createElement("img")
-// //             newImg.setAttribute("class","img-block")
-// //             // console.log(newImg.class)
-// //             newImg.setAttribute("src",attractionImg)
-// //             let imgTwelve=document.querySelectorAll(".apple")
-
-            
-// //             // imgTwelve[i].appendChild(newImg)
-
-// //             // let newName = document.createElement("p")
-// //             // newName.textContent=attractionName
-// //             // // console.log(newName)
-// //             // document.querySelectorAll('.apple')[i].appendChild(newName)
-
-// //             // let newMrt = document.createElement("p")
-// //             // newMrt.textContent=attractionLocation
-// //             // document.querySelectorAll('.sort')[i].appendChild(newMrt)
-
-// //             // let newCategory = document.createElement("p")
-// //             // newCategory.textContent=attractionSort
-// //             // document.querySelectorAll('.sort')[i].appendChild(newCategory)
-            
-// //         }
-// //         // const container = document.getElementById('container');
-// //         // const containerTwelve = document.getElementsByClassName('container-twelve');
-// //         // container.appendChild(containerTwelve);
+        let amountcategories=data["data"].length;
+        // console.log("創建了幾個",amountcategories);
+        for(let i = 0; i < amountcategories; i++){
+            let more = document.createElement('div');
+            // more.addEventListener
+            more.setAttribute('class','searchItem');
+            more.setAttribute('id',data["data"][i]);
+            let position = document.querySelector('.searchForm');
+            let itemName=data["data"][i];
+            more.textContent=itemName;
+            position.appendChild(more);
+        }
+       
+        for (let i = 0;i< amountcategories; i++){
+            let itemName="#"+data["data"][i];
+            let keyinSearch = document.querySelector(itemName);
+            keyinSearch.onclick=function(event){
+                let searchBar = document.querySelector(".search");
+                searchBar.value=event.target.id;
+                // let searchForm = document.querySelector(".search");
+                searchcontainer.style.display="none";
+               
+            }
+        }
+        //touchBody close the search item
+        let touchBody=document.querySelector("#body");
+        touchBody.addEventListener('click',function(e){
+            // console.log(e.target.className);
+            if(e.target.className!="searchForm" && e.target.className!="searchItem" && e.target.className!="search"){
+                searchcontainer.style.display="none";
+            };
+            // icon();
+        },false);
         
-
-// //         // console.log(data["nextPage"])
-        
-// //         // container.appendChild(containerTwelve);
-// // 	    // loading.classList.remove('show');
+    });
 
 
+}
 
 
-            
+//touch icon
+searchBlock.addEventListener("click", submitBtn );
+function icon(){
+    let createBtn=document.querySelector(".icon");
+    createBtn.addEventListener("click",function(){
+        let containerBlock=document.querySelector(".container-block");
+        while(containerBlock.hasChildNodes()){
+            containerBlock.removeChild(containerBlock.firstChild)
+        }
+        // containerBlock.style.display="none";
+        // console.log(searchBlock.value);
+        urlPage=urlKeywordmodel+searchBlock.value;
+        keyword=searchBlock.value;
+        console.log(urlPage);
+        // judgeContinue=1;
+        // loadmore();
+        getData();
+        // create()
+    },false);
+}
+icon();
 
 
-
-// //     });
-// // }
