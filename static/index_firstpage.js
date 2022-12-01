@@ -173,6 +173,9 @@ function loadmore(){
                 judgeContinueFunction();
                 urlPage=urlModel+nextPage;
                 loadmore();
+                // loadingPicture();
+                // judgeContinueFunction();
+                // loadmore();
             });
         }
 
@@ -256,6 +259,8 @@ function icon(){
         // console.log(searchBlock.value);
         urlPage=urlKeywordmodel+searchBlock.value;
         console.log(urlPage);
+        //updateKeyword
+        keyword=searchBlock.value;
         //setIdreset
         loadingDonePosition=0;
         getData();
