@@ -59,8 +59,10 @@ body{
             @include screen1000(){
                 width:85%;
             }
-            @include screen360(){
+            @include screen500(){
                 width:100%;
+                padding-left: 5px;
+                padding-right: 5px;
             }
             
             
@@ -127,6 +129,9 @@ body{
             @include screen750(){
                 display:block;
             }
+            @include screen500(){
+                width:100%;
+            }
             @include screen360(){
                 width:100%;
             }
@@ -136,12 +141,14 @@ body{
                 height: 406px;
                 margin-top: 37px;
                 margin-left: 5px;
-                // background-color: rgb(227, 190, 141);
+                background-color: rgb(227, 190, 141);
                 position: relative;
+                
                 @include screen750(){
                     margin: 0px auto;
                     width:100%;
                 }
+                
                 .imgBackground{
                     width:100%;
                     height:100%;

@@ -104,8 +104,9 @@ main{
         height: 320px;
         // position: relative;
         background-image: url(../img/welcome.png);
-        background-repeat: no-repeat;
+        // background-repeat: no-repeat;
         background-size: cover;
+        object-position: 100% 0;
         
             
         .text{
