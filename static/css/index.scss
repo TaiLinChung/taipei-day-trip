@@ -36,6 +36,7 @@ nav{
     width:100%;
     height:54px;
     position:fixed;                 //固定在視窗同個位置，捲動時跟著移動
+    top:0;
     // display:fixed;               //亂寫XDDD
     // position: absolute;
     z-index: 100;
@@ -99,9 +100,11 @@ nav{
 }
 
 main{
+    
     .page-one{
         width: 100%;
         height: 320px;
+        margin-top: 54px;
         // position: relative;
         background-image: url(../img/welcome.png);
         // background-repeat: no-repeat;
@@ -121,128 +124,317 @@ main{
                 width:90%;
             }
             
-        h2{
-            font-weight: 700;
-            font-size: 28px;
-            line-height: 24px;
-            color: #F8F8F8;
-            margin: 30px 0;
+            h2{
+                font-weight: 700;
+                font-size: 28px;
+                line-height: 24px;
+                color: #F8F8F8;
+                margin: 30px 0;
 
-        }
-        p{
-            font-weight: 700;
-            font-size: 16px;
-            line-height: 13px; 
-            color: #F8F8F8;
-            margin: 30px 0;
-
-            
-        }
-        .but{
-            width: 460px;
-            height: 46px;
-            display: flex;
-            // background-color: black;
-            @include screen550{
-                width: 95%;
             }
-            .search{
-                width: 400px;
-                background: #FFFFFF;
+            p{
                 font-weight: 700;
                 font-size: 16px;
-                line-height: 13px;
-                color: #757575;
-                padding: 15px 10px;
-                border: none;
-                border-radius: 6px 0 0 6px;
-                @include screen410(){
-                    width: 250px;
-                    
-                }
-            }
-            .icon{
-                width: 60px;
-                height: 46px;
-                background: #448899;
-                border: none;
-                border-radius:  0 10% 10% 0 ;
-                display:flex;    
-                align-items: center;/* 垂直置中 */
-                justify-content: center;/* 水平置中 */
-                i{
-                    color: #F8F8F8;
-                    font-size: 1.65rem;    
-                }
-            }   
-        }
-        //新增一個外層
-        .searchcontainer{
-            width: 400px;
-            // height: 162px;
-            display:none;
-            // position:absolute;
-            // z-index: 100;
-            @include screen550{
-                width: 80%;
-            }
-            .searchForm{
-                width: 100%;
-                height: 100%;
-                display: grid;
-                grid-template-columns: repeat(3,120px);
-                grid-template-rows: repeat(3 ,40px);
-                padding-right:40px;
-                margin-top: 5px;
-                border-radius:  5px;
-                box-shadow: 0px 0px 20px #AABBCC;
-                background-color:  #FFFFFF;
-                @include screen550{
-                    width:350px;
-                }
+                line-height: 13px; 
+                color: #F8F8F8;
+                margin: 30px 0;
 
-                @include screen410{
-                    width:310px;
-                    padding-right:0px;
-                    // box-shadow: 0px 0px 5px #AABBCC;
-                    grid-template-columns: repeat(3,1fr);
-                    grid-template-rows: repeat(3 ,1fr);
-                }
                 
-                .searchItem{
-                    width: 120px;
-                    height: 40px;
-                    padding: 10px 15px;
-                    gap: 4px;
-                    font-weight: 500;
-                    font-size: 14px;
-                    line-height: 20px;
-                    align-items: center;
-                    @include screen550{
-                        width:96px;
-                    }
-                    @include screen410{
-                        width:  80px;
-                        padding: 10px 10px;
-                    }
-                   
+            }
+            .but{
+                width: 460px;
+                height: 46px;
+                display: flex;
+                // background-color: black;
+                @include screen550{
+                    width: 95%;
                 }
-
-                .searchItem:hover{
+                .search{
+                    width: 400px;
+                    background: #FFFFFF;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 13px;
+                    color: #757575;
+                    padding: 15px 10px;
+                    border: none;
+                    border-radius: 6px 0 0 6px;
+                    @include screen410(){
+                        width: 250px;
+                        
+                    }
+                }
+                .icon{
+                    width: 60px;
+                    height: 46px;
+                    background: #448899;
+                    border: none;
+                    border-radius:  0 10% 10% 0 ;
+                    display:flex;    
+                    align-items: center;/* 垂直置中 */
+                    justify-content: center;/* 水平置中 */
+                    i{
+                        color: #F8F8F8;
+                        font-size: 1.65rem;    
+                    }
+                }   
+            }
+            //新增一個外層
+            .searchcontainer{
+                width: 400px;
+                // height: 162px;
+                display:none;
+                // position:absolute;
+                // z-index: 100;
+                @include screen550{
+                    width: 80%;
+                }
+                .searchForm{
                     width: 100%;
                     height: 100%;
-                    background-color: rgba(232, 232, 232, 1);
-                    border-radius: 5px;
+                    display: grid;
+                    grid-template-columns: repeat(3,120px);
+                    grid-template-rows: repeat(3 ,40px);
+                    padding-right:40px;
+                    margin-top: 5px;
+                    border-radius:  5px;
+                    box-shadow: 0px 0px 20px #AABBCC;
+                    background-color:  #FFFFFF;
                     @include screen550{
-                        width:96px;
+                        width:350px;
+                    }
+
+                    @include screen410{
+                        width:310px;
+                        padding-right:0px;
+                        // box-shadow: 0px 0px 5px #AABBCC;
+                        grid-template-columns: repeat(3,1fr);
+                        grid-template-rows: repeat(3 ,1fr);
+                    }
+                    
+                    .searchItem{
+                        width: 120px;
+                        height: 40px;
+                        padding: 10px 15px;
+                        gap: 4px;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 20px;
+                        align-items: center;
+                        @include screen550{
+                            width:96px;
+                        }
+                        @include screen410{
+                            width:  80px;
+                            padding: 10px 10px;
+                        }
+                    
+                    }
+
+                    .searchItem:hover{
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(232, 232, 232, 1);
+                        border-radius: 5px;
+                        @include screen550{
+                            width:96px;
+                        }
+                    }
+                }
+            }           
+        } 
+        .filmBackground{
+            width:100%;
+            height:100%;
+            background-color: black;
+            z-index: 100;
+            position: absolute;
+            opacity: 0.25;
+            display: none;
+        }
+        .signinBlock{
+            width:100%;
+            height:275px;
+            margin-top: 26px;
+            // background-color: #666666;
+            // opacity: 0.25;
+            position: absolute;
+            z-index: 101;
+            display: none;
+            // display: flex;
+            justify-content: center;
+            
+            .signinBackground{
+                // position: relative;
+                width:340px;
+                height:100%;
+                background-color: #448899;
+                border-radius:6px;
+                .signinContent{
+                    width: 100%;
+                    // height: 100%;
+                    height:265px;
+                    margin-top: 10px;
+                    background-color: #FFFFFF;
+                    border-radius:0 0 6px 6px;
+                    .signinTitle{
+                        position: relative;
+                        top: 15px;
+                        width: 100%;
+                        height:27px;
+                        // background-color: black;
+                        display: flex;
+                        justify-content: center;
+                        color:#666666;
+                        font-weight: 1000;
+                        font-size: 24px;
+                    }
+
+                    .signinClose{
+                        position: relative;
+                        // background-color: red;
+                        left:75px;
+                    }
+
+                    input{
+                        width:310px;
+                        height:47px;
+                        left:15px;
+                        border-radius:5px;
+                        padding:15px;
+                        border:1px Gray solid;
+                        font-weight:600;
+                        
+                    }
+                    .signinEmail{
+                        position: relative;
+                        top: 30px;
+                    }
+                    .signinPassword{
+                        position: relative;
+                        top: 40px;
+                    }
+                    .signinConfirm{
+                        position: relative;
+                        top: 50px;
+                        left:15px;
+                        width:310px;
+                        height:47px;
+                        background-color:#448899;
+                        border-radius:6px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 20px;
+                        font-weight: 1000px;
+                        color:white;
+                    }
+                    .signinCreateAccount{
+                        position: relative;
+                        top: 60px;
+                        // left:15px;
+                        color:#666666;
+                        display: flex;
+                        justify-content: center;
+                        font-size: 16px;
+                        font-weight: 1000px;
                     }
                 }
             }
-        }   
+        }
 
+        .registerBlock{
+            width:100%;
+            height:332px;
+            margin-top: 26px;
+            background-color: #666666;
+            position: absolute;
+            z-index: 101;
+            display: none;
+            // display: flex;
+            justify-content: center;
+            
+            .registerBackground{
+                width:340px;
+                height:100%;
+                background-color: #448899;
+                border-radius:6px;
+                .registerContent{
+                    width: 100%;
+                    height:322px;
+                    margin-top: 10px;
+                    background-color: #FFFFFF;
+                    border-radius:0 0 6px 6px;
+                    .registerTitle{
+                        position: relative;
+                        top: 15px;
+                        width: 100%;
+                        height:27px;
+                        // background-color: black;
+                        display: flex;
+                        justify-content: center;
+                        color:#666666;
+                        font-weight: 1000;
+                        font-size: 24px;
+                    }
 
-        } 
-        
+                    .registerClose{
+                        position: relative;
+                        // background-color: red;
+                        left:75px;
+                    }
+
+                    input{
+                        width:310px;
+                        height:47px;
+                        left:15px;
+                        border-radius:5px;
+                        padding:15px;
+                        border:1px Gray solid;
+                        font-weight:600;
+                        
+                    }
+                    .registerName{
+                        position: relative;
+                        top: 30px;
+                    }
+
+                    .registerEmail{
+                        position: relative;
+                        top: 40px;
+                    }
+                    .registerPassword{
+                        position: relative;
+                        top: 50px;
+                    }
+                    .registerConfirm{
+                        position: relative;
+                        top: 60px;
+                        left:15px;
+                        width:310px;
+                        height:47px;
+                        background-color:#448899;
+                        border-radius:6px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 20px;
+                        font-weight: 1000px;
+                        color:white;
+                    }
+                    .registerSingin{
+                        position: relative;
+                        top: 70px;
+                        // left:15px;
+                        color:#666666;
+                        display: flex;
+                        justify-content: center;
+                        font-size: 16px;
+                        font-weight: 1000px;
+                    }
+                }
+            }
+        }
     }
 
     .container-twelve{
