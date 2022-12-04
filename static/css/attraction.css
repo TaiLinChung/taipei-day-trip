@@ -1,0 +1,391 @@
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+}
+
+body nav {
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+}
+body nav div {
+  width: 1200px;
+  height: 54px;
+  margin: 0 auto;
+  display: flex;
+  background-color: #FFFFFF;
+}
+@media (max-width: 1300px) {
+  body nav div {
+    width: 90%;
+  }
+}
+@media (max-width: 1000px) {
+  body nav div {
+    width: 85%;
+  }
+}
+@media (max-width: 500px) {
+  body nav div {
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+body nav div div.leftBar {
+  width: 50%;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 34px;
+  color: #448899;
+  align-items: center; /* 垂直置中 */
+}
+@media (max-width: 750px) {
+  body nav div div.leftBar {
+    font-size: 25px;
+  }
+}
+@media (max-width: 360px) {
+  body nav div div.leftBar {
+    margin-left: 6px;
+  }
+}
+body nav div div.rightBar {
+  width: 50%;
+  display: flex;
+  justify-content: right;
+  align-items: center; /* 垂直置中 */
+}
+body nav div div.rightBar p {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 16px;
+  color: #666666;
+}
+@media (max-width: 750px) {
+  body nav div div.rightBar p {
+    font-size: 14px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+body main {
+  padding-top: 60px;
+  width: 100%;
+  height: 100%;
+}
+body main .sectionPicture {
+  margin: 0 auto;
+  justify-content: center;
+  width: 1200px;
+  height: 480px;
+  display: flex;
+}
+@media (max-width: 1300px) {
+  body main .sectionPicture {
+    width: 90%;
+  }
+}
+@media (max-width: 1000px) {
+  body main .sectionPicture {
+    width: 85%;
+  }
+}
+@media (max-width: 750px) {
+  body main .sectionPicture {
+    display: block;
+  }
+}
+@media (max-width: 500px) {
+  body main .sectionPicture {
+    width: 100%;
+  }
+}
+@media (max-width: 360px) {
+  body main .sectionPicture {
+    width: 100%;
+  }
+}
+body main .sectionPicture .pictureLeft {
+  width: 540px;
+  height: 406px;
+  margin-top: 37px;
+  margin-left: 5px;
+  background-color: rgb(227, 190, 141);
+  position: relative;
+}
+@media (max-width: 750px) {
+  body main .sectionPicture .pictureLeft {
+    margin: 0px auto;
+    width: 100%;
+  }
+}
+body main .sectionPicture .pictureLeft .imgBackground {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  -o-object-position: center center;
+     object-position: center center;
+  -o-object-fit: cover;
+     object-fit: cover; /*裁切縮放*/
+}
+body main .sectionPicture .pictureLeft .carouselBtnBlock {
+  width: 540px;
+  height: 36px;
+  margin-top: 185px;
+  position: absolute;
+  display: flex;
+  align-items: center; /* 垂直置中 */
+  justify-content: space-between;
+}
+@media (max-width: 1300px) {
+  body main .sectionPicture .pictureLeft .carouselBtnBlock {
+    width: 100%;
+  }
+}
+body main .sectionPicture .pictureLeft .carouselBtnBlock .carouselBtn {
+  margin: 0 10px;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  background-color: white;
+  opacity: 0.7;
+  display: flex;
+  align-items: center; /* 垂直置中 */
+  justify-content: center;
+}
+@media (max-width: 1000px) {
+  body main .sectionPicture .pictureLeft .carouselBtnBlock .carouselBtn {
+    height: 25px;
+    width: 25px;
+  }
+}
+body main .sectionPicture .pictureLeft .carouselBtnBlock .carouselBtn i {
+  opacity: 0.5;
+  font-size: 20px;
+}
+@media (max-width: 1000px) {
+  body main .sectionPicture .pictureLeft .carouselBtnBlock .carouselBtn i {
+    font-size: 1.2rem;
+  }
+}
+body main .sectionPicture .pictureLeft .carouselUnderBlock {
+  width: 100%;
+  height: 12px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 7px;
+}
+body main .sectionPicture .pictureLeft .carouselUnderBlock .carouselInturn {
+  margin: 0 3px;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: white;
+  opacity: 0.7;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 垂直置中 */
+}
+body main .sectionPicture .pictureLeft .carouselUnderBlock .carouselInturn .carouselInturnshow {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: black;
+  display: none;
+}
+body main .sectionPicture .pictureRight {
+  width: 615px;
+  height: 406px;
+  margin-top: 37px;
+  margin-left: 30px;
+  color: #666666;
+}
+@media (max-width: 750px) {
+  body main .sectionPicture .pictureRight {
+    margin: 20px auto;
+    width: 95%;
+  }
+}
+body main .sectionPicture .pictureRight .attractionName {
+  width: 100%;
+  height: 33px;
+  font-weight: 700;
+  font-size: 24px;
+}
+body main .sectionPicture .pictureRight .attractionSort {
+  width: 100%;
+  height: 22px;
+  margin-top: 20px;
+  font-weight: 700;
+  font-size: 16px;
+}
+body main .sectionPicture .pictureRight .orderDirect {
+  width: 100%;
+  height: 310px;
+  margin-top: 20px;
+  background-color: #E8E8E8;
+}
+body main .sectionPicture .pictureRight .orderDirect .orderTitle {
+  padding-top: 15px;
+  margin-left: 20px;
+  font-weight: 700;
+  font-size: 16px;
+}
+body main .sectionPicture .pictureRight .orderDirect .orderScribe {
+  margin-left: 20px;
+  margin-top: 15px;
+  font-weight: 500;
+  font-size: 16px;
+}
+body main .sectionPicture .pictureRight .orderDirect .orderScribe {
+  margin-left: 20px;
+  margin-top: 15px;
+  font-weight: 500;
+  font-size: 16px;
+}
+@media (max-width: 500px) {
+  body main .sectionPicture .pictureRight .orderDirect .orderScribe {
+    margin-right: 10px;
+  }
+}
+body main .sectionPicture .pictureRight .orderDirect .dateBlock .dateTitle {
+  margin-left: 20px;
+  font-weight: 700;
+  font-size: 16px;
+}
+body main .sectionPicture .pictureRight .orderDirect .dateBlock .dateTitle .dateIn {
+  margin-top: 20px;
+  padding: 5px 10px;
+}
+body main .sectionPicture .pictureRight .orderDirect .timeBlock {
+  margin-top: 15px;
+  height: 25px;
+  display: flex;
+  align-items: center; /* 垂直置中 */
+}
+body main .sectionPicture .pictureRight .orderDirect .timeBlock .timeTitle {
+  margin-left: 20px;
+  font-weight: 700;
+  font-size: 16px;
+}
+body main .sectionPicture .pictureRight .orderDirect .timeBlock input {
+  margin-left: 6px;
+  height: 22px;
+  width: 22px;
+  border-radius: 100px;
+  accent-color: #448899;
+}
+body main .sectionPicture .pictureRight .orderDirect .timeBlock label {
+  margin-left: 6px;
+  font-weight: 700;
+  font-size: 16px;
+}
+body main .sectionPicture .pictureRight .orderDirect .feeBlock {
+  display: flex;
+  margin-top: 18px;
+}
+body main .sectionPicture .pictureRight .orderDirect .feeBlock .feeTitle {
+  margin-left: 20px;
+  font-weight: 700;
+  font-size: 16px;
+}
+body main .sectionPicture .pictureRight .orderDirect .feeBlock .fee {
+  margin-left: 5px;
+  font-weight: 700;
+  font-size: 16px;
+}
+body main .sectionPicture .pictureRight .orderDirect .orderBtn {
+  margin-left: 20px;
+  margin-top: 25px;
+  padding: 5px 20px;
+  width: 154px;
+  height: 36px;
+  background-color: #448899;
+  font-size: 19px;
+  color: white;
+  border-radius: 6px 6px 6px 6px;
+}
+body main hr {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media (max-width: 1300px) {
+  body main hr {
+    width: 90%;
+  }
+}
+@media (max-width: 1000px) {
+  body main hr {
+    width: 85%;
+  }
+}
+@media (max-width: 750px) {
+  body main hr {
+    margin: 0 auto;
+    margin-top: 400px;
+    width: 80%;
+  }
+}
+@media (max-width: 360px) {
+  body main hr {
+    width: 95%;
+  }
+}
+body main .sectioncontain {
+  width: 100%;
+  color: #666666;
+}
+body main .sectioncontain p {
+  width: 1180px;
+  margin: 0 auto;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 23px;
+}
+@media (max-width: 1300px) {
+  body main .sectioncontain p {
+    width: 90%;
+  }
+}
+@media (max-width: 1000px) {
+  body main .sectioncontain p {
+    width: 85%;
+  }
+}
+body main .sectioncontain .describe {
+  margin-top: 50px;
+}
+body main .sectioncontain .addressTitle {
+  height: 32px;
+  line-height: 32px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+body main .sectioncontain .transportTitle {
+  height: 32px;
+  line-height: 32px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+body footer {
+  width: 100%;
+  height: 104px;
+  margin-top: 224px;
+  background: #757575;
+}
+body footer p {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 104px;
+  text-align: center;
+}/*# sourceMappingURL=attraction.css.map */
