@@ -1,24 +1,41 @@
 from flask import *
 from flask import jsonify
+import mysql.connector.pooling
 
-import mysql.connector
-mydb=mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Bb0970662139"
+dbconfig={
+	"user":"root",
+	"password":"Bb0970662139",
+	"host":"localhost",
+	"database":"taipei_day_trip",
+}
+#	create connection pool
+connection_pool = mysql.connector.pooling.MySQLConnectionPool(
+	pool_name="wehelp_pool",
+	pool_size=5,
+	pool_reset_session=True,
+	**dbconfig
 )
-mycursor=mydb.cursor()
-sql="USE taipei_day_trip"
-mycursor.execute(sql)
+
+# import mysql.connector
+# mydb=mysql.connector.connect(
+#     host="localhost",
+#     user="root",
+#     password="Bb0970662139"
+# )
+# mycursor=mydb.cursor()
+# sql="USE taipei_day_trip"
+# mycursor.execute(sql)
 
 #相應app.py
 categories_blueprint=Blueprint("categories_blueprint",__name__)
 
 @categories_blueprint.route("/api/categories",methods=["GET"])
-def api_cotegories():
+def api_categories():
 	try:	
+		connection_object = connection_pool.get_connection()
 		category_data=[]
-		mycursor2=mydb.cursor()
+		# mycursor2=mydb.cursor()
+		mycursor2 =  connection_object.cursor()
 		sql2="SELECT DISTINCT category FROM datas3"
 		mycursor2.execute(sql2)
 		myresult_category=mycursor2.fetchall()
@@ -50,3 +67,6 @@ def api_cotegories():
 					"error": True,
 					"message":"不知道怎麼了，反正發生錯誤惹"
 				})
+	finally:
+		mycursor.close()
+		connection_object.close()

@@ -70,14 +70,14 @@
 
             <div class="registerBlock">
                 <div class="registerBackground">
-                    <div class="registerContent">
+                    <form class="registerContent" method="POST" action="/api/user">
                         <div class="registerTitle">註冊會員帳號<i class="fa-solid fa-xmark registerClose"></i></div>
-                        <input class="registerName" type="text" name="" placeholder="輸入姓名" />
-                        <input class="registerEmail" type="text" name="" placeholder="輸入電子信箱" />
-                        <input class="registerPassword" type="text" name="" placeholder="輸入密碼" />
-                        <div class="registerConfirm">註冊新帳戶</div>
+                        <input class="registerName" type="text" name="registerName" placeholder="輸入姓名" />
+                        <input class="registerEmail" type="text" name="registerEmail" placeholder="輸入電子信箱" />
+                        <input class="registerPassword" type="text" name="registerPassword" placeholder="輸入密碼" />
+                        <button class="registerBtn">註冊新帳戶</div>
                         <div class="registerSingin">已經有帳戶了？點此登入</div>
-                    </div>
+                    </form>
                 </div>
             </div>
 
@@ -196,7 +196,7 @@
     </div> -->
 
 <script src="../static/index_firstpage.js" defer></script>
-<!-- <script src="./ans4-1.js" defer></script> -->
+<script src="../static/user.js" defer></script>
 
 
 

@@ -351,7 +351,7 @@ main .page-one .registerBlock .registerBackground .registerContent .registerPass
   position: relative;
   top: 50px;
 }
-main .page-one .registerBlock .registerBackground .registerContent .registerConfirm {
+main .page-one .registerBlock .registerBackground .registerContent .registerBtn {
   position: relative;
   top: 60px;
   left: 15px;

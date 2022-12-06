@@ -1,15 +1,30 @@
 from flask import *
 from flask import jsonify
+import mysql.connector.pooling
 
-import mysql.connector
-mydb=mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Bb0970662139"
+dbconfig={
+	"user":"root",
+	"password":"Bb0970662139",
+	"host":"localhost",
+	"database":"taipei_day_trip",
+}
+#	create connection pool
+connection_pool = mysql.connector.pooling.MySQLConnectionPool(
+	pool_name="wehelp_pool",
+	pool_size=5,
+	pool_reset_session=True,
+	**dbconfig
 )
-mycursor=mydb.cursor()
-sql="USE taipei_day_trip"
-mycursor.execute(sql)
+
+# import mysql.connector
+# mydb=mysql.connector.connect(
+#     host="localhost",
+#     user="root",
+#     password="Bb0970662139"
+# )
+# mycursor=mydb.cursor()
+# sql="USE taipei_day_trip"
+# mycursor.execute(sql)
 
 #相應app.py
 attractions_blueprint=Blueprint("attractions_blueprint",__name__)
@@ -18,13 +33,16 @@ attractions_blueprint=Blueprint("attractions_blueprint",__name__)
 @attractions_blueprint.route("/api/attractions",methods=["GET"])
 def api_attractions():
 	try:
-	
+		connection_object = connection_pool.get_connection()
+		
+
 		page_num=int(request.args.get("page",""))
 		keyword=request.args.get("keyword","")
 		page_maxnum=12
 		##單純頁數
 		if keyword == "":
-			mycursor=mydb.cursor()
+			# mycursor=mydb.cursor()
+			mycursor =  connection_object.cursor()
 			sql_fetchall="SELECT *from datas3 LIMIT %s,%s"
 			first_num=page_num*0
 			last_num=(page_num+1)*page_maxnum-1
@@ -67,7 +85,8 @@ def api_attractions():
 
 		#模糊&完全
 		else:
-			mycursor=mydb.cursor()
+			# mycursor=mydb.cursor()
+			mycursor =  connection_object.cursor()
 			sql_keyword="SELECT *FROM datas3 WHERE category=%s or name like concat('%',%s,'%') LIMIT %s,%s"
 			first_num=page_num*0
 			last_num=(page_num+1)*page_maxnum-1
@@ -105,6 +124,13 @@ def api_attractions():
 					})
 	except:
 		return {"error":True},500
+	finally:
+		mycursor.close()
+		connection_object.close()
+
+
+
+
 
 	# finally:
 	# 	mydb.close()

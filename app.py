@@ -5,7 +5,8 @@ from flask import jsonify
 from view.attractions import attractions_blueprint
 from view.attraction_id import attraction_id_blueprint
 from view.categories import categories_blueprint
-
+from view.user import user_blueprint
+from view.user import user_auth_blueprint
 
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
@@ -38,7 +39,8 @@ def thankyou():
 	return render_template("thankyou.html")
 
 
-
+app.register_blueprint(user_blueprint)
+app.register_blueprint(user_auth_blueprint)
 app.register_blueprint(attractions_blueprint)
 # @app.route("/api/attractions",methods=["GET"])
 # def api_attractions():
@@ -177,6 +179,7 @@ app.register_blueprint(attraction_id_blueprint)
 # 			})
 #-------------------------------------------------#-------------------------------------------------
 app.register_blueprint(categories_blueprint)
+
 # @app.route("/api/categories",methods=["GET"])
 # def api_cotegories():
 # 	try:	
