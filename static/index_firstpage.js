@@ -189,6 +189,7 @@ function loadmore(){
 //click the searchBar then display search container and create items
 let searchBlock = document.querySelector(".search");
 function submitBtn() {
+    console.log("按00");
     let searchcontainer = document.querySelector(".searchcontainer");
     let searchItemAll = document.querySelectorAll(".searchItem");
     let searchItemform=document.querySelector(".searchForm");

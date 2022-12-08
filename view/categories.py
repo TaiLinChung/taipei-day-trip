@@ -68,5 +68,5 @@ def api_categories():
 					"message":"不知道怎麼了，反正發生錯誤惹"
 				})
 	finally:
-		mycursor.close()
+		mycursor2.close()
 		connection_object.close()

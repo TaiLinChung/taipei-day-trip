@@ -37,8 +37,6 @@ nav{
     height:54px;
     position:fixed;                 //固定在視窗同個位置，捲動時跟著移動
     top:0;
-    // display:fixed;               //亂寫XDDD
-    // position: absolute;
     z-index: 100;
     background-color: white;
     
@@ -92,6 +90,12 @@ nav{
                     margin-right:10px;
                 }
                 
+            }
+            .SigninRegister{
+                display: flex;
+            }
+            .SignOut{
+                display: none;
             }
             
             
@@ -248,7 +252,9 @@ main{
             height:100%;
             background-color: black;
             z-index: 100;
-            position: absolute;
+            // position: absolute;
+            position:fixed;                 //固定在視窗同個位置，捲動時跟著移動
+            top:0;
             opacity: 0.25;
             display: none;
         }
@@ -258,7 +264,8 @@ main{
             margin-top: 26px;
             // background-color: #666666;
             // opacity: 0.25;
-            position: absolute;
+            position:fixed;
+            // position: absolute;
             z-index: 101;
             display: none;
             // display: flex;
@@ -314,7 +321,7 @@ main{
                         position: relative;
                         top: 40px;
                     }
-                    .signinConfirm{
+                    .signinBtn{
                         position: relative;
                         top: 50px;
                         left:15px;
@@ -339,6 +346,16 @@ main{
                         font-size: 16px;
                         font-weight: 1000px;
                     }
+                    .signinMessage{
+                        position: relative;
+                        top: 40px;
+                        // display: flex;
+                        display: none;
+                        justify-content: center;
+                        font-size: 16px;
+                        font-weight: 1000px;
+                        color:red;
+                    }
                 }
             }
         }
@@ -347,8 +364,9 @@ main{
             width:100%;
             height:332px;
             margin-top: 26px;
-            background-color: #666666;
-            position: absolute;
+            // background-color: #666666;
+            // position: absolute;
+            position:fixed;
             z-index: 101;
             display: none;
             // display: flex;
@@ -361,6 +379,7 @@ main{
                 border-radius:6px;
                 .registerContent{
                     width: 100%;
+                    // height:350px;
                     height:322px;
                     margin-top: 10px;
                     background-color: #FFFFFF;
@@ -421,8 +440,9 @@ main{
                         font-size: 20px;
                         font-weight: 1000px;
                         color:white;
+                        border:0px
                     }
-                    .registerSingin{
+                    .registerSignInTo{
                         position: relative;
                         top: 70px;
                         // left:15px;
@@ -431,6 +451,15 @@ main{
                         justify-content: center;
                         font-size: 16px;
                         font-weight: 1000px;
+                    }
+                    .registerMessage{
+                        position: relative;
+                        top: 80px;
+                        display: none;
+                        justify-content: center;
+                        font-size: 16px;
+                        font-weight: 1000px;
+                        color:red;
                     }
                 }
             }

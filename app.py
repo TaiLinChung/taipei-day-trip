@@ -38,10 +38,15 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
-
+# api user
 app.register_blueprint(user_blueprint)
 app.register_blueprint(user_auth_blueprint)
 app.register_blueprint(attractions_blueprint)
+app.register_blueprint(attraction_id_blueprint)
+app.register_blueprint(categories_blueprint)
+
+
+
 # @app.route("/api/attractions",methods=["GET"])
 # def api_attractions():
 # 	# try:
@@ -139,8 +144,8 @@ app.register_blueprint(attractions_blueprint)
 # 	# finally:
 # 	# 	mydb.close()
 
+#-------------------------------------------------#-------------------------------------------------
 
-app.register_blueprint(attraction_id_blueprint)
 # @app.route("/api/attraction/<attractionId>",methods=["GET"])
 # def api_attractionId(attractionId):
 # 	get_attractionId=attractionId
@@ -178,7 +183,7 @@ app.register_blueprint(attraction_id_blueprint)
 # 				"message":"景點編號不正確"
 # 			})
 #-------------------------------------------------#-------------------------------------------------
-app.register_blueprint(categories_blueprint)
+
 
 # @app.route("/api/categories",methods=["GET"])
 # def api_cotegories():

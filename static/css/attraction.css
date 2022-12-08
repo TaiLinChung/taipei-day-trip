@@ -76,10 +76,205 @@ body nav div div.rightBar p {
     margin-right: 5px;
   }
 }
+body nav div div.rightBar .SigninRegister {
+  display: flex;
+}
+body nav div div.rightBar .SignOut {
+  display: none;
+}
 body main {
   padding-top: 60px;
   width: 100%;
   height: 100%;
+}
+body main .filmBackground {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  opacity: 0.25;
+  display: none;
+}
+body main .signinBlock {
+  width: 100%;
+  height: 275px;
+  margin-top: 26px;
+  position: fixed;
+  z-index: 101;
+  display: none;
+  justify-content: center;
+}
+body main .signinBlock .signinBackground {
+  width: 340px;
+  height: 100%;
+  background-color: #448899;
+  border-radius: 6px;
+}
+body main .signinBlock .signinBackground .signinContent {
+  width: 100%;
+  height: 265px;
+  margin-top: 10px;
+  background-color: #FFFFFF;
+  border-radius: 0 0 6px 6px;
+}
+body main .signinBlock .signinBackground .signinContent .signinTitle {
+  position: relative;
+  top: 15px;
+  width: 100%;
+  height: 27px;
+  display: flex;
+  justify-content: center;
+  color: #666666;
+  font-weight: 1000;
+  font-size: 24px;
+}
+body main .signinBlock .signinBackground .signinContent .signinClose {
+  position: relative;
+  left: 75px;
+}
+body main .signinBlock .signinBackground .signinContent input {
+  width: 310px;
+  height: 47px;
+  left: 15px;
+  border-radius: 5px;
+  padding: 15px;
+  border: 1px Gray solid;
+  font-weight: 600;
+}
+body main .signinBlock .signinBackground .signinContent .signinEmail {
+  position: relative;
+  top: 30px;
+}
+body main .signinBlock .signinBackground .signinContent .signinPassword {
+  position: relative;
+  top: 40px;
+}
+body main .signinBlock .signinBackground .signinContent .signinBtn {
+  position: relative;
+  top: 50px;
+  left: 15px;
+  width: 310px;
+  height: 47px;
+  background-color: #448899;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 1000px;
+  color: white;
+}
+body main .signinBlock .signinBackground .signinContent .signinCreateAccount {
+  position: relative;
+  top: 60px;
+  color: #666666;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 1000px;
+}
+body main .signinBlock .signinBackground .signinContent .signinMessage {
+  position: relative;
+  top: 40px;
+  display: none;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 1000px;
+  color: red;
+}
+body main .registerBlock {
+  width: 100%;
+  height: 332px;
+  margin-top: 26px;
+  position: fixed;
+  z-index: 101;
+  display: none;
+  justify-content: center;
+}
+body main .registerBlock .registerBackground {
+  width: 340px;
+  height: 100%;
+  background-color: #448899;
+  border-radius: 6px;
+}
+body main .registerBlock .registerBackground .registerContent {
+  width: 100%;
+  height: 322px;
+  margin-top: 10px;
+  background-color: #FFFFFF;
+  border-radius: 0 0 6px 6px;
+}
+body main .registerBlock .registerBackground .registerContent .registerTitle {
+  position: relative;
+  top: 15px;
+  width: 100%;
+  height: 27px;
+  display: flex;
+  justify-content: center;
+  color: #666666;
+  font-weight: 1000;
+  font-size: 24px;
+}
+body main .registerBlock .registerBackground .registerContent .registerClose {
+  position: relative;
+  left: 75px;
+}
+body main .registerBlock .registerBackground .registerContent input {
+  width: 310px;
+  height: 47px;
+  left: 15px;
+  border-radius: 5px;
+  padding: 15px;
+  border: 1px Gray solid;
+  font-weight: 600;
+}
+body main .registerBlock .registerBackground .registerContent .registerName {
+  position: relative;
+  top: 30px;
+}
+body main .registerBlock .registerBackground .registerContent .registerEmail {
+  position: relative;
+  top: 40px;
+}
+body main .registerBlock .registerBackground .registerContent .registerPassword {
+  position: relative;
+  top: 50px;
+}
+body main .registerBlock .registerBackground .registerContent .registerBtn {
+  position: relative;
+  top: 60px;
+  left: 15px;
+  width: 310px;
+  height: 47px;
+  background-color: #448899;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 1000px;
+  color: white;
+  border: 0px;
+}
+body main .registerBlock .registerBackground .registerContent .registerSignInTo {
+  position: relative;
+  top: 70px;
+  color: #666666;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 1000px;
+}
+body main .registerBlock .registerBackground .registerContent .registerMessage {
+  position: relative;
+  top: 80px;
+  display: none;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 1000px;
+  color: red;
 }
 body main .sectionPicture {
   margin: 0 auto;
