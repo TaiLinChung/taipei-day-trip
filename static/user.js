@@ -205,7 +205,7 @@ SignOut.addEventListener('click',function(){
     // pushSigninDataToBackEnd();
     // 新的
     pushSignOutRequestToBackEnd()
-    location.reload();
+    // location.reload();
 },false)
 
 
@@ -223,6 +223,9 @@ function pushSignOutRequestToBackEnd(){
     }).then(function(response){
         //packing and return to Backend
         return response.json();
+    }).then(function(){
+        //confirm 後才reload
+        location.reload();
     })
 }
 
