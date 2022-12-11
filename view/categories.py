@@ -16,15 +16,6 @@ connection_pool = mysql.connector.pooling.MySQLConnectionPool(
 	**dbconfig
 )
 
-# import mysql.connector
-# mydb=mysql.connector.connect(
-#     host="localhost",
-#     user="root",
-#     password="Bb0970662139"
-# )
-# mycursor=mydb.cursor()
-# sql="USE taipei_day_trip"
-# mycursor.execute(sql)
 
 #相應app.py
 categories_blueprint=Blueprint("categories_blueprint",__name__)

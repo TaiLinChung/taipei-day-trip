@@ -50,8 +50,9 @@ body{
             height:54px;
             margin: 0 auto;
             display: flex;
+            // align-items: center;/* 垂直置中 */
             background-color:#FFFFFF;
-            // background-color: antiquewhite;
+            // background-color:red;
             // opacity: 0.6;
             @include screen1300(){
                 width:90%;
@@ -73,7 +74,8 @@ body{
                 font-style: normal;
                 font-weight: 700;
                 font-size: 30px;
-                line-height: 34px;
+                // line-height: 54px;
+                // background-color: rgb(202, 159, 242);
                 color:#448899;
                 align-items: center;/* 垂直置中 */
                 @include screen750(){

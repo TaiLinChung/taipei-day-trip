@@ -26,18 +26,12 @@ def api_attractionId(attractionId):
 	try:
 
 		get_attractionId=attractionId
-		# print(content)
-
-		#-------------
 		connection_object = connection_pool.get_connection()
 		mycursor =  connection_object.cursor()
-		#	以下註解換成上面
-		# mycursor=mydb.cursor()
 		sql="SELECT *FROM datas3 WHERE id=%s"
 		adr=(get_attractionId,)
 		mycursor.execute(sql,adr)
 		myresult=mycursor.fetchall()
-		# print(myresult)
 		if myresult != []:
 			mytitle = mycursor.description
 			column_name =[col[0] for col in mytitle]

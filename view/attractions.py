@@ -16,15 +16,6 @@ connection_pool = mysql.connector.pooling.MySQLConnectionPool(
 	**dbconfig
 )
 
-# import mysql.connector
-# mydb=mysql.connector.connect(
-#     host="localhost",
-#     user="root",
-#     password="Bb0970662139"
-# )
-# mycursor=mydb.cursor()
-# sql="USE taipei_day_trip"
-# mycursor.execute(sql)
 
 #相應app.py
 attractions_blueprint=Blueprint("attractions_blueprint",__name__)
@@ -44,14 +35,17 @@ def api_attractions():
 			# mycursor=mydb.cursor()
 			mycursor =  connection_object.cursor()
 			sql_fetchall="SELECT *from datas3 LIMIT %s,%s"
-			first_num=page_num*0
-			last_num=(page_num+1)*page_maxnum-1
 			adr_fetchall=(page_num*page_maxnum,page_maxnum)
 			mycursor.execute(sql_fetchall,adr_fetchall)
 			myresult_fetchall=mycursor.fetchall()
 			total_amount=len(myresult_fetchall)
 			# print(myresult_fetchall[0])
-			# print(myresult_fetchall)       
+			# print(myresult_fetchall)   
+			sql_fetchmore="SELECT *from datas3 LIMIT %s,%s"
+			adr_fetchmore=(page_num*page_maxnum,page_maxnum+1)
+			mycursor.execute(sql_fetchmore,adr_fetchmore)
+			myresult_fetchmore=mycursor.fetchall()
+			more_amount=len(myresult_fetchmore)
 
 			for i in range(len(myresult_fetchall)):
 				myresult_fetchall[i]=list(myresult_fetchall[i])
@@ -65,7 +59,7 @@ def api_attractions():
 				data=[]
 				for i in range(total_amount):
 					data.append(dict(zip(column_name,myresult_fetchall[i])))
-				if len(data)==page_maxnum:
+				if more_amount==page_maxnum+1:
 					next_page=page_num+1
 				else:
 					next_page=None
@@ -127,13 +121,3 @@ def api_attractions():
 	finally:
 		mycursor.close()
 		connection_object.close()
-
-
-
-
-
-	# finally:
-	# 	mydb.close()
-
-
-    

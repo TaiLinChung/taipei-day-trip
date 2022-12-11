@@ -41,7 +41,8 @@ function close(){
     registerBlock.style.display="none";
     filmBackground.style.display="none";
     registerMessage.style.display="none";
-    registerContent.style.height="100%";
+    registerContent.style.height="322px";
+    registerSignInTo.style.top="70px";
     document.querySelector(".registerName").value="";
     document.querySelector(".registerEmail").value="";
     document.querySelector(".registerPassword").value="";
@@ -51,33 +52,54 @@ function close(){
 let registerName="";
 let registerEmail="";
 let registerPassword="";
-let registerData={}
+let registerData={};
 let registerBtn=document.querySelector(".registerBtn");
 registerBtn.addEventListener('click',function(){
     registerName=document.querySelector(".registerName").value;
     registerEmail=document.querySelector(".registerEmail").value;
     registerPassword=document.querySelector(".registerPassword").value;
     registerData={"name":registerName,"email":registerEmail,"password":registerPassword};
-    pushRegisterDataToBackEnd();
+    // postRegisterDataToBackEnd();
+    checkRegisterFront();
 },false)
+
+// ------------------------------------------------------------------
+function checkRegisterFront(){
+    console.log("前端檢查中");
+    let regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/i;
+    // console.log(regex.test(registerEmail));
+    if(registerName != "" & registerPassword != ""){
+        if(regex.test(registerEmail)==true & registerName != null & registerPassword != null){
+            console.log("通過前端");
+            postRegisterDataToBackEnd();
+        }else{
+            // responseFromBackend["message"]
+            responseFromBackend={"message":"請輸入正確信箱格式，點此重新輸入"};
+            dealRegistResponseFromBackend();
+        }
+    }else{
+        responseFromBackend={"message":"帳號密碼不可為空，點此重新輸入"};
+        dealRegistResponseFromBackend();
+    }
+    
+}
+
+// ------------------------------------------------------------------
+
 
 
 //post method to returndata to backend
 let responseFromBackend=""
-function pushRegisterDataToBackEnd(){
+function postRegisterDataToBackEnd(){
     fetch("/api/user",{
         method:"POST",
-        credentials:"include",
         body:JSON.stringify(registerData),
-        cache:"no-cache",
         headers:new Headers({
             "content-type":"application/json"
         })
     }).then(function(response){
-        //packing and return to Backend
         return response.json();
     }).then(function(data){
-        //getresponseFromBackend
         responseFromBackend=data;
         console.log(responseFromBackend);
         dealRegistResponseFromBackend();
@@ -100,14 +122,14 @@ function dealRegistResponseFromBackend(){
     }
     else{
         console.log("註冊失敗");
-        registerMessage.textContent="註冊失敗，點此重新註冊"
+        registerMessage.textContent=responseFromBackend["message"]
 
         // listener
         registerMessage.addEventListener('click',function(){
             close();
             filmBackground.style.display="block";
             registerBlock.style.display="flex";
-            registerContent.style.height="340px";
+            registerContent.style.height="322px";
             registerSignInTo.style.top="70px";
         },false)
     }
@@ -132,20 +154,18 @@ signinBtn.addEventListener('click',function(){
 function pushSigninDataToBackEnd(){
     fetch("/api/user/auth",{
         method:"PUT",
-        credentials:"include",
         body:JSON.stringify(signinData),
-        cache:"no-cache",
         headers:new Headers({
             "content-type":"application/json"
         })
     }).then(function(response){
-        //packing and return to Backend
+        // console.log("1",response);
+        // console.log(response.status);
         return response.json();
     }).then(function(data){
-        //getresponseFromBackend
         responseFromBackend=data;
         dealSigninResponseFromBackend();
-        userStatus();
+        checkToken();
     })
 }
 
@@ -158,9 +178,8 @@ function dealSigninResponseFromBackend(){
     signinCreateAccount.style.top="90px";
     signinMessage.style.display="flex";
     if(responseFromBackend["ok"]==true){
-        signinMessage.textContent="登入成功";
-        //登入成功就做刷新頁面
         location.reload();
+        signinMessage.textContent="登入成功";
     }
     else{
         signinMessage.textContent="登入失敗";
@@ -168,15 +187,16 @@ function dealSigninResponseFromBackend(){
 }
 
 //listener reflash
-window.addEventListener("load", function(event) {
+window.addEventListener("load", function() {
     console.log("抓到你刷新頁面了吧，讓我檢查看看Token");
-    userStatus()
+    checkToken()
+
 });
 
 
 let SignOut=document.querySelector(".SignOut");
 //check cookie status
-function userStatus(){
+function checkToken(){
     let url="/api/user/auth";
     fetch(url,{
         method:"GET",
@@ -200,12 +220,7 @@ function userStatus(){
 
 //listener execute signout
 SignOut.addEventListener('click',function(){
-    signinData={};
-    // 原本
-    // pushSigninDataToBackEnd();
-    // 新的
     pushSignOutRequestToBackEnd()
-    // location.reload();
 },false)
 
 
@@ -214,18 +229,14 @@ SignOut.addEventListener('click',function(){
 function pushSignOutRequestToBackEnd(){
     fetch("/api/user/auth",{
         method:"DELETE",
-        credentials:"include",
-        body:JSON.stringify(signinData),
-        cache:"no-cache",
         headers:new Headers({
             "content-type":"application/json"
         })
     }).then(function(response){
-        //packing and return to Backend
-        return response.json();
-    }).then(function(){
-        //confirm 後才reload
         location.reload();
+        return response.json();
+    }).then(function(data){
+
     })
 }
 

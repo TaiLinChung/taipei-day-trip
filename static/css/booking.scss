@@ -1,0 +1,34 @@
+
+
+main{
+    display: flex;
+    justify-content: center;
+    .bookingContent{
+        width: 1200px;
+        background-color: gray;
+        
+        .messageBlock{
+            margin-top: 46px;
+            background-color: blue;
+        }
+        .messageDownBlock{
+            height:200px;
+            width: 100%;
+            background-color: red;
+            display:flex;
+            .imageBlock{
+                // width:266px;
+                width:50%;
+                height: 100%;
+                background-color: yellow;
+            }
+            .attractionIntroduceBlock{
+                // width:692px;
+                width:50%;
+                height: 100%;
+                background-color: green;
+            }
+        }
+    }
+
+}
