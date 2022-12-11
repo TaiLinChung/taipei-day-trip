@@ -1,0 +1,28 @@
+main {
+  display: flex;
+  justify-content: center;
+}
+main .bookingContent {
+  width: 1200px;
+  background-color: gray;
+}
+main .bookingContent .messageBlock {
+  margin-top: 46px;
+  background-color: blue;
+}
+main .bookingContent .messageDownBlock {
+  height: 200px;
+  width: 100%;
+  background-color: red;
+  display: flex;
+}
+main .bookingContent .messageDownBlock .imageBlock {
+  width: 50%;
+  height: 100%;
+  background-color: yellow;
+}
+main .bookingContent .messageDownBlock .attractionIntroduceBlock {
+  width: 50%;
+  height: 100%;
+  background-color: green;
+}/*# sourceMappingURL=booking.css.map */

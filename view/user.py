@@ -19,7 +19,24 @@ mycursor.execute(sql)
 mycursor.close()
 
 
-#create connection pool
+# from view.sample import my_func
+# my_func()
+# my_func()
+# from model.aaa import my_func
+# my_func()
+# from model.attraction_model import attraction
+from model import attraction #模組
+from model import name
+print(name)
+# print(name)
+
+
+# from model.user_model import user
+# attraction()
+# user()
+
+
+
 import mysql.connector.pooling
 dbconfig={
 	"user":"root",
@@ -59,10 +76,8 @@ def api_user():
     global password
     password=registerDataFromFrontEnd["password"]
     print("我在註冊頁面")
-    # checkCookie()
     checkDataRegister()
     return jsonify(checkDataResponse)
-    # return jsonify({"error":True,"message":"check the information and maybe doubleEmail"})
 
 
 #   check databasesEmail
@@ -75,15 +90,13 @@ def checkDataRegister():
         adr_check=(email,)
         mycursor.execute(sql_check,adr_check)
         myresult_check=mycursor.fetchone()
-        # email未註冊過
         if myresult_check==None and name!="" and password!="":
             print("有執行註冊")
-            # 執行註冊動作
             register()
             checkDataResponse={"ok":True}
         else:
             print("未執行註冊")
-            checkDataResponse={"error":True,"message":"400 註冊失敗 重複的 Email 或其他原因"}
+            checkDataResponse={"error":True,"message":"Email重複，點此重新註冊"}
     except:
         print("有問題")
         checkDataResponse=({"error":True,"message":"500 伺服器內部錯誤"})
@@ -110,26 +123,20 @@ def register():
 #"GET","PUT","DELETE"
 @user_auth_blueprint.route("/api/user/auth",methods=["GET","PUT","DELETE"])
 def api_user_auth():
-
+    print("user/auth每次被呼叫收到的訊息",request.data)
     global checkDataResponse
     if request.method=="PUT":
         SigninDataFromFrontEnd = request.get_json()
-        if SigninDataFromFrontEnd != {}:
-            global email
-            email=SigninDataFromFrontEnd["email"]
-            global password
-            password=SigninDataFromFrontEnd["password"]
-            checkDataSignin()
-            print("我在登入頁面")
-            return checkDataResponse
-        # # 前往非登入狀態 把cookie解掉換成空，待改成PUT方法
-        # else:
-        #     checkDataResponse=jsonify({"error":True,"message":"非登入狀態"})
-        #     checkDataResponse.set_cookie("token",'', expires=0)
-        #     return checkDataResponse
+        global email
+        email=SigninDataFromFrontEnd["email"]
+        global password
+        password=SigninDataFromFrontEnd["password"]
+        checkDataSignin()
+        print("我在登入頁面")
+        return checkDataResponse
     
     if request.method=="GET":
-        # checkCookie()
+        # checkCookie
         getToken=request.cookies.get("token")
         print("查看當前頁面cookies中的Token",getToken)
         # decoded
@@ -142,7 +149,8 @@ def api_user_auth():
             return jsonify({"data":None})
     ##signout
     if request.method=="DELETE":
-        logOutDataFromFrontEnd = request.get_json()
+        print("登出刪除token")
+        # logOutDataFromFrontEnd = request.get_json()
         checkDataResponse=jsonify({"ok":True})
         checkDataResponse.set_cookie("token",'', expires=0)
         return checkDataResponse

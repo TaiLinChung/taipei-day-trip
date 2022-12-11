@@ -52,7 +52,7 @@ function getAttractionData(){
     }).then(function(data){
         // console.log(data["data"]["images"][0]);
         imgBackgroundList=data["data"]["images"]
-        console.log(imgBackgroundList);
+        // console.log(imgBackgroundList);
         imgBackground.setAttribute('src',imgBackgroundList[0]);
         // console.log(data["data"]);
         attractionName.textContent=data["data"]["name"];
@@ -75,9 +75,9 @@ let carousePosition=0;
 let eachCarouselInturnID=0;
 function carouselFunction(){
     carousePosition=0;
-    console.log(carousePosition);
+    // console.log(carousePosition);
     imgAmounts=imgBackgroundList.length;
-    console.log(imgAmounts);
+    // console.log(imgAmounts);
     //createBlackPoint
     let carouselUnderBlock=document.querySelector(".carouselUnderBlock");
     for(let i=0;i<imgAmounts;i++){
@@ -105,8 +105,8 @@ function carouselFunction(){
         carousePosition-=1
         carouseReturnJudge();
         setBlackPoint();
-        console.log("left");
-        console.log(carousePosition);
+        // console.log("left");
+        // console.log(carousePosition);
     },false)
 
     //BtnRight
@@ -115,8 +115,8 @@ function carouselFunction(){
         carousePosition+=1
         carouseReturnJudge();
         setBlackPoint();
-        console.log("right");
-        console.log(carousePosition);
+        // console.log("right");
+        // console.log(carousePosition);
     },false)
 }
 
