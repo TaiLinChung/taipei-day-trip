@@ -7,6 +7,8 @@
     <title>attractions</title>
     <link rel="stylesheet" href="../static/css/attraction.css">
     <link rel="stylesheet" href="../static/css/all.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="shortcut icon" href="#" />
 </head>
 <body>
     <nav>
@@ -14,11 +16,41 @@
             <div class="leftBar">台北一日遊</div>
             <div class="rightBar">
                 <p>預定行程</p>
-                <p>登入/註冊</p>
+                <p class="SigninRegister">登入/註冊</p>
+                <p class="SignOut">登出</p>
             </div>
         </div>
     </nav>
     <main>
+
+        <div class="filmBackground"></div>
+            <div class="signinBlock">
+                <div class="signinBackground">
+                    <div class="signinContent">
+                        <div class="signinTitle">登入會員帳號<i class="fa-solid fa-xmark signinClose"></i></div>
+                        <input class="signinEmail" type="text" name="" placeholder="輸入電子信箱" />
+                        <input class="signinPassword" type="password" name="" placeholder="輸入密碼" />
+                        <div class="signinBtn">登入帳戶</div>
+                        <div class="signinCreateAccount">還沒有帳戶？點此註冊</div>
+                        <div class="signinMessage">登入成功</div>
+                    </div>
+                </div>
+            </div>
+            <div class="registerBlock">
+                <div class="registerBackground">
+                    <div class="registerContent" method="POST" action="/api/user">
+                        <div class="registerTitle">註冊會員帳號<i class="fa-solid fa-xmark registerClose"></i></div>
+                        <input class="registerName" type="text" name="registerName" placeholder="輸入姓名" />
+                        <input class="registerEmail" type="text" name="registerEmail" placeholder="輸入電子信箱" />
+                        <input class="registerPassword" type="password" name="registerPassword" placeholder="輸入密碼" />
+                        <div class="registerBtn">註冊新帳戶</div>             
+                        <div class="registerSignInTo">已經有帳戶了？點此登入</div>
+                        <div class="registerMessage">註冊失敗，點此重新註冊</div>
+                    </div>
+                </div>
+            </div>
+
+
         <section class="sectionPicture">
             <div class="pictureLeft">
                 <img class="imgBackground">
@@ -76,10 +108,8 @@
             <p class="address"></p>
             <p class="transportTitle">交通方式：</p>
             <p class="transport"></p>
-            
-
-
         </section>
+
         
     </main>
 
@@ -88,4 +118,5 @@
     </footer>
 </body>
 <script src="../static/attraction.js" defer></script>
+<script src="../static/user.js" defer></script>
 </html>
