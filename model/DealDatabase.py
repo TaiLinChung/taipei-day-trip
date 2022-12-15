@@ -164,16 +164,21 @@ def DealBooking(bookingData,personId):
 
 
 
-def GetDataForBookingPage(username):
+def GetDataForBookingPage(username,personId):
 	try:
 		connection_object = connection_pool.get_connection()
 		mycursor =  connection_object.cursor()
-		sql="SELECT datas3.id,datas3.name,datas3.address,datas3.images,reservationflash.date,reservationflash.time,reservationflash.price FROM datas3 INNER JOIN reservationflash ON datas3.id = reservationflash.attractionId"
-		mycursor.execute(sql)
+		# sql="SELECT datas3.id,datas3.name,datas3.address,datas3.images,reservationflash.date,reservationflash.time,reservationflash.price FROM datas3 INNER JOIN reservationflash ON datas3.id = reservationflash.attractionId"
+		sql="SELECT datas3.id,datas3.name,datas3.address,datas3.images,reservationflash.date,reservationflash.time,reservationflash.price FROM datas3 INNER JOIN reservationflash ON reservationflash.personId=%s and datas3.id = reservationflash.attractionId"
+		val=(personId,)
+		mycursor.execute(sql,val)
+		# mycursor.execute(sql)
 		myresult=mycursor.fetchone()
+		# print("---------------666-----------")
+		# print(myresult)
 		if myresult!=None:
 			# print("--------------")
-			print(myresult)
+			# print(myresult)
 			img=myresult[3].split(" ")
 			# print(img[0])
 			response=(

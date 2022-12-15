@@ -43,8 +43,9 @@ def api_booking():
 			getToken=request.cookies.get("token")
 			decoded=jwt.decode(getToken,secret_key,algorithms='HS256')     #decode-algorithms
 			username=decoded["data"]["name"]
+			personId=decoded["data"]["id"]
 			print("7777777777777",username)
-			response=GetDataForBookingPage(username)
+			response=GetDataForBookingPage(username,personId)
 			print("88888")
 			return response
 		except:
