@@ -66,19 +66,26 @@ registerBtn.addEventListener('click',function(){
 // ------------------------------------------------------------------
 function checkRegisterFront(){
     console.log("前端檢查中");
-    let regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/i;
+    let testForEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
+    let testForName = /^[\u4e00-\u9fa5a-zA-Z]+$/;
     // console.log(regex.test(registerEmail));
-    if(registerName != "" & registerPassword != ""){
-        if(regex.test(registerEmail)==true & registerName != null & registerPassword != null){
+    if(registerEmail != "" & registerName != "" & registerPassword != ""){
+        if(testForEmail.test(registerEmail)==true & testForName.test(registerName)==true){
             console.log("通過前端");
             postRegisterDataToBackEnd();
-        }else{
+        }
+        if(testForName.test(registerName)!=true) {
+            responseFromBackend={"message":"姓名只接受英文跟中文形式，點此重新輸入"};
+            dealRegistResponseFromBackend();
+        }
+        else if(testForEmail.test(registerEmail)!=true) {
             // responseFromBackend["message"]
             responseFromBackend={"message":"請輸入正確信箱格式，點此重新輸入"};
             dealRegistResponseFromBackend();
         }
+        
     }else{
-        responseFromBackend={"message":"帳號密碼不可為空，點此重新輸入"};
+        responseFromBackend={"message":"註冊資料不可為空，點此重新輸入"};
         dealRegistResponseFromBackend();
     }
     
@@ -188,7 +195,7 @@ function dealSigninResponseFromBackend(){
 
 //listener reflash
 window.addEventListener("load", function() {
-    console.log("抓到你刷新頁面了吧，讓我檢查看看Token");
+    // console.log("抓到你刷新頁面了吧，讓我檢查看看Token");
     checkToken()
 
 });
@@ -205,14 +212,16 @@ function checkToken(){
         return response.json();
     }).then(function(data){
         console.log("取得後端token資料",data);
+        // statusResponse=data;
+        // console.log(statusResponse);
         // 如果回傳的token帶登入狀態 右上角改成登出字樣
         if(data["data"]!=null){
-            console.log("目前為登入狀態");
+            // console.log("目前為登入狀態");
             SigninRegister.style.display="none";
             SignOut.style.display="flex";
         }
         else{
-            console.log("非登入狀態");
+            // console.log("非登入狀態");
         }
     })
 }
@@ -235,8 +244,54 @@ function pushSignOutRequestToBackEnd(){
     }).then(function(response){
         location.reload();
         return response.json();
-    }).then(function(data){
+    })
+}
 
+
+
+
+
+
+///--------------------------------------------------------------BOOKING
+
+//reserveJourney
+let goToBooking=document.querySelector(".reserveJourney");
+goToBooking.addEventListener('click',function(){
+    console.log("reserveJourney");
+    checkUserToken();
+},false)
+
+
+
+//check cookie status
+function checkUserToken(){
+    // let url="/api"+attractionUrl;
+    let url="/api/user/auth";
+    fetch(url,{
+        method:"GET",
+    }).then(function(response){
+        //packing and return to Backend
+        return response.json();
+    }).then(function(data){
+        console.log("取得後端token資料",data);
+        // statusResponse=data;
+        // console.log(statusResponse);
+        // 如果回傳的token帶登入狀態 右上角改成登出字樣
+        if(data["data"]!=null){
+            console.log("目前為登入狀態");
+            // SigninRegister.style.display="none";
+            // SignOut.style.display="flex";
+            window.location.href = "/booking";
+
+        }
+        else{
+            // console.log("booking非登入狀態");
+            filmBackground.style.display="block";
+            signinBlock.style.display="flex";
+            // pushSignOutRequestToBackEnd();
+            // let url="/"
+            // window.location.href = url;
+        }
     })
 }
 

@@ -497,6 +497,13 @@ body main .sectionPicture .pictureRight .orderDirect .feeBlock .fee {
   font-weight: 700;
   font-size: 16px;
 }
+body main .sectionPicture .pictureRight .orderDirect .orderMessage {
+  margin-left: 20px;
+  margin-top: 5px;
+  font-size: 16px;
+  font-weight: 700;
+  display: none;
+}
 body main .sectionPicture .pictureRight .orderDirect .orderBtn {
   margin-left: 20px;
   margin-top: 25px;

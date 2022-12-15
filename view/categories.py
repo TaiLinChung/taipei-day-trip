@@ -35,7 +35,7 @@ def api_categories():
 		category_data = [cat[0] for cat in myresult_category]
 		
 		# print(myresult_category)
-		print(category_data)
+		# print(category_data)
 		return jsonify({
 					"data": category_data
 					

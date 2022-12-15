@@ -1,207 +1,178 @@
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block css %}
+<!-- <link rel="stylesheet" href=""> -->
+<link rel="stylesheet" href="../static/css/index.css">
+{% endblock %}
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="utf-8" />
-    <title>台北</title>
-    <link rel="shortcut icon" href="#" />
-    <link rel="stylesheet" href="../static/css/all.css">
-    <link rel="stylesheet" href="../static/css/index.css">
 
-</head>
-
-<body id="body">
-
-    <nav>
-        <div>
-            <div class="nav-bar-left">
-                <p>台北一日遊</p>
-            </div>
-            <div class="nav-bar-right">
-                <p>預設行程</p>
-                <p class="SigninRegister">登入/註冊</p>
-                <p class="SignOut">登出</p>
-            </div>
-        </div>
-    </nav>
-
-    <main>
-        <section class="page-one">
-            <div class="text">
-                <h2>輕鬆享受台北一日悠閒</h2>
-                <p>探索每個角落，體驗程式的深度旅遊行程</p>
-                <form class="but" action="" method="">
-                    <input class="search" type="text" name="" placeholder="輸入景點名稱查詢" />
-                    <div type="" class="icon">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </div>
-                </form>
-            
-                <!-- 建立搜尋表單 -->
-                <div class="searchcontainer">
-                    <div class="searchForm">
-                            <!-- <div class="searchItem publicart">公共藝術</div>
-                            <div class="searchItem else">其 他</div>
-                            <div class="searchItem bike">單車遊蹤</div>
-    
-                            <div class="searchItem religion">宗教信仰</div>
-                            <div class="searchItem outdoor">戶外踏青</div>
-                            <div class="searchItem spring">春季活動</div>-->
-                    </div>
+{% block inmain %}
+<main>
+    <section class="page-one">
+        <div class="text">
+            <h2>輕鬆享受台北一日悠閒</h2>
+            <p>探索每個角落，體驗程式的深度旅遊行程</p>
+            <form class="but" action="" method="">
+                <input class="search" type="text" name="" placeholder="輸入景點名稱查詢" />
+                <div type="" class="icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
-                
-                
-            
-            </div>
-            <div class="filmBackground"></div>
-            <div class="signinBlock">
-                <div class="signinBackground">
-                    <div class="signinContent">
-                        <div class="signinTitle">登入會員帳號<i class="fa-solid fa-xmark signinClose"></i></div>
-                        <input class="signinEmail" type="email" name="" placeholder="輸入電子信箱" />
-                        <input class="signinPassword" type="password" name="" placeholder="輸入密碼" />
-                        <div class="signinBtn">登入帳戶</div>
-                        <div class="signinCreateAccount">還沒有帳戶？點此註冊</div>
-                        <div class="signinMessage">登入成功</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="registerBlock">
-                <div class="registerBackground">
-                    <div class="registerContent" method="POST" action="/api/user">
-                        <div class="registerTitle">註冊會員帳號<i class="fa-solid fa-xmark registerClose"></i></div>
-                        <input class="registerName" type="text" name="registerName" placeholder="輸入姓名" />
-                        <input class="registerEmail" type="email" name="registerEmail" placeholder="輸入電子信箱" />
-                        <input class="registerPassword" type="password" name="registerPassword" placeholder="輸入密碼" />
-                        <div class="registerBtn">註冊新帳戶</div>   
-                        <div class="registerSignInTo">已經有帳戶了？點此登入</div>
-                        <div class="registerMessage">註冊失敗，點此重新註冊</div>
-                    </div>
-                </div>
-            </div>
-
-
-
-        </section>
-
+            </form>
         
+            <!-- 建立搜尋表單 -->
+            <div class="searchcontainer">
+                <div class="searchForm">
+                        <!-- <div class="searchItem publicart">公共藝術</div>
+                        <div class="searchItem else">其 他</div>
+                        <div class="searchItem bike">單車遊蹤</div>
 
-        <section class="container-twelve"><!--1-->
-            <div class="container-block"><!--2-->
-                <!-- <div class="item">
-                    <div class="img-block apple">
-                        -- <img class="img-block" src="../static/img/IMG_3463.jpg">
-                        <p>123456</p> --
-                    </div>
-                    <div class="sort"></div>
-
+                        <div class="searchItem religion">宗教信仰</div>
+                        <div class="searchItem outdoor">戶外踏青</div>
+                        <div class="searchItem spring">春季活動</div>-->
                 </div>
-
-                <div class="item">
-                    <div class="img-block apple"></div>
-                    <div class="sort"></div>
-
+            </div>
+            
+            
+        
+        </div>
+        <!-- <div class="filmBackground"></div>
+        <div class="signinBlock">
+            <div class="signinBackground">
+                <div class="signinContent">
+                    <div class="signinTitle">登入會員帳號<i class="fa-solid fa-xmark signinClose"></i></div>
+                    <input class="signinEmail" type="email" name="" placeholder="輸入電子信箱" />
+                    <input class="signinPassword" type="password" name="" placeholder="輸入密碼" />
+                    <div class="signinBtn">登入帳戶</div>
+                    <div class="signinCreateAccount">還沒有帳戶？點此註冊</div>
+                    <div class="signinMessage">登入成功</div>
                 </div>
+            </div>
+        </div>
 
-                <div class="item">
-                    <div class="img-block apple"></div>
-                    --設定多個屬性讓他去抓--
-                    <div class="sort"></div>
-
+        <div class="registerBlock">
+            <div class="registerBackground">
+                <div class="registerContent" method="POST" action="/api/user">
+                    <div class="registerTitle">註冊會員帳號<i class="fa-solid fa-xmark registerClose"></i></div>
+                    <input class="registerName" type="text" name="registerName" placeholder="輸入姓名" />
+                    <input class="registerEmail" type="email" name="registerEmail" placeholder="輸入電子信箱" />
+                    <input class="registerPassword" type="password" name="registerPassword" placeholder="輸入密碼" />
+                    <div class="registerBtn">註冊新帳戶</div>   
+                    <div class="registerSignInTo">已經有帳戶了？點此登入</div>
+                    <div class="registerMessage">註冊失敗，點此重新註冊</div>
                 </div>
+            </div>
+        </div> -->
 
-                <div class="item">
-                    <div class="img-block apple"></div>
-                    <div class="sort"></div>
 
+
+    </section>
+
+    
+    
+
+    <section class="container-twelve"><!--1-->
+        <div class="container-block"><!--2-->
+            <!-- <div class="item">
+                <div class="img-block apple">
+                    -- <img class="img-block" src="../static/img/IMG_3463.jpg">
+                    <p>123456</p> --
                 </div>
-
-                <div class="item">
-                    <div class="img-block apple"></div>
-                    <div class="sort"></div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-block apple"></div>
-                    <div class="sort"></div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-block apple"></div>
-                    <div class="sort"></div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-block apple"></div>
-                    <div class="sort"></div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-block apple"></div>
-                    <div class="sort"></div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-block apple"></div>
-                    <div class="sort"></div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-block apple"></div>
-                    <div class="sort"></div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-block apple"></div>
-                    <div class="sort"></div>
-
-                </div> -->
-
-
-
-
-
+                <div class="sort"></div>
 
             </div>
 
+            <div class="item">
+                <div class="img-block apple"></div>
+                <div class="sort"></div>
 
-        </section>
-        <!-- <div class="container" id="container"></div> -->
-        <div class="loading">
-            <div class="ball"></div>
-            <div class="ball"></div>
-            <div class="ball"></div>
+            </div>
+
+            <div class="item">
+                <div class="img-block apple"></div>
+                --設定多個屬性讓他去抓--
+                <div class="sort"></div>
+
+            </div>
+
+            <div class="item">
+                <div class="img-block apple"></div>
+                <div class="sort"></div>
+
+            </div>
+
+            <div class="item">
+                <div class="img-block apple"></div>
+                <div class="sort"></div>
+
+            </div>
+
+            <div class="item">
+                <div class="img-block apple"></div>
+                <div class="sort"></div>
+
+            </div>
+
+            <div class="item">
+                <div class="img-block apple"></div>
+                <div class="sort"></div>
+
+            </div>
+
+            <div class="item">
+                <div class="img-block apple"></div>
+                <div class="sort"></div>
+
+            </div>
+
+            <div class="item">
+                <div class="img-block apple"></div>
+                <div class="sort"></div>
+
+            </div>
+
+            <div class="item">
+                <div class="img-block apple"></div>
+                <div class="sort"></div>
+
+            </div>
+
+            <div class="item">
+                <div class="img-block apple"></div>
+                <div class="sort"></div>
+
+            </div>
+
+            <div class="item">
+                <div class="img-block apple"></div>
+                <div class="sort"></div>
+
+            </div> -->
+
+
+
+
+
+
         </div>
 
 
+    </section>
+    <!-- <div class="container" id="container"></div> -->
+    <div class="loading">
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+    </div>
 
-    </main>
 
-    <footer>
-        <p>COPYRIGHT © 2021 台北一日遊</p>
-    </footer>
-    
 
-</body>
-<!-- <div class="more_button">
-        <button > add </button>
-    </div> -->
+</main>
 
+
+
+
+{% endblock %}
+
+{% block javascript %}
 <script src="../static/index_firstpage.js" defer></script>
-<script src="../static/user.js" defer></script>
-
-
-
-
-
-</html>
+{% endblock %}

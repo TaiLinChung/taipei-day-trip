@@ -8,25 +8,67 @@
 
 
 {% block inmain %}
-<!-- <div>123</div> -->
-<section class="bookingContent">
-    <div class="messageBlock">你好，Yakko，待預定的行程如下</div>
-    <div class="messageDownBlock">
-        <div class="imageBlock">123</div>
-        <div class="attractionIntroduceBlock">456
-            <div class="attractionName"></div>
-            <div class="orderDate"></div>
-            <div class="orderTime"></div>
-            <div class="orderFee"></div>
-            <div class="attractionAddress"></div>
+<main class="mainBefore">
+    <section class="bookingintroduce">
+        <div class="introduceContent">
+            <div class="messageBlock">你好，Yakko，待預定的行程如下 :</div>
+            <div class="messageDownBlock">
+                <img class="imageBlock"></img>
+                <div class="attractionIntroduceBlock">
+                    <p class="attractionName">台北一日遊：<i class="attractionNameContent">平安鐘</i><img></p>
+                    <p class="orderDate">日期：<i class="orderDateContent">2021-04-23</i></p>
+                    <p class="orderTime">時間：<i class="orderTimeContent"></i></p>
+                    <p class="orderFee">費用： 新台幣<i class="orderFeeContent"></i> 元</p>
+                    <p class="attractionAddress">地點：<i class="orderAddressContent">臺北市 大安區忠孝東路4段</i></p>
+                    <div class="trashcan"></div>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+    <hr>
+    <section class="bookingConnection">
+        <div class="connectionTitle">您的聯絡資訊</div>
+        <p>聯絡姓名：<input type="text" placeholder="請輸入姓名"></p>
+        <p>聯絡信箱：<input type="text" placeholder="請輸入信箱"></p>
+        <p>手機號碼：<input type="text" placeholder="請輸入手機號碼"></p>
+        <div class="connectionNotice">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+    </section>
+    <hr>
+    <section class="bookingPay">
+        <div class="payTitle">信用卡付款資訊</div>
+        <p>卡片號碼：<input type="text" maxlength="16" placeholder="**** **** **** ****"></p>
+        <!-- <p>卡片號碼：
+            <input type="text" class="card" maxlength="4">
+            <input type="text" class="card" maxlength="4">
+            <input type="text" class="card" maxlength="4">
+            <input type="text" class="card" maxlength="4">
+        </p> -->
+        <p>過期時間：<input type="text" placeholder="MM / YY"></p>
+        <p>驗證密碼：<input type="text" placeholder="CW"></p>
+    </section>
+    <hr>
+    <section class="bookingConfirm">
+        <p class="bookingTotal">總價：新台幣<i class="bookingTotalPrice">2000</i>元</p>
+        <div>確認訂購並付款</div>
+    </section>
 
+
+</main>
+
+<main class="mainAfter">
+    <section class="bookingintroduce">
+        <div class="introduceContent">
+            <div class="messageBlock">你好，Yakko，待預定的行程如下</div>
+            <div class="messageBlock">目前沒有任何待預訂的行程</div>
+        </div>
+    </section>
+</main>
 
 
 {% endblock %}
 
 
 {% block javascript %}
+<script src="../static/booking.js" defer></script>
+
 {% endblock %}

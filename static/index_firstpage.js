@@ -19,12 +19,12 @@ let attractionAmount=0;
 let attractionId ="";
 
 
-//BackToHome
-let goBackToHome=document.querySelector(".nav-bar-left");
-goBackToHome.addEventListener('click',function(e){
-    let url="/"
-    window.location.href = url;
-},false)
+// //BackToHome
+// let goBackToHome=document.querySelector(".nav-bar-left");
+// goBackToHome.addEventListener('click',function(e){
+//     let url="/"
+//     window.location.href = url;
+// },false)
 
 
 
@@ -189,9 +189,8 @@ function loadmore(){
 //click the searchBar then display search container and create items
 let searchBlock = document.querySelector(".search");
 function submitBtn() {
-    console.log("searchBar");
+    // console.log("searchBar");
     let searchcontainer = document.querySelector(".searchcontainer");
-    let searchItemAll = document.querySelectorAll(".searchItem");
     let searchItemform=document.querySelector(".searchForm");
     //remove Allchild
     while(searchItemform.hasChildNodes()){
@@ -220,15 +219,14 @@ function submitBtn() {
             keyinSearch.onclick=function(event){
                 let searchBar = document.querySelector(".search");
                 searchBar.value=event.target.id;
-                console.log(event);
+                // console.log(event);
                 searchcontainer.style.display="none";
             }
         }
 
-
+        
         //touchBody close the search item
-        let touchBody=document.querySelector("#body");
-        console.log(touchBody);
+        let touchBody=document.querySelector(".body");
         touchBody.addEventListener('click',function(e){
             // console.log(e.target.className);
             if(e.target.className!="searchForm" && e.target.className!="searchItem" && e.target.className!="search"){
@@ -254,7 +252,7 @@ function icon(){
         // containerBlock.style.display="none";
         // console.log(searchBlock.value);
         urlPage=urlKeywordmodel+searchBlock.value;
-        console.log(urlPage);
+        // console.log(urlPage);
         //updateKeyword
         keyword=searchBlock.value;
         //setIdreset

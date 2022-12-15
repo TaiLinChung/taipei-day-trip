@@ -27,9 +27,12 @@ mycursor.close()
 # from model.attraction_model import attraction
 from model import attraction #模組
 from model import name
+from model import connect
 print(name)
-# print(name)
-
+# print(attraction())
+attraction()
+connect(4,5)
+connect(7,10)
 
 # from model.user_model import user
 # attraction()
@@ -65,6 +68,8 @@ password=None
 idPersion=None
 checkDataResponse=None
 
+
+from model import DealDatabase
 #POST
 @user_blueprint.route("/api/user",methods=["POST"])
 def api_user():
@@ -76,12 +81,28 @@ def api_user():
     global password
     password=registerDataFromFrontEnd["password"]
     print("我在註冊頁面")
-    checkDataRegister()
+    ##try apple--------------------------------------------------------------------
+    # print("-----英雄------",DealDatabase(name,email,password))
+    # DealDatabase(name,email,password)
+
+    checkRegisteEmail()
     return jsonify(checkDataResponse)
 
 
-#   check databasesEmail
-def checkDataRegister():
+
+# first checkEmail
+import re
+def checkRegisteEmail():
+    if re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email):
+        dataRegiste()
+    else:
+        checkDataResponse={"error":True,"message":"信箱有誤，點此重新註冊"}
+        return jsonify(checkDataResponse)
+
+
+
+#   DataRegiste
+def dataRegiste():
     global checkDataResponse
     try:
         connection_object = connection_pool.get_connection()
@@ -92,20 +113,20 @@ def checkDataRegister():
         myresult_check=mycursor.fetchone()
         if myresult_check==None and name!="" and password!="":
             print("有執行註冊")
-            register()
+            registe()
             checkDataResponse={"ok":True}
         else:
             print("未執行註冊")
             checkDataResponse={"error":True,"message":"Email重複，點此重新註冊"}
     except:
-        print("有問題")
+        print("原本的有問題")
         checkDataResponse=({"error":True,"message":"500 伺服器內部錯誤"})
     finally:
         mycursor.close()
         connection_object.close()
 
 
-def register():
+def registe():
     try:
         connection_object = connection_pool.get_connection()
         mycursor =  connection_object.cursor()
@@ -138,12 +159,18 @@ def api_user_auth():
     if request.method=="GET":
         # checkCookie
         getToken=request.cookies.get("token")
-        print("查看當前頁面cookies中的Token",getToken)
+        # print("查看當前頁面cookies中的Token",getToken)
         # decoded
         if getToken!=None:
-            decoded=jwt.decode(getToken,secret_key,algorithms='HS256')     #decode-algorithms
-            print("解密完看data中的登錄者姓名",decoded["data"]["name"])
-            return decoded
+            try:
+                # print("執行解密")
+                decoded=jwt.decode(getToken,secret_key,algorithms='HS256')     #decode-algorithms
+                # print("解密完看data中的登錄者姓名",decoded["data"]["name"])
+                return decoded
+            except:
+                # 10S測試用
+                # print("token失效還想進入!!!送你出去")
+                return jsonify({"data":None})
         else:
             print("沒有token")
             return jsonify({"data":None})
@@ -199,14 +226,22 @@ payload={}
 secret_key = "wehelpJwtKEY@999"
 token=None
 import jwt
-from datetime import datetime
+import datetime
 def jwtEncode():
     global payload
     global token
-    payload={"data":{"id":idPersion,"email":email,"name":name,"admin":True}}
-    print(payload)
+    
+    # payload={"data":{"id":idPersion,"email":email,"name":name},'iat': datetime.datetime.utcnow(),'exp':(datetime.datetime.utcnow() + datetime.timedelta(seconds=10))}
+    payload={"data":{"id":idPersion,"email":email,"name":name},'iat': datetime.datetime.utcnow(),'exp':(datetime.datetime.utcnow() + datetime.timedelta(days=7))}
+    # print(payload)
     token=jwt.encode(payload,secret_key,algorithm='HS256')      #encode-algorithm
-    print(token)
+    # print(token)
     # decoded=jwt.decode(token,secret_key,algorithms='HS256')     #decode-algorithms
     # print(decoded)
+
+    # # 設置 JWT 有效期限為 10 秒
+    # expiration_time = datetime.timedelta(seconds=10)
+    # header = {"alg": "HS256"}
+    # payload = {"id":idPersion,"email":email,"name":name}
+    # token = pyjwt.PyJWT.encode(header, payload, secret_key, expiration_time)
 

@@ -7,6 +7,8 @@ from view.attraction_id import attraction_id_blueprint
 from view.categories import categories_blueprint
 from view.user import user_blueprint
 from view.user import user_auth_blueprint
+from view.booking import booking_blueprint
+
 
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
@@ -36,7 +38,7 @@ app.register_blueprint(user_auth_blueprint)
 app.register_blueprint(attractions_blueprint)
 app.register_blueprint(attraction_id_blueprint)
 app.register_blueprint(categories_blueprint)
-
+app.register_blueprint(booking_blueprint)
 
 
 
