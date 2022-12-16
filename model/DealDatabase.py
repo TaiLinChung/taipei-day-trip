@@ -19,8 +19,8 @@ sql="CREATE DATABASE IF NOT EXISTS taipei_day_trip"
 mycursor2.execute(sql)
 sql="USE taipei_day_trip"
 mycursor2.execute(sql)
-# sql="CREATE TABLE IF NOT EXISTS reservationFlash(id INT PRIMARY KEY AUTO_INCREMENT,attractionId INT,date VARCHAR(20),time VARCHAR(20),price INT)"
-sql="CREATE TABLE IF NOT EXISTS reservationFlash(id INT PRIMARY KEY AUTO_INCREMENT,attractionId INT,date VARCHAR(20),time VARCHAR(20),price INT,personId INT)"
+# sql="CREATE TABLE IF NOT EXISTS reservationflash(id INT PRIMARY KEY AUTO_INCREMENT,attractionId INT,date VARCHAR(20),time VARCHAR(20),price INT)"
+sql="CREATE TABLE IF NOT EXISTS reservationflash(id INT PRIMARY KEY AUTO_INCREMENT,attractionId INT,date VARCHAR(20),time VARCHAR(20),price INT,personId INT)"
 mycursor2.execute(sql)
 mycursor2.close()
 mydb.close()
@@ -120,7 +120,7 @@ def registe(name,email,password):
 
 
 
-# 寫入reservationFlash
+# 寫入reservationflash
 # bookingAttractionId=None
 # bookingDate=None
 # bookingPrice=None
@@ -244,7 +244,7 @@ def DeleteDataForBookingPage(attractionId,personId):
 # 	try:
 # 		connection_object = connection_pool.get_connection()
 # 		mycursor =  connection_object.cursor()
-# 		sql_check="SELECT *FROM reservationFlash WHERE attractionId=%s"
+# 		sql_check="SELECT *FROM reservationflash WHERE attractionId=%s"
 #         adr_check=(bookingAttractionId,)
 #         mycursor.execute(sql_check,adr_check)
 #         myresult_check=mycursor.fetchone()
