@@ -19,15 +19,6 @@ let attractionAmount=0;
 let attractionId ="";
 
 
-// //BackToHome
-// let goBackToHome=document.querySelector(".nav-bar-left");
-// goBackToHome.addEventListener('click',function(e){
-//     let url="/"
-//     window.location.href = url;
-// },false)
-
-
-
 //Default start from first page
 urlPage=urlModel+nextPage;
 getData();
@@ -40,7 +31,7 @@ function getData(){
         return response.json();
     }).then(function(data){
 
-        if (data["error"]==true){
+        if (data["error"]===true){
             console.log("the end");
         }else{
             // console.log("continue")

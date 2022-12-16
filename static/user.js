@@ -1,29 +1,38 @@
-let SigninRegister=document.querySelector(".SigninRegister");
-let filmBackground=document.querySelector(".filmBackground");
-let signinBlock=document.querySelector(".signinBlock");
-let signinCreateAccount=document.querySelector(".signinCreateAccount");
-let registerBlock=document.querySelector(".registerBlock");
-let registerSignInTo=document.querySelector(".registerSignInTo");
-let signinClose=document.querySelector(".signinClose");
-let registerClose=document.querySelector(".registerClose");
+
+//BackToHome
+const navBackToHome=document.querySelector(".nav-bar-left");
+navBackToHome.addEventListener('click',function(){
+    let url="/"
+    window.location.href = url;
+},false)
+
+
+const navSignInRegiste=document.querySelector(".SigninRegister");
+const filmBackground=document.querySelector(".filmBackground");
+const signinPage=document.querySelector(".signinBlock");
+const signinCreateAccount=document.querySelector(".signinCreateAccount");
+const registePage=document.querySelector(".registerBlock");
+const registerSignInTo=document.querySelector(".registerSignInTo");
+const signinClose=document.querySelector(".signinClose");
+const registerClose=document.querySelector(".registerClose");
 
 
 //listener
-SigninRegister.addEventListener('click',function(){
+navSignInRegiste.addEventListener('click',function(){
     filmBackground.style.display="block";
-    signinBlock.style.display="flex";
+    signinPage.style.display="flex";
 },false)
 
 //listener
 signinCreateAccount.addEventListener('click',function(){
-    signinBlock.style.display="none";
-    registerBlock.style.display="flex";
+    signinPage.style.display="none";
+    registePage.style.display="flex";
 },false)
 
 // listener
 registerSignInTo.addEventListener('click',function(){
-    registerBlock.style.display="none";
-    signinBlock.style.display="flex";
+    registePage.style.display="none";
+    signinPage.style.display="flex";
 },false)
 
 // listener
@@ -36,9 +45,13 @@ registerClose.addEventListener('click',function(){
     close();
 },false)
 
+
+
+
+
 function close(){
-    signinBlock.style.display="none";
-    registerBlock.style.display="none";
+    signinPage.style.display="none";
+    registePage.style.display="none";
     filmBackground.style.display="none";
     registerMessage.style.display="none";
     registerContent.style.height="322px";
@@ -47,6 +60,11 @@ function close(){
     document.querySelector(".registerEmail").value="";
     document.querySelector(".registerPassword").value="";
 }
+
+
+
+
+
 
 //get register data
 let registerName="";
@@ -63,7 +81,11 @@ registerBtn.addEventListener('click',function(){
     checkRegisterFront();
 },false)
 
+
+
 // ------------------------------------------------------------------
+
+//前端正則表達式
 function checkRegisterFront(){
     console.log("前端檢查中");
     let testForEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
@@ -74,15 +96,18 @@ function checkRegisterFront(){
             console.log("通過前端");
             postRegisterDataToBackEnd();
         }
-        if(testForName.test(registerName)!=true) {
-            responseFromBackend={"message":"姓名只接受英文跟中文形式，點此重新輸入"};
-            dealRegistResponseFromBackend();
+        else{
+            if(testForName.test(registerName)!=true) {
+                responseFromBackend={"message":"姓名只接受英文跟中文形式，點此重新輸入"};
+                dealRegistResponseFromBackend();
+            }
+            else if(testForEmail.test(registerEmail)!=true) {
+                // XXXXresponseFromBackend["message"]
+                responseFromBackend={"message":"請輸入正確信箱格式，點此重新輸入"};
+                dealRegistResponseFromBackend();
+            }
         }
-        else if(testForEmail.test(registerEmail)!=true) {
-            // responseFromBackend["message"]
-            responseFromBackend={"message":"請輸入正確信箱格式，點此重新輸入"};
-            dealRegistResponseFromBackend();
-        }
+        
         
     }else{
         responseFromBackend={"message":"註冊資料不可為空，點此重新輸入"};
@@ -135,7 +160,7 @@ function dealRegistResponseFromBackend(){
         registerMessage.addEventListener('click',function(){
             close();
             filmBackground.style.display="block";
-            registerBlock.style.display="flex";
+            registePage.style.display="flex";
             registerContent.style.height="322px";
             registerSignInTo.style.top="70px";
         },false)
@@ -217,7 +242,7 @@ function checkToken(){
         // 如果回傳的token帶登入狀態 右上角改成登出字樣
         if(data["data"]!=null){
             // console.log("目前為登入狀態");
-            SigninRegister.style.display="none";
+            navSignInRegiste.style.display="none";
             SignOut.style.display="flex";
         }
         else{
@@ -287,7 +312,7 @@ function checkUserToken(){
         else{
             // console.log("booking非登入狀態");
             filmBackground.style.display="block";
-            signinBlock.style.display="flex";
+            signinPage.style.display="flex";
             // pushSignOutRequestToBackEnd();
             // let url="/"
             // window.location.href = url;
