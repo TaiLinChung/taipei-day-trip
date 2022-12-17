@@ -1,3 +1,24 @@
+# from view.sample import my_func
+# my_func()
+# my_func()
+# from model.aaa import my_func
+# my_func()
+# from model.attraction_model import attraction
+
+# 使用init原理解析演示
+# from model import attraction #模組
+# from model import name
+# from model import connect
+# print(name)
+# # print(attraction())
+# attraction()
+# connect(4,5)
+# connect(7,10)
+
+# from model.user_model import user
+# attraction()
+# user()
+
 
 from flask import *
 from flask import jsonify
@@ -17,28 +38,6 @@ mycursor.execute(sql)
 sql="CREATE TABLE IF NOT EXISTS accounts(id_people INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(200),email VARCHAR(200),password VARCHAR(200))"
 mycursor.execute(sql)
 mycursor.close()
-
-
-# from view.sample import my_func
-# my_func()
-# my_func()
-# from model.aaa import my_func
-# my_func()
-# from model.attraction_model import attraction
-from model import attraction #模組
-from model import name
-from model import connect
-print(name)
-# print(attraction())
-attraction()
-connect(4,5)
-connect(7,10)
-
-# from model.user_model import user
-# attraction()
-# user()
-
-
 
 import mysql.connector.pooling
 dbconfig={

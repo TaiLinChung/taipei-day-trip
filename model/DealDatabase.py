@@ -1,7 +1,7 @@
-
-from model import kkk
-print("got it outside??")
-print(kkk)
+# 使用init原理解析演示
+# from model import kkk
+# print("got it outside??")
+# print(kkk)
 
 
 from flask import *
@@ -19,7 +19,9 @@ sql="CREATE DATABASE IF NOT EXISTS taipei_day_trip"
 mycursor2.execute(sql)
 sql="USE taipei_day_trip"
 mycursor2.execute(sql)
-# sql="CREATE TABLE IF NOT EXISTS reservationflash(id INT PRIMARY KEY AUTO_INCREMENT,attractionId INT,date VARCHAR(20),time VARCHAR(20),price INT)"
+# 建立table index提升搜尋速度
+sql="ALTER TABLE datas3 ADD INDEX attractionId_index(id)"
+mycursor2.execute(sql)
 sql="CREATE TABLE IF NOT EXISTS reservationflash(id INT PRIMARY KEY AUTO_INCREMENT,attractionId INT,date VARCHAR(20),time VARCHAR(20),price INT,personId INT)"
 mycursor2.execute(sql)
 mycursor2.close()
@@ -30,7 +32,6 @@ mydb.close()
 
 
 import mysql.connector.pooling
-##try more by apple
 import mysql.connector.pooling
 dbconfig={
 	"user":"root",
