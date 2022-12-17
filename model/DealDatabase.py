@@ -55,27 +55,6 @@ def DealDatabase(name,email,password):
 
 	connection_object = connection_pool.get_connection()
 	mycursor =  connection_object.cursor()
-	
-
-
-	# if name==None or email==None or password==None:
-	# 	return "None"
-	# else:
-	# 	return "Not empty"
-
-	# try:
-	# 	sql_check="SELECT *FROM accounts WHERE email=%s"
-	# 	adr_check=(email,)
-	# 	mycursor.execute(sql_check,adr_check)
-	# 	myresult_check=mycursor.fetchone()
-	# 	return myresult_check
-	# except:
-	# 	return "00000"
-	#似乎不用關
-	# finally:
-	# 	mycursor.close()
-    #     connection_object.close()
-
 	global checkDataResponse
 	# name=name
 	# email=email
@@ -153,13 +132,13 @@ def DealBooking(bookingData,personId):
 				# print("註冊資料")
 			return jsonify({"ok":True})
 		except:
-			return jsonify({"error": True,"message": "伺服器內部錯誤"})
+			return jsonify({"error": True,"message": "註冊伺服器內部錯誤"})
 		finally:
 			mycursor.close()
 			connection_object.close()
 
 	else:
-		return jsonify({"error": True,"message": "上述資料皆不可為空"})
+		return jsonify({"error": True,"message": "註冊上述資料皆不可為空"})
 
 
 
@@ -167,32 +146,60 @@ def DealBooking(bookingData,personId):
 def GetDataForBookingPage(username,personId):
 	try:
 		connection_object = connection_pool.get_connection()
-		mycursor =  connection_object.cursor()
+		# mycursor =  connection_object.cursor()
+		mycursor = connection_object.cursor(dictionary=True) # 把fetchone跟fetchall的搜尋結果回傳都為字典形式
 		# sql="SELECT datas3.id,datas3.name,datas3.address,datas3.images,reservationflash.date,reservationflash.time,reservationflash.price FROM datas3 INNER JOIN reservationflash ON datas3.id = reservationflash.attractionId"
 		sql="SELECT datas3.id,datas3.name,datas3.address,datas3.images,reservationflash.date,reservationflash.time,reservationflash.price FROM datas3 INNER JOIN reservationflash ON reservationflash.personId=%s and datas3.id = reservationflash.attractionId"
 		val=(personId,)
 		mycursor.execute(sql,val)
 		# mycursor.execute(sql)
 		myresult=mycursor.fetchone()
-		# print("---------------666-----------")
-		# print(myresult)
+
+		print("---------------666myresult1-----------")
+		print(myresult)
+		
+		# for result in myresult2:
+		# 	columns = [col[0] for col in mycursor.description]
+		# 	data=dict(zip(columns,result))
+		# 	print(result)
+		# 	# print(data)
+		# print("---------------666myresult2-----------")
+		# myresult2=mycursor.fetchall()
+		# print(myresult2)
+		
+
+
+		print("--------------------------")
+		# CREATE TABLE IF NOT EXISTS reservationflash(id INT PRIMARY KEY AUTO_INCREMENT,attractionId INT,date VARCHAR(20),time VARCHAR(20),price INT,personId INT
 		if myresult!=None:
+		# if myresult!=[]:	
+			# print(myresult["id"])
+
+
+			# print("---------------666-----------")
+			# for result in myresult:
+			# 	# columns = [col[0] for col in mycursor.description]
+			# 	# data=dict(zip(columns,result))
+			# 	print(result)
+			# # print(data)
+
+
+
 			# print("--------------")
-			# print(myresult)
-			img=myresult[3].split(" ")
-			# print(img[0])
+
+			img=myresult["images"].split(" ")
 			response=(
 			{
 				"data":{
 					"attraction":{
-						"id":myresult[0],
-						"name":myresult[1],
-						"address":myresult[2],
+						"id":myresult["id"],
+						"name":myresult["name"],
+						"address":myresult["address"],
 						"image":img[0],
 						},
-						"date":myresult[4],
-						"time":myresult[5],
-						"price":myresult[6],
+						"date":myresult["date"],
+						"time":myresult["time"],
+						"price":myresult["price"],
 						
 				},"username":username
 			})
@@ -233,21 +240,3 @@ def DeleteDataForBookingPage(attractionId,personId):
 
 
 
-
-
-
-
-
-
-
-# def ifEverBook(bookingAttractionId):
-# 	try:
-# 		connection_object = connection_pool.get_connection()
-# 		mycursor =  connection_object.cursor()
-# 		sql_check="SELECT *FROM reservationflash WHERE attractionId=%s"
-#         adr_check=(bookingAttractionId,)
-#         mycursor.execute(sql_check,adr_check)
-#         myresult_check=mycursor.fetchone()
-# 		# 已經打算預訂過這個
-#         if myresult_check==None and name!="" and password!="":
-		

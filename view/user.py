@@ -80,11 +80,7 @@ def api_user():
     email=registerDataFromFrontEnd["email"]
     global password
     password=registerDataFromFrontEnd["password"]
-    print("我在註冊頁面")
-    ##try apple--------------------------------------------------------------------
-    # print("-----英雄------",DealDatabase(name,email,password))
-    # DealDatabase(name,email,password)
-
+    # print("我在註冊頁面")
     checkRegisteEmail()
     return jsonify(checkDataResponse)
 
@@ -96,8 +92,8 @@ def checkRegisteEmail():
     if re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email):
         dataRegiste()
     else:
-        checkDataResponse={"error":True,"message":"信箱有誤，點此重新註冊"}
-        return jsonify(checkDataResponse)
+        checkDataResponse={"error":True,"message":"信箱型態有誤，點此重新註冊"}
+        return (checkDataResponse)
 
 
 
@@ -112,15 +108,15 @@ def dataRegiste():
         mycursor.execute(sql_check,adr_check)
         myresult_check=mycursor.fetchone()
         if myresult_check==None and name!="" and password!="":
-            print("有執行註冊")
+            # print("有執行註冊")
             registe()
             checkDataResponse={"ok":True}
         else:
             print("未執行註冊")
             checkDataResponse={"error":True,"message":"Email重複，點此重新註冊"}
     except:
-        print("原本的有問題")
-        checkDataResponse=({"error":True,"message":"500 伺服器內部錯誤"})
+        # print("原本的有問題")
+        checkDataResponse=({"error":True,"message":"註冊階段500 伺服器內部錯誤"})
     finally:
         mycursor.close()
         connection_object.close()
