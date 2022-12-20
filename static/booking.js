@@ -45,8 +45,9 @@ window.addEventListener("load", function() {
 
 
 
-
-
+const bookingName=document.querySelector(".bookingName");
+const bookingEmail=document.querySelector(".bookingEmail");
+const bookingCellphone=document.querySelector(".bookingCellphone");
 let username="";
 function getBookingData(){
     fetch("/api/booking",{
@@ -55,11 +56,12 @@ function getBookingData(){
         //packing and return to Backend
         return response.json();
     }).then(function(data){
-        console.log("GET",data);
-        console.log("-----------");
+        // console.log("GET",data);
+        // console.log("-----------");
         if(data["data"]!=null){
             username=data["username"];
             messageBlock.textContent="你好，"+data["username"]+"，待預定的行程如下 :";
+            bookingName.value=data["username"];
             attractionNameContent.textContent=data["data"]["attraction"]["name"];
             orderDateContent.textContent=data["data"]["date"];
             if(data["data"]["time"]=="morning"){
@@ -154,3 +156,260 @@ function displayNone(){
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//===========================   tapPay  ==========================
+//=========================== setting bar attribute  =============
+const bookingConfirmButton=document.querySelector(".bookingConfirmButton");
+TPDirect.card.setup({
+    // Display ccv field
+    fields : {
+        number: {
+            // css selector
+            element: '#card-number',
+            placeholder: '**** **** **** ****'
+        },
+        expirationDate: {
+            // DOM object
+            element: document.getElementById('card-expiration-date'),
+            placeholder: 'MM / YY'
+        },
+        ccv: {
+            element: '#card-ccv',
+            placeholder: 'ccv'
+        }
+    },
+
+    styles: {
+        // Style all elements
+        'input': {
+            'color': 'gray'
+        },
+        // Styling ccv field
+        'input.ccv': {
+            // 'font-size': '16px'
+        },
+        // Styling expiration-date field
+        'input.expiration-date': {
+            // 'font-size': '16px'
+        },
+        // Styling card-number field
+        'input.card-number': {
+            // 'font-size': '16px'
+        },
+        // style focus state
+        ':focus': {
+            // 'color': 'black'
+        },
+        // style valid state
+        '.valid': {
+            'color': 'green'
+        },
+        // style invalid state
+        '.invalid': {
+            'color': 'red'
+        },
+        // Media queries
+        // Note that these apply to the iframe, not the root window.
+        '@media screen and (max-width: 400px)': {
+            'input': {
+                'color': 'orange'
+            }
+        }
+    },
+    // 此設定會顯示卡號輸入正確後，會顯示前六後四碼信用卡卡號
+    isMaskCreditCardNumber: true,
+    maskCreditCardNumberRange: {
+        beginIndex: 6,
+        endIndex: 11
+    }
+})
+
+bookingConfirmButton.style.cursor = "default";
+bookingConfirmButton.setAttribute('disabled', true)
+
+//=========================== checking mechanism  ===========================
+TPDirect.card.onUpdate(function (update) {
+    // update.canGetPrime === true
+    // --> you can call TPDirect.card.getPrime()
+    console.log("RRR");
+
+    if (update.canGetPrime) {
+        // Enable submit Button to get prime.
+        // submitButton.removeAttribute('disabled')
+        console.log("AAA");
+        bookingConfirmButton.style.cursor = "pointer";
+        bookingConfirmButton.style.backgroundColor="#448899";
+        bookingConfirmButton.removeAttribute('disabled');
+        
+
+    } else {
+        // Disable submit Button to get prime.
+        // submitButton.setAttribute('disabled', true)
+        console.log("BBB");
+    }
+
+    // cardTypes = ['mastercard', 'visa', 'jcb', 'amex', 'unionpay','unknown']
+    if (update.cardType === 'visa') {
+        // Handle card type visa.
+        console.log("CCC");
+    }
+
+    // number 欄位是錯誤的
+    if (update.status.number === 2) {
+        console.log("111");
+        // setNumberFormGroupToError()
+    } else if (update.status.number === 0) {
+        // setNumberFormGroupToSuccess()
+        console.log("222");
+    } else {
+        // setNumberFormGroupToNormal()
+        console.log("333");
+    }
+
+    if (update.status.expiry === 2) {
+        // setNumberFormGroupToError()
+        console.log("444");
+    } else if (update.status.expiry === 0) {
+        // setNumberFormGroupToSuccess()
+        console.log("555");
+    } else {
+        // setNumberFormGroupToNormal()
+        console.log("666");
+    }
+
+    if (update.status.ccv === 2) {
+        // setNumberFormGroupToError()
+        console.log("777");
+    } else if (update.status.ccv === 0) {
+        // setNumberFormGroupToSuccess()
+        console.log("888");
+    } else {
+        // setNumberFormGroupToNormal()
+        console.log("999");
+    }
+})
+
+
+
+
+//====== call TPDirect.card.getPrime when user submit form to get tappay prime  ======
+const bookingConnectionErrorMessage=document.querySelector(".bookingConnectionErrorMessage");
+bookingConfirmButton.addEventListener('click',function(){
+    if(judgeDataIntegrity()){
+        onSubmit();
+    }
+    else{
+        bookingConnectionErrorMessage.style.display="block";
+    }
+},false)
+
+
+
+
+// $('form').on('submit', onSubmit)
+function onSubmit(event) {
+    // event.preventDefault() //這幹嘛用的
+
+    // 取得 TapPay Fields 的 status
+    const tappayStatus = TPDirect.card.getTappayFieldsStatus()
+
+    // 確認是否可以 getPrime
+    if (tappayStatus.canGetPrime === false) {
+        alert('can not get prime')
+        return
+    }
+
+    // Get prime
+    TPDirect.card.getPrime((result) => {
+        if (result.status !== 0) {
+            alert('get prime error ' + result.msg)
+            return
+        }
+        console.log(result.card.prime);
+        prime=result.card.prime;
+        bookingDataForTappay=collectBookingDataForTappay(prime);
+        // console.log(collectBookingDataForTappay(prime));
+        postBookingDataForTappayToBackend(bookingDataForTappay);
+        // alert('get prime 成功，prime: ' + result.card.prime)
+        
+        // send prime to your server, to pay with Pay by Prime API .
+        // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
+    })
+}
+
+
+
+function judgeDataIntegrity(){
+    if(bookingName.value!=="" & bookingEmail.value!=="" & bookingCellphone.value!==""){
+        console.log("true");
+        return true
+    }
+}
+
+
+function collectBookingDataForTappay(prime){
+    dataForTappay={
+        "prime":prime,
+        "order":{
+            "price":bookingTotalPrice.textContent,
+            "trip":{
+                "attraction":{
+                    "id":trashcan.id,
+                    "name":attractionNameContent.textContent,
+                    "address":orderAddressContent.textContent,
+                    "image":imageBlock.src
+                },
+                "date":orderDateContent.textContent,
+                "time":orderTimeContent.textContent
+            },
+            "contact":{
+                "name":bookingName.value,
+                "email":bookingEmail.value,
+                "phone":bookingCellphone.value
+            }
+        }
+    }
+    return dataForTappay
+}
+
+
+
+
+function postBookingDataForTappayToBackend(bookingDataForTappay){
+    fetch("/api/orders",{
+        method:"POST",
+        body:JSON.stringify(bookingDataForTappay),
+        headers:new Headers({
+            "content-type":"application/json"
+        })
+    }).then(function(response){
+        return response.json();
+    // }).then(function(data){
+    //     responseFromBackend=data;
+    //     console.log(responseFromBackend);
+    //     dealRegistResponseFromBackend();
+    })
+}

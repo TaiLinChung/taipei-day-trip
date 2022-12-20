@@ -132,23 +132,12 @@ main hr {
 main .bookingConnection {
   margin-top: 40px;
   width: 980px;
-  height: 235px;
   margin-left: auto;
   margin-right: auto;
 }
 @media (max-width: 1250px) {
   main .bookingConnection {
     width: 90%;
-  }
-}
-@media (max-width: 850px) {
-  main .bookingConnection {
-    height: 270px;
-  }
-}
-@media (max-width: 450px) {
-  main .bookingConnection {
-    height: 300px;
   }
 }
 main .bookingConnection div {
@@ -174,10 +163,14 @@ main .bookingConnection .connectionTitle {
 main .bookingConnection .connectionNotice {
   font-weight: 700;
 }
+main .bookingConnection .bookingConnectionErrorMessage {
+  font-weight: 1000;
+  color: red;
+  display: none;
+}
 main .bookingPay {
   margin-top: 44px;
   width: 980px;
-  height: 200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -206,6 +199,19 @@ main .bookingPay .payTitle {
   font-weight: 700;
   margin-bottom: 20px;
 }
+main .bookingPay .bar {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+main .bookingPay .bar .tpfield {
+  height: 38px;
+  width: 200px;
+  border: 2px #E8E8E8 solid;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
 main .bookingConfirm {
   margin-top: 40px;
   width: 980px;
@@ -226,15 +232,17 @@ main .bookingConfirm p {
   font-weight: 700;
   font-size: 16px;
 }
-main .bookingConfirm div {
+main .bookingConfirm button {
   width: 173px;
   height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #448899;
+  background: lightgray;
   border-radius: 5px;
   font-size: 19px;
   float: right;
   color: white;
+  cursor: pointer;
+  border: none;
 }/*# sourceMappingURL=booking.css.map */

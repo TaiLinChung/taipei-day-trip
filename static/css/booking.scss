@@ -155,7 +155,7 @@ main{
     .bookingConnection{
         margin-top: 40px;
         width:980px;
-        height: 235px;
+        // height: 235px;
         // background-color:rgb(240, 129, 129);
         margin-left: auto;
         margin-right: auto;
@@ -163,10 +163,10 @@ main{
             width:90%;
         }
         @include screen850{
-            height: 270px;
+            // height: 270px;
         }
         @include screen450{
-            height: 300px;
+            // height: 300px;
         }
         div{
             color: #666666;
@@ -190,13 +190,18 @@ main{
         }
         .connectionNotice{  
             font-weight: 700;
-        }  
+        }
+        .bookingConnectionErrorMessage{
+            font-weight: 1000;
+            color: red;
+            display: none;
+        }
     }
 
     .bookingPay{
         margin-top: 44px;
         width:980px;
-        height: 200px;
+        // height: 200px;
         // background-color:rgb(234, 117, 117);
         margin-left: auto;
         margin-right: auto;
@@ -222,6 +227,20 @@ main{
         .payTitle{
             font-weight: 700;
             margin-bottom: 20px;
+            // background-color: #666666;
+            
+        }
+        .bar{display: flex;
+            margin-bottom: 10px;
+            align-items: center;
+            .tpfield {
+                height: 38px;
+                width: 200px;
+                border:2px #E8E8E8 solid;
+                margin: 5px 0;
+                padding: 10px;
+                border-radius: 5px;
+            }
         }
 
     }
@@ -229,9 +248,9 @@ main{
         margin-top: 40px;
         width:980px;
         height: 100px;
-        // background-color:rgb(246, 134, 134);
         margin-left: auto;
         margin-right: auto;
+        // display:block;
         @include screen1250{
             width:90%;
         }
@@ -244,17 +263,20 @@ main{
             font-weight: 700;
             font-size: 16px;
         }
-        div{
+        button{
             width: 173px;
             height: 36px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #448899;
+            background: lightgray;
             border-radius: 5px;
             font-size: 19px;
             float:right;
             color:white;
+            cursor: pointer;
+            border:none;
+            
         }
 
 

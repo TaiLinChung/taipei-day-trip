@@ -8,6 +8,8 @@ from view.categories import categories_blueprint
 from view.user import user_blueprint
 from view.user import user_auth_blueprint
 from view.booking import booking_blueprint
+from view.orders import orders_blueprint
+
 
 
 app=Flask(__name__)
@@ -39,7 +41,7 @@ app.register_blueprint(attractions_blueprint)
 app.register_blueprint(attraction_id_blueprint)
 app.register_blueprint(categories_blueprint)
 app.register_blueprint(booking_blueprint)
-
+app.register_blueprint(orders_blueprint)
 
 
 app.run(host='0.0.0.0',port=3000)
