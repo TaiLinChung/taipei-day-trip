@@ -318,12 +318,22 @@ TPDirect.card.onUpdate(function (update) {
 //====== call TPDirect.card.getPrime when user submit form to get tappay prime  ======
 const bookingConnectionErrorMessage=document.querySelector(".bookingConnectionErrorMessage");
 bookingConfirmButton.addEventListener('click',function(){
-    if(judgeDataIntegrity()){
-        onSubmit();
-    }
-    else{
+    if(!(judgeDataIntegrity())){
         bookingConnectionErrorMessage.style.display="block";
+        bookingConnectionErrorMessage.textContent="聯絡資訊皆不可為空，請填寫完整後再按下確認"
+        return
     }
+    if(!(judgeEmailFormal())){
+        bookingConnectionErrorMessage.style.display="block";
+        bookingConnectionErrorMessage.textContent="信箱格式錯誤，請填寫完整後再按下確認"
+        return
+    }
+    if(!(judgeNameFormal())){
+        bookingConnectionErrorMessage.style.display="block";
+        bookingConnectionErrorMessage.textContent="姓名只允許中文或英文，請填寫完整後再按下確認"
+        return
+    }
+    onSubmit();
 },false)
 
 
@@ -368,6 +378,53 @@ function judgeDataIntegrity(){
         return true
     }
 }
+
+
+// 前端正則表達式
+function judgeEmailFormal(){
+    let testForEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
+    if(testForEmail.test(bookingEmail.value)==true){
+        return true
+        
+        // postRegisterDataToBackEnd();
+    }
+}
+
+function judgeNameFormal(){
+    let testForName = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+    if(testForName.test(bookingName.value)==true){
+        return true
+        
+        // postRegisterDataToBackEnd();
+    }
+}
+
+// function checkRegisterFront(){
+//     let testForEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
+//     let testForName = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+//     if(testForEmail.test(bookingEmail.value)==true && testForName.test(bookingName.value)==true){
+//         console.log("通過前端");
+//         // postRegisterDataToBackEnd();
+//     }
+//     else{
+//         if(testForName.test(registerName)!=true) {
+//             console.log("姓名只接受英文跟中文形式，點此重新輸入");
+//             // responseFromBackend={"message":"姓名只接受英文跟中文形式，點此重新輸入"};
+//             // dealRegistResponseFromBackend();
+//         }
+//         else if(testForEmail.test(registerEmail)!=true) {
+//             console.log("請輸入正確信箱格式，點此重新輸入");
+//             // XXXXresponseFromBackend["message"]
+//             // responseFromBackend={"message":"請輸入正確信箱格式，點此重新輸入"};
+//             // dealRegistResponseFromBackend();
+//         }
+//     }
+        
+// }
+
+
+
+
 
 
 function collectBookingDataForTappay(prime){

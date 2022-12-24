@@ -255,10 +255,10 @@ def get_categories_search_bar_item_data():
 		sql="SELECT DISTINCT category FROM datas3"
 		mycursor.execute(sql)
 		myresult_categories=mycursor.fetchall()
-		print(myresult_categories)
+		# print(myresult_categories)
 		for item in myresult_categories:
 			category_items.append(item["category"])
-		print(category_items)
+		# print(category_items)
 		return (category_items)
 	except Exception as e:
 		print("DealDatabase categories_search_bar_item_data()發生問題",e)

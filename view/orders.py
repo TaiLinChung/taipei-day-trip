@@ -29,9 +29,9 @@ def api_orders():
         order_data_from_frontEnd = request.get_json()
         if order_data_is_empty(order_data_from_frontEnd):
             return jsonify({"error": True,"message": "order資料皆不可為空"})
-        # contact_email=order_data_from_frontEnd["order"]["contact"]["email"]
-        # if not check_email_format(contact_email):
-        #     return jsonify({"error":True,"message":"信箱型態有誤"})
+        contact_email=order_data_from_frontEnd["order"]["contact"]["email"]
+        if not check_email_format(contact_email):
+            return jsonify({"error":True,"message":"信箱型態有誤"})
         if not order_reservation_exist(person_id,order_data_from_frontEnd):
             return jsonify({"error":True,"message":"此筆訂單並不存在屬於您的預訂清單中"})
         #創建歷史訂購清單
@@ -64,7 +64,7 @@ def api_order_num(orderNumber):
         person_id=decode["data"]["id"]
         transaction_number=orderNumber
         transaction_record=get_transaction_record_by_transaction_number(transaction_number,person_id)
-        print(transaction_record)
+        # print(transaction_record)
         if transaction_record:
             return jsonify(transaction_record)
         return jsonify({"error":True,"message":"此筆訂單並不存在屬於您的預訂清單中"})
