@@ -1,0 +1,248 @@
+@charset "UTF-8";
+main .bookingintroduce {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+main .bookingintroduce .introduceContent {
+  margin-top: 54px;
+  width: 1000px;
+}
+@media (max-width: 1250px) {
+  main .bookingintroduce .introduceContent {
+    width: 90%;
+  }
+}
+main .bookingintroduce .introduceContent .messageBlock {
+  margin-top: 46px;
+  height: 27px;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 27px;
+  color: #666666;
+}
+main .bookingintroduce .introduceContent .messageDownBlock {
+  height: 220px;
+  width: 960px;
+  margin-top: 30px;
+  margin-left: 10px;
+  display: flex;
+  position: relative;
+}
+@media (max-width: 1250px) {
+  main .bookingintroduce .introduceContent .messageDownBlock {
+    width: 90%;
+  }
+}
+@media (max-width: 580px) {
+  main .bookingintroduce .introduceContent .messageDownBlock {
+    width: 90%;
+    height: 395px;
+    display: block;
+  }
+}
+main .bookingintroduce .introduceContent .messageDownBlock .imageBlock {
+  width: 266px;
+  height: 200px;
+  display: flex;
+  margin-top: 5px;
+  -o-object-position: center center;
+     object-position: center center;
+  -o-object-fit: cover;
+     object-fit: cover; /*裁切縮放*/
+}
+@media (max-width: 580px) {
+  main .bookingintroduce .introduceContent .messageDownBlock .imageBlock {
+    width: 100%;
+    display: block;
+  }
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock {
+  margin-left: 22px;
+}
+@media (max-width: 580px) {
+  main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock {
+    margin-left: 0px;
+    height: 190px;
+  }
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock p {
+  color: #666666;
+  font-weight: 700;
+  font-size: 16px;
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock i {
+  margin-left: 5px;
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .attractionName {
+  margin-top: 5px;
+  color: #448899;
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .orderDate {
+  margin-top: 20px;
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .orderDate i {
+  font-weight: 500;
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .orderTime {
+  margin-top: 10px;
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .orderTime i {
+  font-weight: 500;
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .orderFee {
+  margin-top: 10px;
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .orderFee i {
+  font-weight: 500;
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .attractionAddress {
+  margin-top: 10px;
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .attractionAddress i {
+  font-weight: 500;
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .trashcan {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  bottom: 190px;
+  right: 0px;
+  background-image: url("../img/icon_delete.png");
+  background-repeat: no-repeat;
+  border: 0;
+}
+@media (max-width: 850px) {
+  main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .trashcan {
+    bottom: 0px;
+  }
+}
+main hr {
+  margin-top: 40px;
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #E8E8E8;
+}
+@media (max-width: 1250px) {
+  main hr {
+    width: 90%;
+  }
+}
+main .bookingConnection {
+  margin-top: 40px;
+  width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 1250px) {
+  main .bookingConnection {
+    width: 90%;
+  }
+}
+main .bookingConnection div {
+  color: #666666;
+}
+main .bookingConnection p {
+  color: #666666;
+  height: 38px;
+  line-height: 38px;
+  margin-bottom: 15px;
+}
+main .bookingConnection p input {
+  height: 38px;
+  width: 200px;
+  padding: 10px;
+  border: 2px #E8E8E8 solid;
+  border-radius: 5px;
+}
+main .bookingConnection .connectionTitle {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+main .bookingConnection .connectionNotice {
+  font-weight: 700;
+}
+main .bookingConnection .bookingConnectionErrorMessage {
+  font-weight: 1000;
+  color: red;
+  display: none;
+}
+main .bookingPay {
+  margin-top: 44px;
+  width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 1250px) {
+  main .bookingPay {
+    width: 90%;
+  }
+}
+main .bookingPay div {
+  color: #666666;
+}
+main .bookingPay p {
+  color: #666666;
+  height: 38px;
+  line-height: 38px;
+  margin-bottom: 15px;
+}
+main .bookingPay p input {
+  height: 38px;
+  width: 200px;
+  padding: 10px;
+  border: 2px #E8E8E8 solid;
+  border-radius: 5px;
+}
+main .bookingPay .payTitle {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+main .bookingPay .bar {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+main .bookingPay .bar .tpfield {
+  height: 38px;
+  width: 200px;
+  border: 2px #E8E8E8 solid;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+main .bookingConfirm {
+  margin-top: 40px;
+  width: 980px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 1250px) {
+  main .bookingConfirm {
+    width: 90%;
+  }
+}
+main .bookingConfirm p {
+  color: #666666;
+  height: 38px;
+  line-height: 38px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 16px;
+}
+main .bookingConfirm button {
+  width: 173px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: lightgray;
+  border-radius: 5px;
+  font-size: 19px;
+  float: right;
+  color: white;
+  cursor: pointer;
+  border: none;
+}/*# sourceMappingURL=booking.css.map */

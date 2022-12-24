@@ -19,15 +19,6 @@ let attractionAmount=0;
 let attractionId ="";
 
 
-//BackToHome
-let goBackToHome=document.querySelector(".nav-bar-left");
-goBackToHome.addEventListener('click',function(e){
-    let url="/"
-    window.location.href = url;
-},false)
-
-
-
 //Default start from first page
 urlPage=urlModel+nextPage;
 getData();
@@ -40,7 +31,7 @@ function getData(){
         return response.json();
     }).then(function(data){
 
-        if (data["error"]==true){
+        if (data["error"]===true){
             console.log("the end");
         }else{
             // console.log("continue")
@@ -112,7 +103,7 @@ function loadingPicture(){
         let newMrt = document.createElement("p")
         newMrt.textContent=attractionLocation
         document.querySelectorAll('.sort')[i].appendChild(newMrt)
-        document.querySelectorAll('.sort')[loadingDonePosition+i].setAttribute('id',attractionId)
+        // document.querySelectorAll('.sort')[loadingDonePosition+i].setAttribute('id',attractionId)
         sort.appendChild(newMrt)
 
         let newCategory = document.createElement("p")
@@ -133,9 +124,12 @@ function setListenerforEachID(){
     //替每個id所屬picture都設置監聽事件----------
     let pictureListener=document.getElementById(attractionId);
     pictureListener.onclick=function(event){
-        // console.log(event);
-        if(event.target.className != ""){
-            let url="/attraction/"+event.target.id
+        // console.log("currentTarget: ",event.currentTarget);
+        // console.log(event.target.id);//點擊對所在區塊的小白兔--------------------------------
+        // console.log(event.currentTarget.id);//直接點擊監聽的所在區塊
+
+        if(event.currentTarget.id != ""){
+            let url="/attraction/"+event.currentTarget.id
             window.location.href = url;
         }
     }
@@ -173,9 +167,6 @@ function loadmore(){
                 judgeContinueFunction();
                 urlPage=urlModel+nextPage;
                 loadmore();
-                // loadingPicture();
-                // judgeContinueFunction();
-                // loadmore();
             });
         }
 
@@ -189,18 +180,12 @@ function loadmore(){
 //click the searchBar then display search container and create items
 let searchBlock = document.querySelector(".search");
 function submitBtn() {
-    console.log("按00");
+    // console.log("searchBar");
     let searchcontainer = document.querySelector(".searchcontainer");
-    let searchItemAll = document.querySelectorAll(".searchItem");
     let searchItemform=document.querySelector(".searchForm");
     //remove Allchild
-    if(searchItemAll.length!=0){
-        searchItemform.innerHTML="";
-        // //確認被刪除的物件唯一性 address ------------------------
-        // for(let i=0; i<searchItemall.length; i++){
-        //     console.log(i);
-        //     searchItemform.removeChild(searchItemform.childNodes[0]);
-        // }
+    while(searchItemform.hasChildNodes()){
+        searchItemform.removeChild(searchItemform.firstChild)
     }
 
     //create searchitems
@@ -225,15 +210,14 @@ function submitBtn() {
             keyinSearch.onclick=function(event){
                 let searchBar = document.querySelector(".search");
                 searchBar.value=event.target.id;
-                console.log(event);
+                // console.log(event);
                 searchcontainer.style.display="none";
             }
         }
 
-
+        
         //touchBody close the search item
-        let touchBody=document.querySelector("#body");
-        console.log(touchBody);
+        let touchBody=document.querySelector(".body");
         touchBody.addEventListener('click',function(e){
             // console.log(e.target.className);
             if(e.target.className!="searchForm" && e.target.className!="searchItem" && e.target.className!="search"){
@@ -259,7 +243,7 @@ function icon(){
         // containerBlock.style.display="none";
         // console.log(searchBlock.value);
         urlPage=urlKeywordmodel+searchBlock.value;
-        console.log(urlPage);
+        // console.log(urlPage);
         //updateKeyword
         keyword=searchBlock.value;
         //setIdreset

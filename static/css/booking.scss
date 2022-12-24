@@ -1,0 +1,286 @@
+@mixin screen1250{
+    @media(max-width:1250px){
+      @content;
+    }
+}
+
+@mixin screen850{
+    @media(max-width:850px){
+      @content;
+    }
+}
+
+
+@mixin screen580{
+    @media(max-width:580px){
+      @content;
+    }
+}
+
+@mixin screen450{
+    @media(max-width:450px){
+      @content;
+    }
+}
+
+main{
+    .bookingintroduce{
+        width:100%;
+        display: flex;
+        justify-content: center;
+        .introduceContent{
+            margin-top: 54px;
+            width: 1000px;
+            // background-color: gray;
+            @include screen1250{
+                width:90%;
+            }
+            .messageBlock{
+                margin-top: 46px;
+                height:27px;
+                font-weight: 700;
+                font-size: 19px;
+                line-height: 27px;
+                color:#666666;
+                // background-color: blue;
+            }
+            .messageDownBlock{
+                height:220px;
+                width: 960px;
+                margin-top: 30px;
+                margin-left: 10px;
+                // background-color: red;
+                display:flex;
+                position: relative;
+                @include screen1250{
+                    width:90%;
+                }
+                @include screen580{
+                    width:90%;
+
+                    height:395px;
+                    display:block;
+                }
+                
+                .imageBlock{
+                    width:266px;
+                    height: 200px;
+                    display:flex;
+                    margin-top: 5px;
+                    object-position: center center;
+                    object-fit:cover;   /*裁切縮放*/
+                    // background-color: rgb(249, 249, 203);
+                    @include screen580{
+                        width:100%;
+                        display:block;
+                    }
+                }
+                .attractionIntroduceBlock{
+                    margin-left: 22px;
+                    // width:100%;
+                    // background-color: wheat;
+                    // position: relative;
+                    @include screen580{
+                        margin-left: 0px;
+                        height:190px;
+                    }
+
+                    p{
+                        color:#666666;
+                        font-weight: 700;
+                        font-size: 16px;
+                    }
+                    i{
+                        margin-left: 5px;
+                    }
+                    
+                    .attractionName{
+                        margin-top: 5px;
+                        color:#448899;
+                        // font-weight: 700;
+                    }
+                    .orderDate{
+                        margin-top: 20px;
+                        i{
+                            font-weight: 500;
+                        }
+                    }
+                    .orderTime{
+                        margin-top: 10px;
+                        i{
+                            font-weight: 500;
+                        }
+                    }
+                    .orderFee{
+                        margin-top: 10px;
+                        i{
+                            font-weight: 500;
+                        }
+                    }
+                    .attractionAddress{
+                        margin-top: 10px;
+                        i{
+                            font-weight: 500;
+                        }
+                    }
+                    .trashcan{
+                        position: absolute;
+                        width:30px;
+                        height: 30px;
+                        bottom: 190px;
+                        right:0px;
+                        background-image: url("../img/icon_delete.png");
+                        background-repeat: no-repeat;
+                        border:0;
+                        @include screen850{
+                            bottom: 0px;
+                        }
+                    }
+                        
+                }
+                
+            }
+        }
+    }
+    hr{
+        margin-top: 40px;
+        width:1200px;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid #E8E8E8;
+        @include screen1250{
+            width:90%;
+        }
+    }
+    .bookingConnection{
+        margin-top: 40px;
+        width:980px;
+        // height: 235px;
+        // background-color:rgb(240, 129, 129);
+        margin-left: auto;
+        margin-right: auto;
+        @include screen1250{
+            width:90%;
+        }
+        @include screen850{
+            // height: 270px;
+        }
+        @include screen450{
+            // height: 300px;
+        }
+        div{
+            color: #666666;
+        }
+        p{
+            color: #666666;
+            height:38px;
+            line-height: 38px;
+            margin-bottom: 15px;
+            input{
+                height:38px;
+                width:200px;
+                padding:10px;
+                border:2px #E8E8E8 solid;
+                border-radius: 5px;
+            }
+        }
+        .connectionTitle{
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .connectionNotice{  
+            font-weight: 700;
+        }
+        .bookingConnectionErrorMessage{
+            font-weight: 1000;
+            color: red;
+            display: none;
+        }
+    }
+
+    .bookingPay{
+        margin-top: 44px;
+        width:980px;
+        // height: 200px;
+        // background-color:rgb(234, 117, 117);
+        margin-left: auto;
+        margin-right: auto;
+        @include screen1250{
+            width:90%;
+        }
+        div{
+            color: #666666;
+        }
+        p{
+            color: #666666;
+            height:38px;
+            line-height: 38px;
+            margin-bottom: 15px;
+            input{
+                height:38px;
+                width:200px;
+                padding:10px;
+                border:2px #E8E8E8 solid;
+                border-radius: 5px;
+            }
+        }
+        .payTitle{
+            font-weight: 700;
+            margin-bottom: 20px;
+            // background-color: #666666;
+            
+        }
+        .bar{display: flex;
+            margin-bottom: 10px;
+            align-items: center;
+            .tpfield {
+                height: 38px;
+                width: 200px;
+                border:2px #E8E8E8 solid;
+                margin: 5px 0;
+                padding: 10px;
+                border-radius: 5px;
+            }
+        }
+
+    }
+    .bookingConfirm{
+        margin-top: 40px;
+        width:980px;
+        height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        // display:block;
+        @include screen1250{
+            width:90%;
+        }
+
+        p{
+            color: #666666;
+            height:38px;
+            line-height: 38px;
+            text-align:right;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        button{
+            width: 173px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: lightgray;
+            border-radius: 5px;
+            font-size: 19px;
+            float:right;
+            color:white;
+            cursor: pointer;
+            border:none;
+            
+        }
+
+
+    }
+
+    
+}

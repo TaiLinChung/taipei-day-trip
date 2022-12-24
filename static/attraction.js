@@ -25,12 +25,22 @@ let transport=document.querySelector(".transport");
 
 
 
-//goBackToHome
-let goBackToHome=document.querySelector(".leftBar");
-goBackToHome.addEventListener('click',function(e){
-    let url="/"
-    window.location.href = url;
-},false)
+// //goBackToHome
+// let goBackToHome=document.querySelector(".leftBar");
+// goBackToHome.addEventListener('click',function(){
+//     let url="/"
+//     window.location.href = url;
+// },false)
+
+
+//set the date of today
+let Today=new Date();
+// console.log("time is: ",Today.getFullYear(),Today.getMonth()+1,Today.getDate());
+todayModel=String(Today.getFullYear())+"-"+String(Today.getMonth()+1)+"-"+String(Today.getDate())
+// console.log(todayModel);
+dateIn=document.querySelector(".dateIn");
+dateIn.value=todayModel
+dateIn.min=todayModel
 
 
 
@@ -52,7 +62,7 @@ function getAttractionData(){
     }).then(function(data){
         // console.log(data["data"]["images"][0]);
         imgBackgroundList=data["data"]["images"]
-        console.log(imgBackgroundList);
+        // console.log(imgBackgroundList);
         imgBackground.setAttribute('src',imgBackgroundList[0]);
         // console.log(data["data"]);
         attractionName.textContent=data["data"]["name"];
@@ -75,9 +85,9 @@ let carousePosition=0;
 let eachCarouselInturnID=0;
 function carouselFunction(){
     carousePosition=0;
-    console.log(carousePosition);
+    // console.log(carousePosition);
     imgAmounts=imgBackgroundList.length;
-    console.log(imgAmounts);
+    // console.log(imgAmounts);
     //createBlackPoint
     let carouselUnderBlock=document.querySelector(".carouselUnderBlock");
     for(let i=0;i<imgAmounts;i++){
@@ -105,8 +115,8 @@ function carouselFunction(){
         carousePosition-=1
         carouseReturnJudge();
         setBlackPoint();
-        console.log("left");
-        console.log(carousePosition);
+        // console.log("left");
+        // console.log(carousePosition);
     },false)
 
     //BtnRight
@@ -115,8 +125,8 @@ function carouselFunction(){
         carousePosition+=1
         carouseReturnJudge();
         setBlackPoint();
-        console.log("right");
-        console.log(carousePosition);
+        // console.log("right");
+        // console.log(carousePosition);
     },false)
 }
 
@@ -162,4 +172,92 @@ function setListenerforEachCarouselInturn(){
         // console.log(typeof(carousePosition));
         setBlackPoint();
     }
+}
+
+
+
+
+
+
+
+// //------------------------------------------for booking
+let attractionId;
+let attractionPrice;
+let time;
+let bookingData={};
+let attractionUrl;
+
+let orderBtn=document.querySelector(".orderBtn");
+orderBtn.addEventListener('click',function(){
+    
+    // checkToken();
+    // attractionUrl=window.location;
+    // console.log(attractionUrl);
+    // console.log("click");
+    attractionUrl=String(window.location.pathname);
+    console.log(attractionUrl);
+    attractionId=attractionUrl.replace("/attraction/","");
+    attractionPrice=fee.textContent.replaceAll(" ","").replace("新台幣","").replace("元","");
+    if(attractionPrice=="2000"){
+        time="morning";
+    }else{
+        time="afternoon";
+    }
+    bookingData={
+                    "attractionId":attractionId,
+                    "date":dateIn.value,
+                    "price":attractionPrice,
+                    "time":time}
+    // console.log(bookingData);
+    checkAttractionToken();
+
+},false)
+
+
+//check cookie status
+function checkAttractionToken(){
+    let url="/api/user/auth";
+    fetch(url,{
+        method:"GET",
+    }).then(function(response){
+        return response.json();
+    }).then(function(data){
+        if(data["data"]!=null){
+            console.log("目前為登入狀態");
+            postBookingDataToBackEnd();
+        }
+        else{
+            console.log("非登入狀態");
+            filmBackground.style.display="block";
+            signinBlock.style.display="flex";
+        }
+    })
+}
+let orderMessage=document.querySelector(".orderMessage");
+//post method to Passdata to backend
+let bookingResponse=""
+function postBookingDataToBackEnd(){
+    fetch("/api/booking",{
+        method:"POST",
+        body:JSON.stringify(bookingData),
+        headers:new Headers({
+            "content-type":"application/json"
+        })
+    }).then(function(response){
+        return response.json();
+    }).then(function(data){
+        if (data["ok"]==true){
+            console.log("back");
+            orderMessage.style.display="block";
+            orderMessage.textContent="資料填寫無誤";
+            orderMessage.style.color="green";
+            orderBtn.style.marginTop="10px";
+            window.location.href = "/booking";
+        }else{
+            orderMessage.style.display="block";
+            orderMessage.textContent=data["message"];
+            orderMessage.style.color="red";
+            orderBtn.style.marginTop="10px";
+        }
+    })
 }
