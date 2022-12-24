@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block css %}
+<!-- <link rel="stylesheet" href=""> -->
+<link rel="stylesheet" href="../static/css/thankyou.css">
+{% endblock %}
+
+
+{% block inmain %}
+<main>
+    <section class="thankYouPage">
+        <div class="reserveResult">行程預定結果：<i class="result"></i>!!!</div>
+        <div >您的訂單編號如下：</div>
+        <div class="transactionNumber"></div>
+        <div >請妥善保存訂單編號，以供查詢！</div>
+        <br>
+        <div >此訂單資訊如下：</div>
+        <div class="nameBlock">姓名：<i class="contactName"></i></div>
+        <div class="emailBlock">信箱：<i class="contactEmail"></i></div>
+        <div class="phoneBlock">電話：<i class="contactPhone"></i></div>
+    </section>
+</main>
+
+
+
+
+{% endblock %}
+
+{% block javascript %}
+<script src="../static/thankyou.js" defer></script>
+{% endblock %}

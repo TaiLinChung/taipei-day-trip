@@ -26,8 +26,8 @@ def api_user():
         password=registerDataFromFrontEnd["password"]
         if register_data_is_empty(name,email,password):
             return jsonify({"error":True,"message":"註冊資料不可為空"})
-        if not check_email_format(email):
-            return jsonify({"error":True,"message":"信箱型態有誤，點此重新註冊"})
+        # if not check_email_format(email):
+        #     return jsonify({"error":True,"message":"信箱型態有誤，點此重新註冊"})
         if register_email_exist(email):
             return jsonify({"error":True,"message":"信箱已被註冊，點此重新註冊"})
         if register(name,email,password):

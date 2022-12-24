@@ -254,12 +254,12 @@ bookingConfirmButton.setAttribute('disabled', true)
 TPDirect.card.onUpdate(function (update) {
     // update.canGetPrime === true
     // --> you can call TPDirect.card.getPrime()
-    console.log("RRR");
+    // console.log("RRR");
 
     if (update.canGetPrime) {
         // Enable submit Button to get prime.
         // submitButton.removeAttribute('disabled')
-        console.log("AAA");
+        // console.log("AAA");
         bookingConfirmButton.style.cursor = "pointer";
         bookingConfirmButton.style.backgroundColor="#448899";
         bookingConfirmButton.removeAttribute('disabled');
@@ -268,47 +268,47 @@ TPDirect.card.onUpdate(function (update) {
     } else {
         // Disable submit Button to get prime.
         // submitButton.setAttribute('disabled', true)
-        console.log("BBB");
+        // console.log("BBB");
     }
 
     // cardTypes = ['mastercard', 'visa', 'jcb', 'amex', 'unionpay','unknown']
     if (update.cardType === 'visa') {
         // Handle card type visa.
-        console.log("CCC");
+        // console.log("CCC");
     }
 
     // number 欄位是錯誤的
     if (update.status.number === 2) {
-        console.log("111");
+        // console.log("111");
         // setNumberFormGroupToError()
     } else if (update.status.number === 0) {
         // setNumberFormGroupToSuccess()
-        console.log("222");
+        // console.log("222");
     } else {
         // setNumberFormGroupToNormal()
-        console.log("333");
+        // console.log("333");
     }
 
     if (update.status.expiry === 2) {
         // setNumberFormGroupToError()
-        console.log("444");
+        // console.log("444");
     } else if (update.status.expiry === 0) {
         // setNumberFormGroupToSuccess()
-        console.log("555");
+        // console.log("555");
     } else {
         // setNumberFormGroupToNormal()
-        console.log("666");
+        // console.log("666");
     }
 
     if (update.status.ccv === 2) {
         // setNumberFormGroupToError()
-        console.log("777");
+        // console.log("777");
     } else if (update.status.ccv === 0) {
         // setNumberFormGroupToSuccess()
-        console.log("888");
+        // console.log("888");
     } else {
         // setNumberFormGroupToNormal()
-        console.log("999");
+        // console.log("999");
     }
 })
 
@@ -363,7 +363,7 @@ function onSubmit(event) {
 
 
 function judgeDataIntegrity(){
-    if(bookingName.value!=="" & bookingEmail.value!=="" & bookingCellphone.value!==""){
+    if(bookingName.value!=="" && bookingEmail.value!=="" && bookingCellphone.value!==""){
         console.log("true");
         return true
     }
@@ -398,6 +398,7 @@ function collectBookingDataForTappay(prime){
 
 
 
+// const result=document.querySelector(".result")
 function postBookingDataForTappayToBackend(bookingDataForTappay){
     fetch("/api/orders",{
         method:"POST",
@@ -407,9 +408,25 @@ function postBookingDataForTappayToBackend(bookingDataForTappay){
         })
     }).then(function(response){
         return response.json();
-    // }).then(function(data){
-    //     responseFromBackend=data;
-    //     console.log(responseFromBackend);
-    //     dealRegistResponseFromBackend();
+    }).then(function(data){
+        console.log(data);
+        let url;
+        if(data.error===true){
+            url="/thankyou?number="+String(data.number);
+        }else{
+            // url="/thankyou?number="+String(data["data"]["number"]);
+            url="/thankyou?number="+String(data.data.number);
+        }
+        
+        // url="/thankyou?number="+String(transactionRecord["data"]["number"]);
+        window.location.href = url;
+        
     })
 }
+
+function judgeTransactionRecord(transactionRecord){
+    if(transactionRecord["data"]["payment"]["status"]===0){
+        return true
+    }
+}
+

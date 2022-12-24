@@ -14,5 +14,4 @@ def api_categories():
 	except Exception as e:
 		print("categories伺服器內部錯誤: ",e)
 		return jsonify({"error": True,"message": "categories伺服器內部錯誤"})
-	# except Exception as e:
-  	# 	print(f"{e}")
+	
