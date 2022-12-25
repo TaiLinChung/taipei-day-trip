@@ -33,12 +33,16 @@ from model.DealDatabase import loading_select_picture_by_attractions
 
 from model.CheckData import order_data_is_empty
 from model.DealDatabase import order_reservation_exist
+from model.DealDatabase import write_historical_order
+from model.tappay import pay_by_prime_API
+from model.DealDatabase import write_transaction_record_in_historical_order
+# from model.DealDatabase import change_history_order_status
+from model.DealDatabase import get_transaction_record_in_historical_order
+from model.DealDatabase import delete_reservation_flash_by_person_id
 
+from model.DealDatabase import get_transaction_record_by_order_number
 
-
-
-
-
+from model.DealDatabase import get_transaction_record_by_transaction_number
 
 
 

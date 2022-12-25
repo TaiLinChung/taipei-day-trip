@@ -32,11 +32,12 @@ def api_attractionId(attractionId):
 		adr=(get_attractionId,)
 		mycursor.execute(sql,adr)
 		myresult=mycursor.fetchall()
+		# print(myresult)
 		if myresult != []:
 			mytitle = mycursor.description
 			column_name =[col[0] for col in mytitle]
 			# print(column_name)
-			# print(myresult[0])
+			
 			data=[]
 			for i in range(0,1):
 				data.append(dict(zip(column_name,list(myresult[i]))))

@@ -22,12 +22,43 @@ try:
 except:
 	sql="ALTER TABLE datas3 ADD INDEX attractionId_index(id)"
 	mycursor2.execute(sql)
-sql="CREATE TABLE IF NOT EXISTS reservationflash(id INT PRIMARY KEY AUTO_INCREMENT,attractionId INT,date VARCHAR(20),time VARCHAR(20),price INT,personId INT)"
+
+# ========================	build table for accounts	========================
+sql="""CREATE TABLE IF NOT EXISTS 
+		accounts(id_people INT PRIMARY KEY AUTO_INCREMENT,
+		name VARCHAR(200),email VARCHAR(200),password VARCHAR(200))"""
 mycursor2.execute(sql)
 
-# ========================	table for accounts	========================
+# ========================	build table for reservationflash	========================
+sql="""CREATE TABLE IF NOT EXISTS 
+		reservationflash(id INT PRIMARY KEY AUTO_INCREMENT,
+		attractionId INT,date VARCHAR(20),time VARCHAR(20),
+		price INT,personId INT)"""
 mycursor2.execute(sql)
-sql="CREATE TABLE IF NOT EXISTS accounts(id_people INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(200),email VARCHAR(200),password VARCHAR(200))"
+
+# ========================	build table for historical_order	========================
+sql="""CREATE TABLE IF NOT EXISTS 
+		historical_order(
+			order_number INT PRIMARY KEY AUTO_INCREMENT,
+			order_account_id INT,
+			order_contact_name VARCHAR(200),
+			order_contact_email VARCHAR(200),
+			order_contact_phone VARCHAR(200),
+			order_date VARCHAR(200),
+			order_time VARCHAR(200),
+			order_attraction_id INT,
+			order_price INT,
+			transaction_time VARCHAR(20),
+			order_status INT NOT NULL DEFAULT 1)"""
+mycursor2.execute(sql)
+
+# # ========================	build table for transaction_record	========================
+# sql="""CREATE TABLE IF NOT EXISTS 
+# 		transaction_record(order_number INT PRIMARY KEY,
+# 		order_status VARCHAR(1500),transaction_time VARCHAR(30))"""
+# mycursor2.execute(sql)
+
+
 
 mycursor2.close()
 mydb.close()
@@ -224,11 +255,13 @@ def get_categories_search_bar_item_data():
 		sql="SELECT DISTINCT category FROM datas3"
 		mycursor.execute(sql)
 		myresult_categories=mycursor.fetchall()
+		# print(myresult_categories)
 		for item in myresult_categories:
-			category_items.append(item[0])
+			category_items.append(item["category"])
+		# print(category_items)
 		return (category_items)
-	except:
-		print("DealDatabase categories_search_bar_item_data()發生問題")
+	except Exception as e:
+		print("DealDatabase categories_search_bar_item_data()發生問題",e)
 	finally:
 		mycursor.close()
 		connection_object.close()
@@ -357,221 +390,206 @@ def order_reservation_exist(person_id,order_data_from_frontEnd):
 
 
 
+def write_historical_order(person_id,order_data_from_frontEnd):
+	try:
+		connection_object = connection_pool.get_connection()
+		mycursor = connection_object.cursor(dictionary=True) # 把fetchone跟fetchall的搜尋結果回傳都為字典形式
+		order_contact_name=order_data_from_frontEnd["order"]["contact"]["name"]
+		order_contact_email=order_data_from_frontEnd["order"]["contact"]["email"]
+		order_contact_phone=order_data_from_frontEnd["order"]["contact"]["phone"]
+		order_date=order_data_from_frontEnd["order"]["trip"]["date"]
+		order_time=order_data_from_frontEnd["order"]["trip"]["time"]
+		order_attraction_id=order_data_from_frontEnd["order"]["trip"]["attraction"]["id"]
+		order_price=order_data_from_frontEnd["order"]["price"]
+		sql="INSERT INTO historical_order(order_account_id,order_contact_name,order_contact_email,order_contact_phone,order_date,order_time,order_attraction_id,order_price) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"
+		val = (person_id,order_contact_name,order_contact_email,order_contact_phone,order_date,order_time,order_attraction_id,order_price)
+		mycursor.execute(sql,val)
+		connection_object.commit()
+		sql="SELECT order_number FROM historical_order ORDER BY order_number DESC LIMIT 1;"
+		mycursor.execute(sql)
+		last_order_number=mycursor.fetchone()
+		# print(last_order_number)
+		return last_order_number["order_number"]
+	except Exception as e:
+		print("DealDatabase write_historical_order()發生問題: ",e)
+	finally:
+		mycursor.close()
+		connection_object.close()
+
+
+from datetime import datetime
+def write_transaction_record_in_historical_order(the_last_order_number,tappay_api_response):
+	try:
+		connection_object = connection_pool.get_connection()
+		mycursor = connection_object.cursor(dictionary=True) # 把fetchone跟fetchall的搜尋結果回傳都為字典形式
+		now = datetime.now()
+		date_time = now.strftime("%Y%m%d%H%M%S")
+		sql="UPDATE historical_order SET transaction_time=%s,order_status=%s WHERE order_number=%s"
+		val = (date_time,tappay_api_response["status"],the_last_order_number)	
+		mycursor.execute(sql,val)
+		connection_object.commit()
+		return True
+
+	except Exception as e:
+		print("DealDatabase write_transaction_record()發生問題: ",e)
+	finally:
+		mycursor.close()
+		connection_object.close()
+
+
+def delete_reservation_flash_by_person_id(person_id):
+	try:
+		connection_object = connection_pool.get_connection()
+		mycursor = connection_object.cursor(dictionary=True) # 把fetchone跟fetchall的搜尋結果回傳都為字典形式		
+		sql="DELETE FROM reservationflash WHERE personId=%s"
+		val =(person_id,)	
+		mycursor.execute(sql,val)
+		connection_object.commit()
+	except Exception as e:
+		print("DealDatabase delete_reservation_flash_by_person_id()發生問題: ",e)
+	finally:
+		mycursor.close()
+		connection_object.close()
 
 
 
 
+def get_transaction_record_in_historical_order(the_last_order_number):
+	try:
+		connection_object = connection_pool.get_connection()
+		mycursor = connection_object.cursor(dictionary=True) # 把fetchone跟fetchall的搜尋結果回傳都為字典形式
+		sql="SELECT transaction_time,order_status FROM historical_order WHERE order_number=%s;"
+		val = (the_last_order_number,)	
+		mycursor.execute(sql,val)
+		# mycursor.execute(sql)
+		transaction_record=mycursor.fetchone()
+		# print(transaction_record)
+		if transaction_record["order_status"]==0:
+			return({
+				"data": {
+					"number": str(transaction_record["transaction_time"]+str(the_last_order_number)),
+					"payment": {
+					"status": transaction_record["order_status"],
+					"message": "付款成功"
+					}
+				}
+			})
+		else:
+			return({
+				"error": True,
+  				"message": transaction_record["order_status"],
+				# 新增
+				"number": str(transaction_record["transaction_time"]+str(the_last_order_number))
+			})
+
+	except Exception as e:
+		print("get_transaction_record_in_historical_order()發生問題: ",e)
+	finally:
+		mycursor.close()
+		connection_object.close()
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # 寫入reservationflash
-# # bookingAttractionId=None
-# # bookingDate=None
-# # bookingPrice=None
-# # bookingTime=None
-# def deal_Booking(bookingData,personId):
-# 	bookingAttractionId=bookingData["attractionId"]
-# 	bookingDate=bookingData["date"]
-# 	bookingPrice=bookingData["price"]
-# 	bookingTime=bookingData["time"]
-# 	if bookingAttractionId != "" and bookingDate != "" and bookingPrice != "" and bookingTime != "":
-# 		try:
-# 			connection_object = connection_pool.get_connection()
-# 			mycursor =  connection_object.cursor()
-# 			sql_check="SELECT *FROM reservationflash where personId=%s"
-# 			val_check=(personId,)
-# 			mycursor.execute(sql_check,val_check)
-# 			myresult_check=mycursor.fetchone()
-# 			if myresult_check!=None:
-# 				# sql_update="UPDATE reservationflash SET attractionId=%s,date=%s,price=%s,time=%s WHERE id=1"
-# 				sql_update="UPDATE reservationflash SET attractionId=%s,date=%s,price=%s,time=%s WHERE personId=%s"
-# 				val_update=(bookingAttractionId,bookingDate,bookingPrice,bookingTime,personId)
-# 				mycursor.execute(sql_update,val_update)
-# 				connection_object.commit()
-# 				# print("更新資料")
-# 			else:
-# 				sql_deposit="INSERT INTO reservationflash(attractionId,date,price,time,personId) VALUES(%s,%s,%s,%s,%s)"
-# 				val_deposit=(bookingAttractionId,bookingDate,bookingPrice,bookingTime,personId)
-# 				mycursor.execute(sql_deposit,val_deposit)
-# 				connection_object.commit()
-# 				# print("註冊資料")
-# 			return jsonify({"ok":True})
-# 		except:
-# 			return jsonify({"error": True,"message": "註冊伺服器內部錯誤"})
-# 		finally:
-# 			mycursor.close()
-# 			connection_object.close()
-
-# 	else:
-# 		return jsonify({"error": True,"message": "訂購資料皆不可為空"})
-
-
-
-
-# def GetDataForBookingPage(username,personId):
-# 	try:
-# 		connection_object = connection_pool.get_connection()
-# 		# mycursor =  connection_object.cursor()
-# 		mycursor = connection_object.cursor(dictionary=True) # 把fetchone跟fetchall的搜尋結果回傳都為字典形式
-# 		# sql="SELECT datas3.id,datas3.name,datas3.address,datas3.images,reservationflash.date,reservationflash.time,reservationflash.price FROM datas3 INNER JOIN reservationflash ON datas3.id = reservationflash.attractionId"
-# 		sql="SELECT datas3.id,datas3.name,datas3.address,datas3.images,reservationflash.date,reservationflash.time,reservationflash.price FROM datas3 INNER JOIN reservationflash ON reservationflash.personId=%s and datas3.id = reservationflash.attractionId"
-# 		val=(personId,)
-# 		mycursor.execute(sql,val)
-# 		# mycursor.execute(sql)
-# 		myresult=mycursor.fetchone()
-
-# 		print("---------------666myresult1-----------")
-# 		print(myresult)
+def get_transaction_record_by_order_number(order_number):
+	try:
+		connection_object = connection_pool.get_connection()
+		mycursor = connection_object.cursor(dictionary=True) # 把fetchone跟fetchall的搜尋結果回傳都為字典形式
+		sql="SELECT order_attraction_id FROM historical_order WHERE order_number=%s"
+		val = (order_number,)
+		mycursor.execute(sql,val)
+		order_attraction_id=mycursor.fetchone()["order_attraction_id"]
+		# print("order_number: ",order_number)
+		# print("order_attraction_id: ",order_attraction_id)
+		sql="SELECT *FROM historical_order INNER JOIN datas3 WHERE historical_order.order_number=%s and datas3.id=%s;"
+		val = (order_number,order_attraction_id)	
+		mycursor.execute(sql,val)
+		# print("------")
+		total_record=mycursor.fetchone()
+		# print(total_record)
+		if total_record==None:
+			return ({"error": True,"message": "歷史訂單中不存在此筆資料"})
 		
-# 		# for result in myresult2:
-# 		# 	columns = [col[0] for col in mycursor.description]
-# 		# 	data=dict(zip(columns,result))
-# 		# 	print(result)
-# 		# 	# print(data)
-# 		# print("---------------666myresult2-----------")
-# 		# myresult2=mycursor.fetchall()
-# 		# print(myresult2)
-		
+		return(
+			{
+  				"data": {
+    				"number": str(total_record["transaction_time"])+str(total_record["order_number"]),
+    				"price": total_record["order_price"],
+    				"trip": {
+      					"attraction": {
+        					"id": total_record["order_attraction_id"],
+        					"name": total_record["name"],
+        					"address": total_record["address"],
+        					"image": total_record["images"].split(" ")[0]
+      					},
+      					"date": total_record["order_date"],
+      					"time": total_record["order_time"]
+    				},
+					"contact": {
+						"name": total_record["order_contact_name"],
+						"email": total_record["order_contact_email"],
+						"phone": total_record["order_contact_phone"]
+					},
+					"status": total_record["order_status"]
+  				}
+			}
 
+		)
 
-# 		print("--------------------------")
-# 		# CREATE TABLE IF NOT EXISTS reservationflash(id INT PRIMARY KEY AUTO_INCREMENT,attractionId INT,date VARCHAR(20),time VARCHAR(20),price INT,personId INT
-# 		if myresult!=None:
-# 		# if myresult!=[]:	
-# 			# print(myresult["id"])
-
-
-# 			# print("---------------666-----------")
-# 			# for result in myresult:
-# 			# 	# columns = [col[0] for col in mycursor.description]
-# 			# 	# data=dict(zip(columns,result))
-# 			# 	print(result)
-# 			# # print(data)
-
-
-
-# 			# print("--------------")
-
-# 			img=myresult["images"].split(" ")
-# 			response=(
-# 			{
-# 				"data":{
-# 					"attraction":{
-# 						"id":myresult["id"],
-# 						"name":myresult["name"],
-# 						"address":myresult["address"],
-# 						"image":img[0],
-# 						},
-# 						"date":myresult["date"],
-# 						"time":myresult["time"],
-# 						"price":myresult["price"],
-						
-# 				},"username":username
-# 			})
-# 			print("進入")
-# 			print(response)
-# 			return jsonify(response)
-
-# 		else:
-# 			response=({"username":username,"data":None})
-# 			return jsonify(response)
-		
-
-# 	except:
-# 		return jsonify({"error": True,"message": "伺服器內部錯誤"})
-# 	finally:
-# 		mycursor.close()
-# 		connection_object.close()
-# 	# return ("hello")
-
-
-
-# def DeleteDataForBookingPage(attractionId,personId):
-# 	try:
-# 		# print("目標attractionId",attractionId,"目標personId",personId)
-# 		connection_object = connection_pool.get_connection()
-# 		mycursor =  connection_object.cursor()
-# 		sql = "DELETE FROM reservationflash WHERE attractionId = %s and personId = %s"
-# 		# sql = "DELETE FROM reservationflash"
-# 		val = (attractionId,personId)
-# 		mycursor.execute(sql,val)
-# 		connection_object.commit()
-# 		print("is done")
-# 	except:
-# 		return jsonify({"error": True,"message": "伺服器內部錯誤"})
-# 	finally:
-# 		mycursor.close()
-# 		connection_object.close()
+	except Exception as e:
+		print("DealDatabase get_transaction_record_by_order_number()發生問題: ",e)
+	finally:
+		mycursor.close()
+		connection_object.close()
 
 
 
 
+def get_transaction_record_by_transaction_number(transaction_number,person_id):
+	try:
+		connection_object = connection_pool.get_connection()
+		mycursor = connection_object.cursor(dictionary=True) # 把fetchone跟fetchall的搜尋結果回傳都為字典形式
+		transaction_time=str(transaction_number)[:14]
+		order_number=str(transaction_number)[14:]
 
-# # from model import registe
-# checkDataResponse=None
-# def DealDatabase(name,email,password):
-# 	# print("got it inside??")
-# 	# print(kkk)
-# 	print(name,email,password)
+		sql="SELECT * FROM historical_order WHERE order_number=%s and transaction_time=%s and order_account_id=%s"
+		val = (order_number,transaction_time,person_id)
+		mycursor.execute(sql,val)
+		total_record=mycursor.fetchone()
+		sql="SELECT *FROM datas3 WHERE id=%s"
+		val = (total_record["order_attraction_id"],)
+		mycursor.execute(sql,val)
+		attractions_information=mycursor.fetchone()
+		if total_record!=None:
+			return(
+				{
+					"data": {
+						"number": str(total_record["transaction_time"])+str(total_record["order_number"]),
+						"price": total_record["order_price"],
+						"trip": {
+							"attraction": {
+								"id": total_record["order_attraction_id"],
+								"name": attractions_information["name"],
+								"address": attractions_information["address"],
+								"image": attractions_information["images"].split(" ")[0]
+							},
+							"date": total_record["order_date"],
+							"time": total_record["order_time"]
+						},
+						"contact": {
+							"name": total_record["order_contact_name"],
+							"email": total_record["order_contact_email"],
+							"phone": total_record["order_contact_phone"]
+						},
+						"status": total_record["order_status"]
+					}
+				}
 
-# 	connection_object = connection_pool.get_connection()
-# 	mycursor =  connection_object.cursor()
-# 	global checkDataResponse
-# 	# name=name
-# 	# email=email
-# 	# password=password
-# 	try:
-# 		sql_check="SELECT *FROM accounts WHERE email=%s"
-# 		adr_check=(email,)
-# 		mycursor.execute(sql_check,adr_check)
-# 		myresult_checkEmail=mycursor.fetchone()
-# 		print("註冊前檢查",myresult_checkEmail)
-# 		if myresult_checkEmail==None:
-# 			print("可以執行註冊")
-# 			registe(name,email,password) #---------------------是不是不能這樣做 當然可以
-# 			checkDataResponse=({"ok":True})
-# 		else:
-# 			print("DeakDatabase未執行註冊")
-# 			checkDataResponse=({"error":True,"message":"Email重複，點此重新註冊"})
-# 	except:
-# 		print("有問題")
-# 		checkDataResponse=({"error":True,"message":"500 伺服器內部錯誤"})
-# 	finally:
-# 		mycursor.close()
-# 		connection_object.close()
+			)
 
-# def registe(name,email,password):
-# 	try:
-# 		connection_object=connection_pool.get_connection()
-# 		mycursor=connection_object.cursor()
-# 		print("xxx")
-# 		print(name,email,password)
-# 		sql_register="INSERT INTO accounts(name,email,password) VALUES(%s,%s,%s)"
-# 		val_register=(name,email,password)
-# 		mycursor.execute(sql_register,val_register)
-# 		connection_object.commit()
-# 	except:
-# 		print("註冊資料庫時發生問題")
-# 	finally:
-# 		mycursor.close()
-# 		connection_object.close()
-
+	except Exception as e:
+		print("DealDatabase get_transaction_record_by_transaction_number()發生問題: ",e)
+	finally:
+		mycursor.close()
+		connection_object.close()
 

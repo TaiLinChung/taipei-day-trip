@@ -16,7 +16,6 @@ from model import delete_data_for_bookin_page
 def api_booking():
 	if request.method=="POST":
 		try:
-			# 驗證token  待辦 新增驗證存放在資料庫的token
 			get_token=request.cookies.get("token")
 			decode=jwt_decode(get_token)
 			person_id=decode["data"]["id"]

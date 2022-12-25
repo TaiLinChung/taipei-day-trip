@@ -16,14 +16,10 @@ function checkBookingToken(){
     fetch(url,{
         method:"GET",
     }).then(function(response){
-        //packing and return to Backend
         return response.json();
     }).then(function(data){
-        // console.log("取得後端token資料",data);
         if(data["data"]!=null){
             // console.log("目前為登入狀態");
-            // SigninRegister.style.display="none";
-            // SignOut.style.display="flex";
         }
         else{
             // console.log("非登入狀態");
@@ -32,7 +28,6 @@ function checkBookingToken(){
         }
     })
 }
-// // checkBookingToken();
 
 
 //listener reflash
@@ -254,12 +249,12 @@ bookingConfirmButton.setAttribute('disabled', true)
 TPDirect.card.onUpdate(function (update) {
     // update.canGetPrime === true
     // --> you can call TPDirect.card.getPrime()
-    console.log("RRR");
+    // console.log("RRR");
 
     if (update.canGetPrime) {
         // Enable submit Button to get prime.
         // submitButton.removeAttribute('disabled')
-        console.log("AAA");
+        // console.log("AAA");
         bookingConfirmButton.style.cursor = "pointer";
         bookingConfirmButton.style.backgroundColor="#448899";
         bookingConfirmButton.removeAttribute('disabled');
@@ -268,47 +263,47 @@ TPDirect.card.onUpdate(function (update) {
     } else {
         // Disable submit Button to get prime.
         // submitButton.setAttribute('disabled', true)
-        console.log("BBB");
+        // console.log("BBB");
     }
 
     // cardTypes = ['mastercard', 'visa', 'jcb', 'amex', 'unionpay','unknown']
     if (update.cardType === 'visa') {
         // Handle card type visa.
-        console.log("CCC");
+        // console.log("CCC");
     }
 
     // number 欄位是錯誤的
     if (update.status.number === 2) {
-        console.log("111");
+        // console.log("111");
         // setNumberFormGroupToError()
     } else if (update.status.number === 0) {
         // setNumberFormGroupToSuccess()
-        console.log("222");
+        // console.log("222");
     } else {
         // setNumberFormGroupToNormal()
-        console.log("333");
+        // console.log("333");
     }
 
     if (update.status.expiry === 2) {
         // setNumberFormGroupToError()
-        console.log("444");
+        // console.log("444");
     } else if (update.status.expiry === 0) {
         // setNumberFormGroupToSuccess()
-        console.log("555");
+        // console.log("555");
     } else {
         // setNumberFormGroupToNormal()
-        console.log("666");
+        // console.log("666");
     }
 
     if (update.status.ccv === 2) {
         // setNumberFormGroupToError()
-        console.log("777");
+        // console.log("777");
     } else if (update.status.ccv === 0) {
         // setNumberFormGroupToSuccess()
-        console.log("888");
+        // console.log("888");
     } else {
         // setNumberFormGroupToNormal()
-        console.log("999");
+        // console.log("999");
     }
 })
 
@@ -318,12 +313,22 @@ TPDirect.card.onUpdate(function (update) {
 //====== call TPDirect.card.getPrime when user submit form to get tappay prime  ======
 const bookingConnectionErrorMessage=document.querySelector(".bookingConnectionErrorMessage");
 bookingConfirmButton.addEventListener('click',function(){
-    if(judgeDataIntegrity()){
-        onSubmit();
-    }
-    else{
+    if(!(judgeDataIntegrity())){
         bookingConnectionErrorMessage.style.display="block";
+        bookingConnectionErrorMessage.textContent="聯絡資訊皆不可為空，請填寫完整後再按下確認"
+        return
     }
+    if(!(judgeEmailFormal())){
+        bookingConnectionErrorMessage.style.display="block";
+        bookingConnectionErrorMessage.textContent="信箱格式錯誤，請填寫完整後再按下確認"
+        return
+    }
+    if(!(judgeNameFormal())){
+        bookingConnectionErrorMessage.style.display="block";
+        bookingConnectionErrorMessage.textContent="姓名只允許中文或英文，請填寫完整後再按下確認"
+        return
+    }
+    onSubmit();
 },false)
 
 
@@ -363,11 +368,57 @@ function onSubmit(event) {
 
 
 function judgeDataIntegrity(){
-    if(bookingName.value!=="" & bookingEmail.value!=="" & bookingCellphone.value!==""){
+    if(bookingName.value!=="" && bookingEmail.value!=="" && bookingCellphone.value!==""){
         console.log("true");
         return true
     }
 }
+
+
+// 前端正則表達式
+function judgeEmailFormal(){
+    let testForEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
+    if(testForEmail.test(bookingEmail.value)==true){
+        return true
+        
+    }
+}
+
+function judgeNameFormal(){
+    let testForName = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+    if(testForName.test(bookingName.value)==true){
+        return true
+        
+        // postRegisterDataToBackEnd();
+    }
+}
+
+// function checkRegisterFront(){
+//     let testForEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
+//     let testForName = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+//     if(testForEmail.test(bookingEmail.value)==true && testForName.test(bookingName.value)==true){
+//         console.log("通過前端");
+//         // postRegisterDataToBackEnd();
+//     }
+//     else{
+//         if(testForName.test(registerName)!=true) {
+//             console.log("姓名只接受英文跟中文形式，點此重新輸入");
+//             // responseFromBackend={"message":"姓名只接受英文跟中文形式，點此重新輸入"};
+//             // dealRegistResponseFromBackend();
+//         }
+//         else if(testForEmail.test(registerEmail)!=true) {
+//             console.log("請輸入正確信箱格式，點此重新輸入");
+//             // XXXXresponseFromBackend["message"]
+//             // responseFromBackend={"message":"請輸入正確信箱格式，點此重新輸入"};
+//             // dealRegistResponseFromBackend();
+//         }
+//     }
+        
+// }
+
+
+
+
 
 
 function collectBookingDataForTappay(prime){
@@ -398,6 +449,7 @@ function collectBookingDataForTappay(prime){
 
 
 
+// const result=document.querySelector(".result")
 function postBookingDataForTappayToBackend(bookingDataForTappay){
     fetch("/api/orders",{
         method:"POST",
@@ -407,9 +459,25 @@ function postBookingDataForTappayToBackend(bookingDataForTappay){
         })
     }).then(function(response){
         return response.json();
-    // }).then(function(data){
-    //     responseFromBackend=data;
-    //     console.log(responseFromBackend);
-    //     dealRegistResponseFromBackend();
+    }).then(function(data){
+        console.log(data);
+        let url;
+        if(data.error===true){
+            url="/thankyou?number="+String(data.number);
+        }else{
+            // url="/thankyou?number="+String(data["data"]["number"]);
+            url="/thankyou?number="+String(data.data.number);
+        }
+        
+        // url="/thankyou?number="+String(transactionRecord["data"]["number"]);
+        window.location.href = url;
+        
     })
 }
+
+function judgeTransactionRecord(transactionRecord){
+    if(transactionRecord["data"]["payment"]["status"]===0){
+        return true
+    }
+}
+

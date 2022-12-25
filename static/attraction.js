@@ -12,12 +12,12 @@ let imgBackgroundList=[];
 let imgAmounts=0;
 
 //sectionRight
-let attractionName=document.querySelector(".attractionName");
-let attractionSort=document.querySelector(".attractionSort");
+const attractionName=document.querySelector(".attractionName");
+const attractionSort=document.querySelector(".attractionSort");
 let dateIn=document.querySelector(".dateIn");
-let Btnmorning=document.querySelector(".Btnmorning");
-let Btnnoon=document.querySelector(".Btnnoon");
-let fee=document.querySelector(".fee");
+const Btnmorning=document.querySelector(".Btnmorning");
+const Btnnoon=document.querySelector(".Btnnoon");
+const fee=document.querySelector(".fee");
 
 let describe=document.querySelector(".describe");
 let address=document.querySelector(".address");
@@ -71,7 +71,6 @@ function getAttractionData(){
         address.textContent=data["data"]["address"];
         transport.textContent=data["data"]["transport"];
         carouselFunction();
-        // apple();
 
     })
 }
@@ -106,11 +105,11 @@ function carouselFunction(){
         setListenerforEachCarouselInturn();
     }
     //Default Black Point show the first one
-    let carouseBlackPoint=document.querySelectorAll(".carouselInturnshow");
+    const carouseBlackPoint=document.querySelectorAll(".carouselInturnshow");
     carouseBlackPoint[0].style.display="block";
 
     //BtnLeft
-    let BtnLeft=document.querySelector(".carouselBtnleft");
+    const BtnLeft=document.querySelector(".carouselBtnleft");
     BtnLeft.addEventListener('click',function(e){
         carousePosition-=1
         carouseReturnJudge();
@@ -120,7 +119,7 @@ function carouselFunction(){
     },false)
 
     //BtnRight
-    let BtnRight=document.querySelector(".carouselBtnright");
+    const BtnRight=document.querySelector(".carouselBtnright");
     BtnRight.addEventListener('click',function(e){       
         carousePosition+=1
         carouseReturnJudge();
@@ -152,7 +151,6 @@ function setBlackPoint(){
     for(let i=0;i<length;i++){
         carouseBlackPoint[i].style.display="none";
     }
-    // console.log("我在這",carousePosition);
     //  set the position
     carouseBlackPoint[carousePosition].style.display="block";
     imgBackground.setAttribute('src',imgBackgroundList[carousePosition]);
@@ -181,36 +179,10 @@ function setListenerforEachCarouselInturn(){
 
 
 // //------------------------------------------for booking
-let attractionId;
-let attractionPrice;
-let time;
-let bookingData={};
-let attractionUrl;
 
-let orderBtn=document.querySelector(".orderBtn");
+const orderBtn=document.querySelector(".orderBtn");
 orderBtn.addEventListener('click',function(){
-    
-    // checkToken();
-    // attractionUrl=window.location;
-    // console.log(attractionUrl);
-    // console.log("click");
-    attractionUrl=String(window.location.pathname);
-    console.log(attractionUrl);
-    attractionId=attractionUrl.replace("/attraction/","");
-    attractionPrice=fee.textContent.replaceAll(" ","").replace("新台幣","").replace("元","");
-    if(attractionPrice=="2000"){
-        time="morning";
-    }else{
-        time="afternoon";
-    }
-    bookingData={
-                    "attractionId":attractionId,
-                    "date":dateIn.value,
-                    "price":attractionPrice,
-                    "time":time}
-    // console.log(bookingData);
     checkAttractionToken();
-
 },false)
 
 
@@ -222,21 +194,45 @@ function checkAttractionToken(){
     }).then(function(response){
         return response.json();
     }).then(function(data){
-        if(data["data"]!=null){
-            console.log("目前為登入狀態");
-            postBookingDataToBackEnd();
-        }
-        else{
-            console.log("非登入狀態");
+        if(data.data === null){
+            // console.log("請登入");
+            const filmBackground=document.querySelector(".filmBackground");
+            const signinBlock=document.querySelector(".signinBlock");
             filmBackground.style.display="block";
             signinBlock.style.display="flex";
+        }else{
+            bookingData=getDataForBooking();
+            postBookingDataToBackEnd(bookingData);
         }
     })
 }
-let orderMessage=document.querySelector(".orderMessage");
+
+
+
+function getDataForBooking(){
+    let attractionUrl=String(window.location.pathname);
+    let attractionId=attractionUrl.replace("/attraction/","");
+    let attractionPrice=fee.textContent.replaceAll(" ","").replace("新台幣","").replace("元","");
+    let time="";
+    if(attractionPrice=="2000"){
+        time="morning";
+    }else{
+        time="afternoon";
+    }
+    bookingData={
+        "attractionId":attractionId,
+        "date":dateIn.value,
+        "price":attractionPrice,
+        "time":time
+    }
+    return bookingData
+}
+
+
+
 //post method to Passdata to backend
-let bookingResponse=""
-function postBookingDataToBackEnd(){
+const orderMessage=document.querySelector(".orderMessage");
+function postBookingDataToBackEnd(bookingData){
     fetch("/api/booking",{
         method:"POST",
         body:JSON.stringify(bookingData),
@@ -247,7 +243,6 @@ function postBookingDataToBackEnd(){
         return response.json();
     }).then(function(data){
         if (data["ok"]==true){
-            console.log("back");
             orderMessage.style.display="block";
             orderMessage.textContent="資料填寫無誤";
             orderMessage.style.color="green";
