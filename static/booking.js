@@ -16,14 +16,10 @@ function checkBookingToken(){
     fetch(url,{
         method:"GET",
     }).then(function(response){
-        //packing and return to Backend
         return response.json();
     }).then(function(data){
-        // console.log("取得後端token資料",data);
         if(data["data"]!=null){
             // console.log("目前為登入狀態");
-            // SigninRegister.style.display="none";
-            // SignOut.style.display="flex";
         }
         else{
             // console.log("非登入狀態");
@@ -32,7 +28,6 @@ function checkBookingToken(){
         }
     })
 }
-// // checkBookingToken();
 
 
 //listener reflash
@@ -386,7 +381,6 @@ function judgeEmailFormal(){
     if(testForEmail.test(bookingEmail.value)==true){
         return true
         
-        // postRegisterDataToBackEnd();
     }
 }
 

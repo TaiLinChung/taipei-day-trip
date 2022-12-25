@@ -376,7 +376,6 @@ function pushSignOutRequestToBackEnd(){
 //reserveJourney
 let goToBooking=document.querySelector(".reserveJourney");
 goToBooking.addEventListener('click',function(){
-    console.log("reserveJourney");
     checkUserToken();
 },false)
 
@@ -389,27 +388,14 @@ function checkUserToken(){
     fetch(url,{
         method:"GET",
     }).then(function(response){
-        //packing and return to Backend
         return response.json();
     }).then(function(data){
-        console.log("取得後端token資料",data);
-        // statusResponse=data;
-        // console.log(statusResponse);
-        // 如果回傳的token帶登入狀態 右上角改成登出字樣
         if(data["data"]!=null){
-            console.log("目前為登入狀態");
-            // SigninRegister.style.display="none";
-            // SignOut.style.display="flex";
             window.location.href = "/booking";
-
         }
         else{
-            // console.log("booking非登入狀態");
             filmBackground.style.display="block";
             signinPage.style.display="flex";
-            // pushSignOutRequestToBackEnd();
-            // let url="/"
-            // window.location.href = url;
         }
     })
 }

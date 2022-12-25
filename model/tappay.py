@@ -21,6 +21,7 @@ def pay_by_prime_API(order_data_from_frontEnd):
             "x-api-key": "partner_2LKRj4AMzIOV9rxjEOjGXbAexJ2iQ2BErLsljG32Wum2tFQNgX2xFFI2"
         }
         response = requests.post(url, json=pay_data_for_api, headers=headers)
+        # print(response)
         # print(response.status_code)
         # print(response.json())
         return response.json()
