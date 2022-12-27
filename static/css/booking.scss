@@ -124,6 +124,7 @@ main{
                         }
                     }
                     .trashcan{
+                        cursor: pointer;
                         position: absolute;
                         width:30px;
                         height: 30px;
@@ -136,7 +137,12 @@ main{
                             bottom: 0px;
                         }
                     }
+                    .trashcan:hover{
+                        opacity: 0.6;
+                        background-color:rgb(217, 208, 208);
+                        border-radius: 5px;
                         
+                    }  
                 }
                 
             }
@@ -278,8 +284,6 @@ main{
             border:none;
             
         }
-
-
     }
 
     

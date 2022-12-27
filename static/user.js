@@ -244,7 +244,8 @@ function dealRegistResponseFromBackend(){
     registerSignInTo.style.top="100px";
     if(responseFromBackend["ok"]==true){
         console.log("註冊成功");
-        registerMessage.textContent="註冊成功"
+        registerMessage.textContent="註冊成功";
+        registerMessage.style.color="green";
     }
     else{
         console.log("註冊失敗");
@@ -306,6 +307,7 @@ function dealSigninResponseFromBackend(){
     if(responseFromBackend["ok"]==true){
         location.reload();
         signinMessage.textContent="登入成功";
+        signinMessage.style.color="green";
     }
     else{
         signinMessage.textContent="登入失敗";
@@ -331,8 +333,6 @@ function checkToken(){
         return response.json();
     }).then(function(data){
         console.log("取得後端token資料",data);
-        // statusResponse=data;
-        // console.log(statusResponse);
         // 如果回傳的token帶登入狀態 右上角改成登出字樣
         if(data["data"]!=null){
             // console.log("目前為登入狀態");

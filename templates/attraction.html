@@ -28,15 +28,15 @@
                 
                 <div class="dateBlock">
                     <label class="dateTitle">選擇日期：
-                        <input class="dateIn" type="date" id="start" name="trip-start" min="2022-11-28" max="2099-12-31">
+                        <input class="dateIn" type="date" id="start" name="trip-start" min="2022-11-28" max="2099-12-31" style="cursor: pointer">
                     </label>
                 </div>
                 
                 <div class="timeBlock">
                     <label for="" class="timeTitle">選擇時間：</label>
-                    <input id="morning" type="radio" name="day" class="Btnmorning" checked="checked">
+                    <input id="morning" type="radio" name="day" class="Btnmorning" checked="checked" style="cursor: pointer">
                     <label>上半天</label>
-                    <input id="afternoon" type="radio" name="day" class="Btnnoon">
+                    <input id="afternoon" type="radio" name="day" class="Btnnoon" style="cursor: pointer">
                     <label>下半天</label>
 
                 </div>
@@ -72,124 +72,3 @@
 {% block javascript %}
 <script src="../static/attraction.js" defer></script>
 {% endblock %}
-
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>attractions</title>
-    <link rel="stylesheet" href="../static/css/attraction.css">
-    <link rel="stylesheet" href="../static/css/all.css">
-    <link rel="stylesheet" href="../static/css/index.css">
-    <link rel="shortcut icon" href="#" />
-</head>
-<body>
-    <nav>
-        <div>
-            <div class="leftBar">台北一日遊</div>
-            <div class="rightBar">
-                <p>預定行程</p>
-                <p class="SigninRegister">登入/註冊</p>
-                <p class="SignOut">登出</p>
-            </div>
-        </div>
-    </nav>
-    <main>
-
-        <div class="filmBackground"></div>
-            <div class="signinBlock">
-                <div class="signinBackground">
-                    <div class="signinContent">
-                        <div class="signinTitle">登入會員帳號<i class="fa-solid fa-xmark signinClose"></i></div>
-                        <input class="signinEmail" type="email" name="" placeholder="輸入電子信箱" />
-                        <input class="signinPassword" type="password" name="" placeholder="輸入密碼" />
-                        <div class="signinBtn">登入帳戶</div>
-                        <div class="signinCreateAccount">還沒有帳戶？點此註冊</div>
-                        <div class="signinMessage">登入成功</div>
-                    </div>
-                </div>
-            </div>
-            <div class="registerBlock">
-                <div class="registerBackground">
-                    <div class="registerContent" method="POST" action="/api/user">
-                        <div class="registerTitle">註冊會員帳號<i class="fa-solid fa-xmark registerClose"></i></div>
-                        <input class="registerName" type="text" name="registerName" placeholder="輸入姓名" />
-                        <input class="registerEmail" type="email" name="registerEmail" placeholder="輸入電子信箱" />
-                        <input class="registerPassword" type="password" name="registerPassword" placeholder="輸入密碼" />
-                        <div class="registerBtn">註冊新帳戶</div>             
-                        <div class="registerSignInTo">已經有帳戶了？點此登入</div>
-                        <div class="registerMessage">註冊失敗，點此重新註冊</div>
-                    </div>
-                </div>
-            </div>
-
-
-        <section class="sectionPicture">
-            <div class="pictureLeft">
-                <img class="imgBackground">
-                <div class="carouselBtnBlock">
-                    <div class="carouselBtn carouselBtnleft"><i class="fa-solid fa-angle-left"></i></div>
-                    <div class="carouselBtn carouselBtnright"><i class="fa-solid fa-angle-right"></i></div>
-                </div>
-                <div class="carouselUnderBlock">
-               
-                </div>
-            </div>
-            <div class="pictureRight">
-                <p class="attractionName">平安鐘</p>
-                <p class="attractionSort">公共藝術at忠孝復興</p>
-                <div class="orderDirect">
-                    <p class="orderTitle">訂購導覽行程</p>
-                    <p class="orderScribe">以此景點為中心的一日行程，帶你探索城市角落故事</p>
-                    
-                    <div class="dateBlock">
-                        <label class="dateTitle">選擇日期：
-                            <input class="dateIn" type="date" id="start" name="trip-start" min="2022-11-28" max="2099-12-31">
-                        </label>
-                    </div>
-                    
-                    <div class="timeBlock">
-                        <label for="" class="timeTitle">選擇時間：</label>
-                        <input id="morning" type="radio" name="day" class="Btnmorning" checked="checked">
-                        <label>上半天</label>
-                        <input id="afternoon" type="radio" name="day" class="Btnnoon">
-                        <label>下半天</label>
-
-                    </div>
-
-                    <div class="feeBlock">
-                        <div class="feeTitle">導覽費用：</div>
-                        <div class="fee">新台幣 2000 元</div>
-                    </div>
-
-                    <div class="orderBtn">開始預約行程</div>
-                </div>
-            </div>
-        </section>
-
-        <hr>
-      
-        <section class="sectioncontain">
-            <p class="describe"></p>
-            <p class="addressTitle">景點地址：</p>
-            <p class="address"></p>
-            <p class="transportTitle">交通方式：</p>
-            <p class="transport"></p>
-        </section>
-
-        
-    </main>
-
-    <footer>
-        <p>COPYRIGHT © 2021 台北一日遊</p>
-    </footer>
-</body>
-<script src="../static/attraction.js" defer></script>
-<script src="../static/user.js" defer></script>
-<script src="../static/booking.js" defer></script>
-</html> -->

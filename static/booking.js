@@ -55,7 +55,7 @@ function getBookingData(){
         // console.log("-----------");
         if(data["data"]!=null){
             username=data["username"];
-            messageBlock.textContent="你好，"+data["username"]+"，待預定的行程如下 :";
+            messageBlock.textContent="您好，"+data["username"]+"，待預定的行程如下 :";
             bookingName.value=data["username"];
             attractionNameContent.textContent=data["data"]["attraction"]["name"];
             orderDateContent.textContent=data["data"]["date"];
@@ -142,13 +142,8 @@ function displayNone(){
     mainAfter.style.display="block";
     footerBefore.style.display="none";
     footerAfter.style.display="block";
-    // let newMessageBlock=document.getElementsByClassName(".messageBlock");
     let newMessageBlock=document.querySelectorAll(".messageBlock");
-    // console.log(newMessageBlock[0]);
-    // console.log(newMessageBlock[1]);
-    // newMessageBlock.innerHTML="你好";
-    newMessageBlock[1].textContent="你好，"+username+"，待預定的行程如下 :";
-
+    newMessageBlock[1].textContent="您好，"+username+"，待預定的行程如下 :";
 }
 
 
@@ -258,6 +253,13 @@ TPDirect.card.onUpdate(function (update) {
         bookingConfirmButton.style.cursor = "pointer";
         bookingConfirmButton.style.backgroundColor="#448899";
         bookingConfirmButton.removeAttribute('disabled');
+        bookingConfirmButton.addEventListener('mouseover',
+        function(){
+            bookingConfirmButton.style.backgroundColor = '#696969'});
+        //滑鼠離開物件時    
+        bookingConfirmButton.addEventListener('mouseout',
+        function(){
+            bookingConfirmButton.style.backgroundColor = "#448899"})
         
 
     } else {
@@ -460,6 +462,7 @@ function postBookingDataForTappayToBackend(bookingDataForTappay){
     }).then(function(response){
         return response.json();
     }).then(function(data){
+        console.log("---------");
         console.log(data);
         let url;
         if(data.error===true){
