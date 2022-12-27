@@ -263,7 +263,6 @@ nav div div.nav-bar-left p {
 }
 nav div div.nav-bar-left p:hover {
   opacity: 0.6;
-  background-color: rgb(225, 220, 220);
   color: #080707;
   border-radius: 5px;
 }

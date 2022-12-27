@@ -120,8 +120,6 @@ main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceB
 }
 main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .trashcan:hover {
   opacity: 0.6;
-  background-color: rgb(217, 208, 208);
-  border-radius: 5px;
 }
 main hr {
   margin-top: 40px;
