@@ -41,6 +41,7 @@ def api_user():
 
 from model import jwt_encode
 from model import jwt_decode
+from model import check_user_id_in_token_exist
 @user_auth_blueprint.route("/api/user/auth",methods=["GET","PUT","DELETE"])
 def api_user_auth():
 
@@ -68,7 +69,8 @@ def api_user_auth():
         try:
             decode=jwt_decode(get_token)
             # 這裡多加一個利用decode 進資料庫check user_id的步驟
-            print(decode)
+            if not check_user_id_in_token_exist(decode):
+                return jsonify({"data":None})
             return jsonify(decode)
         except:
             return jsonify({"data":None})

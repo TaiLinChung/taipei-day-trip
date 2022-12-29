@@ -308,6 +308,9 @@ nav{
 
         div.nav-bar-left{
             width:50%;
+            @include screen550{
+                width:40%;
+            }
             p{
                 cursor: pointer;  
                 margin-top: 10px;
@@ -315,8 +318,11 @@ nav{
                 font-size: 30px;
                 font-weight: 700;
                 color:#448899; 
-                @include screen410{
+                @include screen550{
                     font-size: 28px;
+                }
+                @include screen410{
+                    font-size: 25px;
                 }
             }
             p:hover{
@@ -330,6 +336,9 @@ nav{
             width:50%;
             display:flex;
             justify-content: right;
+            @include screen550{
+                width:60%;
+            }
             p{
                 cursor: pointer;
                 margin: 10px;
@@ -339,6 +348,9 @@ nav{
                 justify-content: center;/* 水平置中 */
                 color:#666666;
                 font-weight:500;
+                @include screen550{
+                    margin:5px;
+                }
                 @include screen410{
                     margin:5px;
                 }

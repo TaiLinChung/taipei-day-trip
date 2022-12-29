@@ -248,6 +248,11 @@ nav div {
 nav div div.nav-bar-left {
   width: 50%;
 }
+@media (max-width: 550px) {
+  nav div div.nav-bar-left {
+    width: 40%;
+  }
+}
 nav div div.nav-bar-left p {
   cursor: pointer;
   margin-top: 10px;
@@ -256,9 +261,14 @@ nav div div.nav-bar-left p {
   font-weight: 700;
   color: #448899;
 }
-@media (max-width: 410px) {
+@media (max-width: 550px) {
   nav div div.nav-bar-left p {
     font-size: 28px;
+  }
+}
+@media (max-width: 410px) {
+  nav div div.nav-bar-left p {
+    font-size: 25px;
   }
 }
 nav div div.nav-bar-left p:hover {
@@ -271,6 +281,11 @@ nav div div.nav-bar-right {
   display: flex;
   justify-content: right;
 }
+@media (max-width: 550px) {
+  nav div div.nav-bar-right {
+    width: 60%;
+  }
+}
 nav div div.nav-bar-right p {
   cursor: pointer;
   margin: 10px;
@@ -280,6 +295,11 @@ nav div div.nav-bar-right p {
   justify-content: center; /* 水平置中 */
   color: #666666;
   font-weight: 500;
+}
+@media (max-width: 550px) {
+  nav div div.nav-bar-right p {
+    margin: 5px;
+  }
 }
 @media (max-width: 410px) {
   nav div div.nav-bar-right p {

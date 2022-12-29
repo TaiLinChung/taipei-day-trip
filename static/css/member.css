@@ -1,0 +1,47 @@
+main {
+  display: flex;
+  justify-content: center;
+}
+main .all {
+  margin-top: 80px;
+  width: 1200px;
+  background-color: antiquewhite;
+}
+@media (max-width: 1250px) {
+  main .all {
+    width: 90%;
+  }
+}
+main .all .informationBlock {
+  width: 100%;
+  background-color: antiquewhite;
+  font-size: 20px;
+  font-weight: 1000;
+}
+main .all .informationBlock .informationTitle {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  background-color: #448899;
+}
+main .all .informationBlock .informationContain {
+  background-color: rgb(77, 77, 79);
+}
+main .all .informationBlock .informationContain div {
+  line-height: 38px;
+  text-align: center;
+  color: white;
+}
+main .all .informationBlock .informationContain div input {
+  margin: 5px;
+  height: 38px;
+  width: 200px;
+  font-size: 20px;
+  font-weight: 1000;
+  padding-left: 10px;
+  border: 2px #E8E8E8 solid;
+  border-radius: 5px;
+}
+main .all .informationBlock .informationContain .changeInformationBTN {
+  background-color: rgb(147, 147, 149);
+}/*# sourceMappingURL=member.css.map */

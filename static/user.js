@@ -15,8 +15,8 @@ const registePage=document.querySelector(".registerBlock");
 const registerSignInTo=document.querySelector(".registerSignInTo");
 const signinClose=document.querySelector(".signinClose");
 const registerClose=document.querySelector(".registerClose");
-
-
+const member=document.querySelector(".member");
+member.style.display="none";
 //listener
 navSignInRegiste.addEventListener('click',function(){
     filmBackground.style.display="block";
@@ -331,6 +331,7 @@ function checkToken(){
             // console.log("目前為登入狀態");
             navSignInRegiste.style.display="none";
             SignOut.style.display="flex";
+            member.style.display="flex";
         }
         else{
             // console.log("非登入狀態");
@@ -393,3 +394,7 @@ function checkUserToken(){
     })
 }
 
+
+member.addEventListener('click',function(){
+    window.location.href = "/member";
+},false)
