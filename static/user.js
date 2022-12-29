@@ -1,6 +1,6 @@
 
 //BackToHome
-const navBackToHome=document.querySelector(".nav-bar-left");
+const navBackToHome=document.querySelector(".navBackToHome");
 navBackToHome.addEventListener('click',function(){
     let url="/"
     window.location.href = url;
@@ -181,13 +181,11 @@ registerBtn.addEventListener('click',function(){
 
 //前端正則表達式
 function checkRegisterFront(registerName,registerEmail,registerPassword){
-    console.log("前端檢查中");
     let testForEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
     let testForName = /^[\u4e00-\u9fa5a-zA-Z]+$/;
     // console.log(regex.test(registerEmail));
     if(registerEmail != "" & registerName != "" & registerPassword != ""){
         if(testForEmail.test(registerEmail)==true & testForName.test(registerName)==true){
-            console.log("通過前端");
             postRegisterDataToBackEnd();
         }
         else{
@@ -227,7 +225,7 @@ function postRegisterDataToBackEnd(){
         return response.json();
     }).then(function(data){
         responseFromBackend=data;
-        console.log(responseFromBackend);
+        // console.log(responseFromBackend);
         dealRegistResponseFromBackend();
     })
 }
@@ -243,15 +241,12 @@ function dealRegistResponseFromBackend(){
     registerMessage.style.top="50px";
     registerSignInTo.style.top="100px";
     if(responseFromBackend["ok"]==true){
-        console.log("註冊成功");
         registerMessage.textContent="註冊成功";
         registerMessage.style.color="green";
     }
     else{
-        console.log("註冊失敗");
         registerMessage.textContent=responseFromBackend["message"]
 
-        // listener
         registerMessage.addEventListener('click',function(){
             close();
             filmBackground.style.display="block";
@@ -272,7 +267,6 @@ signinBtn.addEventListener('click',function(){
     signinEmail=document.querySelector(".signinEmail").value;
     signinPassword=document.querySelector(".signinPassword").value;
     signinData={"email":signinEmail,"password":signinPassword};
-    console.log("註冊資料",signinData);
     pushSigninDataToBackEnd();
 },false)
 
@@ -332,7 +326,6 @@ function checkToken(){
         //packing and return to Backend
         return response.json();
     }).then(function(data){
-        console.log("取得後端token資料",data);
         // 如果回傳的token帶登入狀態 右上角改成登出字樣
         if(data["data"]!=null){
             // console.log("目前為登入狀態");

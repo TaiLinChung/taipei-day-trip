@@ -32,7 +32,7 @@ function getData(){
     }).then(function(data){
 
         if (data["error"]===true){
-            console.log("the end");
+            // console.log("the end");
         }else{
             // console.log("continue")
             attractions = data["data"];
@@ -73,7 +73,9 @@ function loadingPicture(){
         attractionId=attractions[i]["id"]
         attractionLocation=attractions[i]["mrt"]
         attractionSort=attractions[i]["category"]
-        
+        if(attractionLocation==null){
+            attractionLocation="無捷運站";
+        }
         //createItemBlock
         let item = document.createElement('div');
         item.setAttribute('class','item') ;
@@ -171,7 +173,7 @@ function loadmore(){
         }
 
     }else{
-        console.log("結束loadmore");
+        // console.log("結束loadmore");
     }
 }
 

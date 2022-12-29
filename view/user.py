@@ -67,6 +67,8 @@ def api_user_auth():
         get_token=request.cookies.get("token")
         try:
             decode=jwt_decode(get_token)
+            # 這裡多加一個利用decode 進資料庫check user_id的步驟
+            print(decode)
             return jsonify(decode)
         except:
             return jsonify({"data":None})

@@ -47,7 +47,7 @@ function checkUserToken(){
     }).then(function(response){
         return response.json();
     }).then(function(data){
-        console.log(data);
+        // console.log(data);
         if(data.data!=null){
             getDataFromOrdersUrl(orderUrl);
         }
