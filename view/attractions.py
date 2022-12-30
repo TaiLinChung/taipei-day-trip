@@ -22,6 +22,7 @@ def api_attractions():
 			
 			response=loading_matched_picture(keyword,page_num_now,page_maxnum)
 			return jsonify(response)
-	except:
-		return {"error":True},500
+	except Exception as e:
+		print("attractions伺服器內部錯誤: ",e)
+		return jsonify({"error":True,"message":"500 伺服器內部錯誤"})
 

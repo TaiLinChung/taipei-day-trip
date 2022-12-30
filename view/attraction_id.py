@@ -12,4 +12,4 @@ def api_attractionId(attractionId):
 		response=get_attraction_data_by_id(attractionId)
 		return jsonify(response)
 	except:
-		return {"error":True},500
+		return jsonify({"error":True,"message":"500 伺服器內部錯誤"})

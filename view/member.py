@@ -2,8 +2,8 @@ from flask import *
 from flask import jsonify
 
 #相應app.py
-members_blueprint=Blueprint("members_blueprint",__name__)
-member_id_blueprint=Blueprint("member_blueprint",__name__)
+member_blueprint=Blueprint("member_blueprint",__name__)
+
 
 from model import jwt_decode
 from model import check_user_id_in_token_exist
@@ -13,10 +13,20 @@ from model import change_email_is_allowed
 from model import check_email_format
 from model import update_account_information
 from model import jwt_encode
-@members_blueprint.route("/api/member",methods=["GET","POST"])
-def api_members():
+@member_blueprint.route("/api/member",methods=["GET","POST"])
+def api_member():
     if request.method=="GET":
-        return jsonify({"ok":"true"})
+        try:
+            get_token=request.cookies.get("token")
+            decode=jwt_decode(get_token)
+            if not check_user_id_in_token_exist(decode):
+                return jsonify({"error":True,"message":"身分異常"})
+            person_id=decode["data"]["id"]
+            response=get_account_information_by_person_id(person_id)
+            return jsonify(response)
+        except:
+            return jsonify({"error":True,"message":"系統異常，請聯繫客服處理"})
+
 
     if request.method=="POST":
         try:
@@ -44,22 +54,3 @@ def api_members():
 
         except:
             return jsonify({"error":True,"message":"系統異常，請聯繫客服處理"})
-
-
-
-
-@member_id_blueprint.route("/api/member/<person_id>",methods=["GET"])
-def api_member_id(person_id):
-    try:
-        get_token=request.cookies.get("token")
-        decode=jwt_decode(get_token)
-        # print("decode",decode["data"]["id"])
-        # print("person_id",person_id)
-        if not check_user_id_in_token_exist(decode):
-            return jsonify({"data":None})
-        if not(decode["data"]["id"]==int(person_id)):
-            return jsonify({"data":None})
-        response=get_account_information_by_person_id(person_id)
-        return jsonify(response)
-    except:
-        return jsonify({"data":None})

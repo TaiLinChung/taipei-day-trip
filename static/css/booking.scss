@@ -1,3 +1,14 @@
+*{
+    box-sizing:border-box;          //reset
+    margin:0;                       //reset
+    padding:0;                      //reset
+    font-family: 'Noto Sans TC';    //網頁字體
+    font-style: normal;             //網頁字體
+    border: none;
+    outline: none;
+}
+
+
 @mixin screen1250{
     @media(max-width:1250px){
       @content;

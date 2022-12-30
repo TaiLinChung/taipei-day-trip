@@ -185,6 +185,8 @@ body main .sectionPicture .pictureLeft .carouselBtnBlock .carouselBtn:hover {
   opacity: 0.7;
   background-color: rgb(62, 61, 61);
   color: white;
+  border-color: #262525;
+  border-style: solid;
 }
 body main .sectionPicture .pictureLeft .carouselUnderBlock {
   width: 100%;
@@ -210,12 +212,14 @@ body main .sectionPicture .pictureLeft .carouselUnderBlock .carouselInturn .caro
   height: 10px;
   width: 10px;
   border-radius: 50%;
-  background-color: black;
+  background-color: #262525;
   display: none;
 }
 body main .sectionPicture .pictureLeft .carouselUnderBlock .carouselInturn:hover {
   opacity: 0.5;
   background-color: rgb(62, 61, 61);
+  border-color: #050505;
+  border-style: solid;
 }
 body main .sectionPicture .pictureRight {
   width: 615px;
@@ -236,12 +240,18 @@ body main .sectionPicture .pictureRight .attractionName {
   font-weight: 700;
   font-size: 24px;
 }
+@media (max-width: 910px) {
+  body main .sectionPicture .pictureRight .attractionName {
+    font-size: 20px;
+  }
+}
 body main .sectionPicture .pictureRight .attractionSort {
   width: 100%;
   height: 22px;
   margin-top: 20px;
   font-weight: 700;
   font-size: 16px;
+  letter-spacing: 1px;
 }
 body main .sectionPicture .pictureRight .orderDirect {
   width: 100%;
@@ -374,6 +384,7 @@ body main .sectioncontain {
 body main .sectioncontain p {
   width: 1180px;
   margin: 0 auto;
+  letter-spacing: 1px;
   font-weight: 400;
   font-size: 16px;
   line-height: 23px;
@@ -389,30 +400,20 @@ body main .sectioncontain p {
   }
 }
 body main .sectioncontain .describe {
+  letter-spacing: 1px;
   margin-top: 50px;
 }
 body main .sectioncontain .addressTitle {
+  letter-spacing: 1px;
   height: 32px;
   line-height: 32px;
   font-weight: 700;
   margin-top: 20px;
 }
 body main .sectioncontain .transportTitle {
+  letter-spacing: 1px;
   height: 32px;
   line-height: 32px;
   font-weight: 700;
   margin-top: 20px;
-}
-body footer {
-  width: 100%;
-  height: 104px;
-  margin-top: 224px;
-  background: #757575;
-}
-body footer p {
-  color: #FFFFFF;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 104px;
-  text-align: center;
 }/*# sourceMappingURL=attraction.css.map */

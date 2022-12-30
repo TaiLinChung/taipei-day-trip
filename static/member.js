@@ -1,24 +1,15 @@
-// memberUrl=window.location.href;
-// console.log(memberUrl);
-
 
 //check cookie status
 function getToken(){
-    let url="/api/user/auth";
-    fetch(url,{
+    fetch("/api/user/auth",{
         method:"GET",
     }).then(function(response){
         return response.json();
     }).then(function(data){
-        // console.log("data");
-        // console.log(data);
         if(!data.data){
             window.location.href="/";
         }else{
-            // console.log(data.data.id);
-            let memberUrl="/api/member/"+String(data.data.id);
-            // window.location.href=memberUrl;
-            getMemberInformation(memberUrl);
+            getMemberInformation();
         }
         
     })
@@ -26,18 +17,17 @@ function getToken(){
 
 //listener reflash
 window.addEventListener("load", function() {
-    // console.log("catch");
     getToken();
 });
 
 
-function getMemberInformation(memberUrl){
-    fetch(memberUrl,{
+function getMemberInformation(){
+    fetch("/api/member",{
         method:"GET",
     }).then(function(response){
         return response.json();
     }).then(function(data){
-        // console.log("data");
+        console.log("data");
         // console.log(data);
         key_in_member_information(data)
     })
@@ -48,25 +38,18 @@ const memberEmail=document.querySelector(".memberEmail");
 const memberPassword=document.querySelector(".memberPassword");
 const memberMessage=document.querySelector(".memberMessage");
 function key_in_member_information(data){
-    // console.log(data);
     memberName.value=data.name;
     memberEmail.value=data.email;
     memberPassword.value=data.password;
 }
 const footerBefore=document.querySelector(".footerBefore");
-// const footerAfter=document.querySelector(".footerAfter");
 footerBefore.style.position="fixed";
-footerBefore.style.bottom = "10px";
-// footerBefore.style.display="none";
-
-// footerAfter.style.height="104px";
-// footerAfter.style.bottom = "0";
+footerBefore.style.bottom = "0px";
 
 
 
 const changeInformationBTN=document.querySelector(".changeInformationBTN");
 changeInformationBTN.addEventListener('click',function(){
-    // console.log(memberName.value);
     let newMemberData={
         "name":memberName.value,
         "email":memberEmail.value,
@@ -98,3 +81,22 @@ function postNewMemberData(newMemberData){
         }
     })
 }
+
+const checkEyeMember = document.getElementById("checkEyeMember");
+      const floatingMemberPassword =  document.getElementById("floatingMemberPassword");
+      checkEyeMember.addEventListener("click", function(e){
+        if(e.target.classList.contains('fa-eye')){
+          e.target.classList.remove('fa-eye');
+          e.target.classList.add('fa-eye-slash');
+          floatingMemberPassword.setAttribute('type','text')
+        }else{
+            floatingMemberPassword.setAttribute('type','password');
+          e.target.classList.remove('fa-eye-slash');
+          e.target.classList.add('fa-eye')
+        }
+      });
+
+
+
+
+

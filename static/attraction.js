@@ -3,48 +3,35 @@
 let urlAttraction="";
 let urlModel="/api";
 urlAttraction=urlModel+location.pathname
-// console.log('location.href: '+location.href);
-// console.log('location.pathname: '+(urlModel+location.pathname));
 
 //sectionLeft
-let imgBackground=document.querySelector(".imgBackground");
+const imgBackground=document.querySelector(".imgBackground");
 let imgBackgroundList=[];
 let imgAmounts=0;
 
 //sectionRight
 const attractionName=document.querySelector(".attractionName");
 const attractionSort=document.querySelector(".attractionSort");
-let dateIn=document.querySelector(".dateIn");
 const Btnmorning=document.querySelector(".Btnmorning");
 const Btnnoon=document.querySelector(".Btnnoon");
 const fee=document.querySelector(".fee");
 
-let describe=document.querySelector(".describe");
-let address=document.querySelector(".address");
-let transport=document.querySelector(".transport");
+const describe=document.querySelector(".describe");
+const address=document.querySelector(".address");
+const transport=document.querySelector(".transport");
 
 
-
-// //goBackToHome
-// let goBackToHome=document.querySelector(".leftBar");
-// goBackToHome.addEventListener('click',function(){
-//     let url="/"
-//     window.location.href = url;
-// },false)
-
-
-//set the date of today
+//===========   set the date of today   ===========
 let Today=new Date();
-// console.log("time is: ",Today.getFullYear(),Today.getMonth()+1,Today.getDate());
+let dateIn=document.querySelector(".dateIn");
 todayModel=String(Today.getFullYear())+"-"+String(Today.getMonth()+1)+"-"+String(Today.getDate())
-// console.log(todayModel);
 dateIn=document.querySelector(".dateIn");
 dateIn.value=todayModel
 dateIn.min=todayModel
 
 
 
-//Price of morning & noon 
+//===========   Price of morning & noon ===========
 Btnmorning.addEventListener('click',function(e){
     fee.textContent="新台幣 2000 元"
 },false)
@@ -54,17 +41,14 @@ Btnnoon.addEventListener('click',function(e){
 
 
 
-//getAttractionDatas
+//===========   getAttractionDatas  ===========
 //urlAttraction=urlModel+"{id}"
 function getAttractionData(){
     fetch(urlAttraction).then(function(response){
         return response.json();
     }).then(function(data){
-        // console.log(data["data"]["images"][0]);
         imgBackgroundList=data["data"]["images"]
-        // console.log(imgBackgroundList);
         imgBackground.setAttribute('src',imgBackgroundList[0]);
-        // console.log(data["data"]);
         attractionName.textContent=data["data"]["name"];
         attractionSort.textContent=(data["data"]["category"]+"at"+data["data"]["mrt"])
         describe.textContent=data["data"]["description"];
@@ -78,16 +62,12 @@ getAttractionData();
 
 
 
-//carouselfunction
-// let carouseBlackPoint="";
+//===========   carouselfunction    ===========
 let carousePosition=0;
 let eachCarouselInturnID=0;
 function carouselFunction(){
     carousePosition=0;
-    // console.log(carousePosition);
     imgAmounts=imgBackgroundList.length;
-    // console.log(imgAmounts);
-    //createBlackPoint
     let carouselUnderBlock=document.querySelector(".carouselUnderBlock");
     for(let i=0;i<imgAmounts;i++){
         let carouselInturn=document.createElement('div');
@@ -114,8 +94,6 @@ function carouselFunction(){
         carousePosition-=1
         carouseReturnJudge();
         setBlackPoint();
-        // console.log("left");
-        // console.log(carousePosition);
     },false)
 
     //BtnRight
@@ -124,14 +102,12 @@ function carouselFunction(){
         carousePosition+=1
         carouseReturnJudge();
         setBlackPoint();
-        // console.log("right");
-        // console.log(carousePosition);
     },false)
 }
 
 
 
-//ReturnJudge
+//===========   ReturnJudge ===========
 function carouseReturnJudge(){
     if(carousePosition<0){
         carousePosition=imgAmounts-1;
@@ -143,7 +119,7 @@ function carouseReturnJudge(){
 
 
 
-//  displayNoneBlackPoint and set the BlackPoint
+//===========  displayNoneBlackPoint and set the BlackPoint ===========
 function setBlackPoint(){
     //  displayNoneBlackPoint
     let carouseBlackPoint=document.querySelectorAll(".carouselInturnshow");
@@ -159,15 +135,11 @@ function setBlackPoint(){
 
 
 
-//替每個白球設置監聽事件----------
+//===========   替每個白球設置監聽事件  ===========
 function setListenerforEachCarouselInturn(){
     let CarouselInturnListener=document.getElementById(eachCarouselInturnID);
     CarouselInturnListener.onclick=function(event){
-        // console.log(event);
-        //All blackPoints display:none
-        //the new position
         carousePosition=Number(event.target.id);
-        // console.log(typeof(carousePosition));
         setBlackPoint();
     }
 }
@@ -178,7 +150,7 @@ function setListenerforEachCarouselInturn(){
 
 
 
-// //------------------------------------------for booking
+//===========   for booking ===========
 
 const orderBtn=document.querySelector(".orderBtn");
 orderBtn.addEventListener('click',function(){
@@ -188,12 +160,13 @@ orderBtn.addEventListener('click',function(){
 
 //check cookie status
 function checkAttractionToken(){
-    let url="/api/user/auth";
-    fetch(url,{
+    // let url="/api/user/auth";
+    fetch("/api/user/auth",{
         method:"GET",
     }).then(function(response){
         return response.json();
     }).then(function(data){
+        console.log(data);
         if(data.data === null){
             // console.log("請登入");
             const filmBackground=document.querySelector(".filmBackground");

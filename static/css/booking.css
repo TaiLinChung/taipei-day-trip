@@ -1,4 +1,14 @@
 @charset "UTF-8";
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  border: none;
+  outline: none;
+}
+
 main .bookingintroduce {
   width: 100%;
   display: flex;

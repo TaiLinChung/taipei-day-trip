@@ -41,6 +41,7 @@ def api_booking():
 			# 驗證token  待辦 新增驗證存放在資料庫的token
 			get_token=request.cookies.get("token")
 			decode=jwt_decode(get_token)
+			print(decode)
 			username=decode["data"]["name"]
 			person_id=decode["data"]["id"]
 			response=get_data_for_booking_page(username,person_id)

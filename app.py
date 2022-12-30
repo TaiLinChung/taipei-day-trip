@@ -11,8 +11,8 @@ from view.booking import booking_blueprint
 from view.orders import orders_blueprint
 from view.orders import order_num_blueprint
 from view.thankyou import thankyou_blueprint
-from view.member import members_blueprint
-from view.member import member_id_blueprint
+from view.member import member_blueprint
+
 
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
@@ -37,7 +37,6 @@ def thankyou():
 	return render_template("thankyou.html")
 @app.route("/member")
 def member():
-	# 參考WEEK04把網址id訊息丟給前端
 	return render_template("member.html")
 
 
@@ -51,8 +50,8 @@ app.register_blueprint(booking_blueprint)
 app.register_blueprint(orders_blueprint)
 app.register_blueprint(order_num_blueprint)
 app.register_blueprint(thankyou_blueprint)
-app.register_blueprint(members_blueprint)
-app.register_blueprint(member_id_blueprint)
+app.register_blueprint(member_blueprint)
+
 
 
 
