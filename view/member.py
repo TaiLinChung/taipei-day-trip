@@ -9,7 +9,7 @@ from model import jwt_decode
 from model import check_user_id_in_token_exist
 from model import get_account_information_by_person_id
 from model import register_data_is_empty
-from model import change_email_is_allowed
+from model import change_email_is_not_exist
 from model import check_email_format
 from model import update_account_information
 from model import jwt_encode
@@ -37,14 +37,17 @@ def api_member():
             password=newMemberData["password"]
             decode=jwt_decode(get_token)
             id_people=decode["data"]["id"]
-
+            print(newMemberData)
+            print("----")
+            print(decode)
+            origin_token_email=decode["data"]["email"]
             if not check_user_id_in_token_exist(decode):
                 return jsonify({"error":True,"message":"身分異常"})
             if register_data_is_empty(name,email,password):
                 return jsonify({"error":True,"message":"上方資料請完整填寫"})
             if not check_email_format(email):
                 return jsonify({"error":True,"message":"信箱格式不符，請檢查"})
-            if not change_email_is_allowed(email):
+            if not(origin_token_email == email) and not(change_email_is_not_exist(email)):
                 return jsonify({"error":True,"message":"信箱重複，請更換"})
             person_information=update_account_information(name,email,password,id_people)
             token=jwt_encode(person_information)

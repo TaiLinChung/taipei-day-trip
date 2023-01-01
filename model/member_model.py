@@ -39,7 +39,7 @@ def get_account_information_by_person_id(person_id):
         connection_object.close()
 
 
-def change_email_is_allowed(email):
+def change_email_is_not_exist(email):
     try:
         connection_object = connection_pool.get_connection()
         mycursor = connection_object.cursor(dictionary=True) # 設定fetchone跟fetchall有搜尋結果時的回傳都為字典形式
@@ -51,7 +51,7 @@ def change_email_is_allowed(email):
             return True  
 
     except Exception as e:
-        print("member_model change_email_is_allowed()發生問題",e)
+        print("member_model change_email_is_not_exist()發生問題",e)
     finally:
         mycursor.close()
         connection_object.close()

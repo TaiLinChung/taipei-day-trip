@@ -50,5 +50,5 @@ from model.user_model import check_user_id_in_token_exist
 
 
 from model.member_model import get_account_information_by_person_id
-from model.member_model import change_email_is_allowed
+from model.member_model import change_email_is_not_exist
 from model.member_model import update_account_information
