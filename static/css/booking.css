@@ -1,4 +1,14 @@
 @charset "UTF-8";
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  border: none;
+  outline: none;
+}
+
 main .bookingintroduce {
   width: 100%;
   display: flex;
@@ -103,6 +113,7 @@ main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceB
   font-weight: 500;
 }
 main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .trashcan {
+  cursor: pointer;
   position: absolute;
   width: 30px;
   height: 30px;
@@ -116,6 +127,9 @@ main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceB
   main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .trashcan {
     bottom: 0px;
   }
+}
+main .bookingintroduce .introduceContent .messageDownBlock .attractionIntroduceBlock .trashcan:hover {
+  opacity: 0.6;
 }
 main hr {
   margin-top: 40px;

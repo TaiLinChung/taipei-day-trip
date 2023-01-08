@@ -1,11 +1,3 @@
-# 使用init原理解析演示
-# from model.attraction_model import attraction
-# print("hhhhhhh這是來自init的聲音")
-# from model.attraction_model import name
-# kkk="1234999"
-# from model.attraction_model import connect
-
-
 from model.CheckData import signin_data_is_empty
 from model.DealDatabase import signin_account_exist
 
@@ -26,7 +18,7 @@ from model.jwt import jwt_decode
 
 
 from model.DealDatabase import get_categories_search_bar_item_data
-from model.DealDatabase import loading_all_picture_by_attractions
+# from model.DealDatabase import loading_all_picture_by_attractions
 from model.DealDatabase import loading_select_picture_by_attractions
 
 
@@ -46,10 +38,17 @@ from model.DealDatabase import get_transaction_record_by_transaction_number
 
 
 
+from model.attractions_model import loading_all_picture_by_attractions
+from model.attractions_model import loading_matched_picture
+
+from model.attraction_id_model import get_attraction_data_by_id
 
 
-# # from model.DealDatabase import DealDatabase
-# from model.DealDatabase import deal_Booking
-# from model.DealDatabase import GetDataForBookingPage
-# from model.DealDatabase import DeleteDataForBookingPage
 
+from model.user_model import check_user_id_in_token_exist
+
+
+
+from model.member_model import get_account_information_by_person_id
+from model.member_model import change_email_is_not_exist
+from model.member_model import update_account_information

@@ -1,3 +1,14 @@
+*{
+    box-sizing:border-box;          //reset
+    margin:0;                       //reset
+    padding:0;                      //reset
+    font-family: 'Noto Sans TC';    //網頁字體
+    font-style: normal;             //網頁字體
+    border: none;
+    outline: none;
+}
+
+
 @mixin screen1250{
     @media(max-width:1250px){
       @content;
@@ -124,6 +135,7 @@ main{
                         }
                     }
                     .trashcan{
+                        cursor: pointer;
                         position: absolute;
                         width:30px;
                         height: 30px;
@@ -136,7 +148,9 @@ main{
                             bottom: 0px;
                         }
                     }
-                        
+                    .trashcan:hover{
+                        opacity: 0.6;
+                    }  
                 }
                 
             }
@@ -278,8 +292,6 @@ main{
             border:none;
             
         }
-
-
     }
 
     

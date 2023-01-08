@@ -16,9 +16,6 @@ from model import write_transaction_record_in_historical_order
 from model import get_transaction_record_in_historical_order
 from model import delete_reservation_flash_by_person_id
 
-# from model import change_history_order_status
-
-# import requests
 
 @orders_blueprint.route("/api/orders",methods=["POST"])
 def api_orders():
@@ -34,14 +31,10 @@ def api_orders():
             return jsonify({"error":True,"message":"信箱型態有誤"})
         if not order_reservation_exist(person_id,order_data_from_frontEnd):
             return jsonify({"error":True,"message":"此筆訂單並不存在屬於您的預訂清單中"})
-        #創建歷史訂購清單
         the_last_order_number=write_historical_order(person_id,order_data_from_frontEnd)
         tappay_api_response=pay_by_prime_API(order_data_from_frontEnd)
-        #回填此筆交易狀態到歷史訂購清單
         write_transaction_record_in_historical_order(the_last_order_number,tappay_api_response)
-        #訂單成立後刪除此人在reservationflash中的資料
         delete_reservation_flash_by_person_id(person_id)
-        #取出交易狀態內容回傳到前端
         transaction_record=get_transaction_record_in_historical_order(the_last_order_number)
         return jsonify(transaction_record)
 

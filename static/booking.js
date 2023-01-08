@@ -1,12 +1,12 @@
-let messageBlock=document.querySelector(".messageBlock");
-let attractionNameContent=document.querySelector(".attractionNameContent");
-let orderDateContent=document.querySelector(".orderDateContent");
-let orderTimeContent=document.querySelector(".orderTimeContent");
-let orderFeeContent=document.querySelector(".orderFeeContent");
-let orderAddressContent=document.querySelector(".orderAddressContent");
-let imageBlock=document.querySelector(".imageBlock");
-let bookingTotalPrice=document.querySelector(".bookingTotalPrice");
-let trashcan=document.querySelector(".trashcan");
+const messageBlock=document.querySelector(".messageBlock");
+const attractionNameContent=document.querySelector(".attractionNameContent");
+const orderDateContent=document.querySelector(".orderDateContent");
+const orderTimeContent=document.querySelector(".orderTimeContent");
+const orderFeeContent=document.querySelector(".orderFeeContent");
+const orderAddressContent=document.querySelector(".orderAddressContent");
+const imageBlock=document.querySelector(".imageBlock");
+const bookingTotalPrice=document.querySelector(".bookingTotalPrice");
+const trashcan=document.querySelector(".trashcan");
 
 
 
@@ -18,11 +18,11 @@ function checkBookingToken(){
     }).then(function(response){
         return response.json();
     }).then(function(data){
-        if(data["data"]!=null){
-            // console.log("目前為登入狀態");
+        if(data.data){
+            // console.log("目前為登入狀態",data["data"]);
         }
         else{
-            // console.log("非登入狀態");
+            // console.log("非登入狀態",data);
             let url="/"
             window.location.href = url;
         }
@@ -34,7 +34,6 @@ function checkBookingToken(){
 window.addEventListener("load", function() {
     // console.log("抓到你刷新頁面了吧，讓我檢查看看Token");
     checkBookingToken();
-
 });
 
 
@@ -48,14 +47,11 @@ function getBookingData(){
     fetch("/api/booking",{
         method:"GET",
     }).then(function(response){
-        //packing and return to Backend
         return response.json();
     }).then(function(data){
-        // console.log("GET",data);
-        // console.log("-----------");
-        if(data["data"]!=null){
+        if(data.data){
             username=data["username"];
-            messageBlock.textContent="你好，"+data["username"]+"，待預定的行程如下 :";
+            messageBlock.textContent="您好，"+data["username"]+"，待預定的行程如下 :";
             bookingName.value=data["username"];
             attractionNameContent.textContent=data["data"]["attraction"]["name"];
             orderDateContent.textContent=data["data"]["date"];
@@ -74,15 +70,11 @@ function getBookingData(){
 
             //set ID for trashcan
             trashcan.setAttribute('id',data["data"]["attraction"]["id"]);
-
         }
         else{
-            console.log("none");
             username=data["username"];
-            console.log(username);
             displayNone();
         }
-        
     })
 }
 getBookingData();
@@ -91,21 +83,16 @@ getBookingData();
 
 
 
-// // // // let messageDownBlock=document.querySelector(".messageDownBlock");
-
 
 
 trashcan.addEventListener('click',function(){
-    // console.log("just delete");
-    // console.log(trashcan.getAttribute("id"));
     attractionId={"attractionId":(trashcan.getAttribute("id"))}
-    // console.log(attractionId);
     deleteBooking(attractionId);
     // messageDownBlock.style.display="none";
 })
 
 
-function deleteBooking(){
+function deleteBooking(attractionId){
     fetch(("/api/booking"),{
         method:"DELETE",
         body:JSON.stringify(attractionId),
@@ -113,42 +100,32 @@ function deleteBooking(){
             "content-type":"application/json"
         })
     }).then(function(){
-        //packing and return to Backend
-        console.log("delete Done");
-        // return response.json();
-        // displayNone();
-    }).then(function(){
-        //packing and return to Backend
-        console.log("delete Done");
-        // return response.json();
         displayNone();
     })
+    // .then(function(){
+    //     // console.log("delete Done");
+    //     // return response.json();
+    //     displayNone();
+    // })
 }
 
 
 
 
-let mainBefore=document.querySelector(".mainBefore");
-let mainAfter=document.querySelector(".mainAfter");
-let footerBefore=document.querySelector(".footerBefore");
+const mainBefore=document.querySelector(".mainBefore");
+const mainAfter=document.querySelector(".mainAfter");
+const footerBefore=document.querySelector(".footerBefore");
 mainAfter.style.display="none";
-let footerAfter=document.querySelector(".footerAfter");
-// let introduceContent=document.querySelector(".introduceContent");
-// let messageDownBlock=document.querySelector(".messageDownBlock");
-// let bookingConnection=document.querySelector(".bookingConnection");
+const footerAfter=document.querySelector(".footerAfter");
+
 //下面不見
 function displayNone(){
     mainBefore.style.display="none";
     mainAfter.style.display="block";
     footerBefore.style.display="none";
     footerAfter.style.display="block";
-    // let newMessageBlock=document.getElementsByClassName(".messageBlock");
     let newMessageBlock=document.querySelectorAll(".messageBlock");
-    // console.log(newMessageBlock[0]);
-    // console.log(newMessageBlock[1]);
-    // newMessageBlock.innerHTML="你好";
-    newMessageBlock[1].textContent="你好，"+username+"，待預定的行程如下 :";
-
+    newMessageBlock[1].textContent="您好，"+username+"，待預定的行程如下 :";
 }
 
 
@@ -177,8 +154,13 @@ function displayNone(){
 
 //===========================   tapPay  ==========================
 //=========================== setting bar attribute  =============
+
+// TPDirect.setupSDK(`${APP_ID}`,`${APP_KEY}`, 'sandbox');
 const bookingConfirmButton=document.querySelector(".bookingConfirmButton");
+// TPDirect.setupSDK(126870,"app_SAUPg4xuOEWyb4B2874iGEv8LT1xYmzsj87ChJ9wFFbAFwciRpUA5HJtn2DJ", 'sandbox');
+TPDirect.setupSDK(`${APP_ID}`,`${APP_KEY}`, 'sandbox');
 TPDirect.card.setup({
+    
     // Display ccv field
     fields : {
         number: {
@@ -242,8 +224,19 @@ TPDirect.card.setup({
     }
 })
 
-bookingConfirmButton.style.cursor = "default";
-bookingConfirmButton.setAttribute('disabled', true)
+
+// 預設disabled確認訂購並付款的button
+function disableBookingConfirmButton(){
+    bookingConfirmButton.style.cursor = "default";
+    bookingConfirmButton.setAttribute('disabled', true)
+}
+disableBookingConfirmButton();
+// 開啟確認訂購並付款的button
+function enableBookingConfirmButton(){
+    bookingConfirmButton.style.cursor = "pointer";
+    bookingConfirmButton.style.backgroundColor="#448899";
+    bookingConfirmButton.removeAttribute('disabled');
+}
 
 //=========================== checking mechanism  ===========================
 TPDirect.card.onUpdate(function (update) {
@@ -254,10 +247,20 @@ TPDirect.card.onUpdate(function (update) {
     if (update.canGetPrime) {
         // Enable submit Button to get prime.
         // submitButton.removeAttribute('disabled')
-        // console.log("AAA");
-        bookingConfirmButton.style.cursor = "pointer";
-        bookingConfirmButton.style.backgroundColor="#448899";
-        bookingConfirmButton.removeAttribute('disabled');
+        // bookingConfirmButton.style.cursor = "pointer";
+        // bookingConfirmButton.style.backgroundColor="#448899";
+        // bookingConfirmButton.removeAttribute('disabled');
+        enableBookingConfirmButton();
+        //滑鼠移入物件時
+        bookingConfirmButton.addEventListener('mouseover',
+        function(){
+            bookingConfirmButton.style.backgroundColor = '#696969'}
+        );
+        //滑鼠離開物件時    
+        bookingConfirmButton.addEventListener('mouseout',
+        function(){
+            bookingConfirmButton.style.backgroundColor = "#448899"}
+        );
         
 
     } else {
@@ -313,19 +316,23 @@ TPDirect.card.onUpdate(function (update) {
 //====== call TPDirect.card.getPrime when user submit form to get tappay prime  ======
 const bookingConnectionErrorMessage=document.querySelector(".bookingConnectionErrorMessage");
 bookingConfirmButton.addEventListener('click',function(){
+    disableBookingConfirmButton();
     if(!(judgeDataIntegrity())){
         bookingConnectionErrorMessage.style.display="block";
-        bookingConnectionErrorMessage.textContent="聯絡資訊皆不可為空，請填寫完整後再按下確認"
+        bookingConnectionErrorMessage.textContent="聯絡資訊皆不可為空，請填寫完整後再按下確認";
+        enableBookingConfirmButton();
         return
     }
     if(!(judgeEmailFormal())){
         bookingConnectionErrorMessage.style.display="block";
-        bookingConnectionErrorMessage.textContent="信箱格式錯誤，請填寫完整後再按下確認"
+        bookingConnectionErrorMessage.textContent="信箱格式錯誤，請填寫完整後再按下確認";
+        enableBookingConfirmButton();
         return
     }
     if(!(judgeNameFormal())){
         bookingConnectionErrorMessage.style.display="block";
-        bookingConnectionErrorMessage.textContent="姓名只允許中文或英文，請填寫完整後再按下確認"
+        bookingConnectionErrorMessage.textContent="姓名只允許中文或英文，請填寫完整後再按下確認";
+        enableBookingConfirmButton();
         return
     }
     onSubmit();
@@ -369,7 +376,7 @@ function onSubmit(event) {
 
 function judgeDataIntegrity(){
     if(bookingName.value!=="" && bookingEmail.value!=="" && bookingCellphone.value!==""){
-        console.log("true");
+        // console.log("true");
         return true
     }
 }
@@ -392,31 +399,6 @@ function judgeNameFormal(){
         // postRegisterDataToBackEnd();
     }
 }
-
-// function checkRegisterFront(){
-//     let testForEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
-//     let testForName = /^[\u4e00-\u9fa5a-zA-Z]+$/;
-//     if(testForEmail.test(bookingEmail.value)==true && testForName.test(bookingName.value)==true){
-//         console.log("通過前端");
-//         // postRegisterDataToBackEnd();
-//     }
-//     else{
-//         if(testForName.test(registerName)!=true) {
-//             console.log("姓名只接受英文跟中文形式，點此重新輸入");
-//             // responseFromBackend={"message":"姓名只接受英文跟中文形式，點此重新輸入"};
-//             // dealRegistResponseFromBackend();
-//         }
-//         else if(testForEmail.test(registerEmail)!=true) {
-//             console.log("請輸入正確信箱格式，點此重新輸入");
-//             // XXXXresponseFromBackend["message"]
-//             // responseFromBackend={"message":"請輸入正確信箱格式，點此重新輸入"};
-//             // dealRegistResponseFromBackend();
-//         }
-//     }
-        
-// }
-
-
 
 
 
@@ -460,16 +442,12 @@ function postBookingDataForTappayToBackend(bookingDataForTappay){
     }).then(function(response){
         return response.json();
     }).then(function(data){
-        console.log(data);
         let url;
-        if(data.error===true){
+        if(data.error){
             url="/thankyou?number="+String(data.number);
         }else{
-            // url="/thankyou?number="+String(data["data"]["number"]);
             url="/thankyou?number="+String(data.data.number);
         }
-        
-        // url="/thankyou?number="+String(transactionRecord["data"]["number"]);
         window.location.href = url;
         
     })

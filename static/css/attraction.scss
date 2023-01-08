@@ -7,14 +7,19 @@
 }
 
 
-@mixin screen1300{
-    @media(max-width:1300px){
+@mixin screen1250{
+    @media(max-width:1250px){
       @content;
     }
 }
 
 @mixin screen1000{
     @media(max-width:1000px){
+      @content;
+    }
+}
+@mixin screen910{
+    @media(max-width:910px){
       @content;
     }
 }
@@ -50,17 +55,14 @@ body{
             height:54px;
             margin: 0 auto;
             display: flex;
-            // align-items: center;/* 垂直置中 */
             background-color:#FFFFFF;
-            // background-color:red;
-            // opacity: 0.6;
-            @include screen1300(){
+            @include screen1250{
                 width:90%;
             }
-            @include screen1000(){
+            @include screen1000{
                 width:85%;
             }
-            @include screen500(){
+            @include screen500{
                 width:100%;
                 padding-left: 5px;
                 padding-right: 5px;
@@ -69,13 +71,10 @@ body{
             
             div.leftBar{
                 width:50%;
-                // background-color: rgb(142, 142, 246);
                 font-family: 'Noto Sans TC';
                 font-style: normal;
                 font-weight: 700;
                 font-size: 30px;
-                // line-height: 54px;
-                // background-color: rgb(202, 159, 242);
                 color:#448899;
                 align-items: center;/* 垂直置中 */
                 @include screen750(){
@@ -114,241 +113,15 @@ body{
     }
     main{
         padding-top: 60px;
-        // margin-top:80px;
-        // top:100px;
         width: 100%;
         height: 100%;
-        // display: flex;
-        // justify-content: center;
-        // align-items: center;/* 垂直置中 */
-
-        .filmBackground{
-            width:100%;
-            height:100%;
-            background-color: black;
-            z-index: 100;
-            // position: absolute;
-            position:fixed;                 //固定在視窗同個位置，捲動時跟著移動
-            top:0;
-            opacity: 0.25;
-            display: none;
-        }
-        .signinBlock{
-            width:100%;
-            height:275px;
-            margin-top: 26px;
-            // background-color: #666666;
-            // opacity: 0.25;
-            position:fixed;
-            // position: absolute;
-            z-index: 101;
-            display: none;
-            // display: flex;
-            justify-content: center;
-            
-            .signinBackground{
-                // position: relative;
-                width:340px;
-                height:100%;
-                background-color: #448899;
-                border-radius:6px;
-                .signinContent{
-                    width: 100%;
-                    // height: 100%;
-                    height:265px;
-                    margin-top: 10px;
-                    background-color: #FFFFFF;
-                    border-radius:0 0 6px 6px;
-                    .signinTitle{
-                        position: relative;
-                        top: 15px;
-                        width: 100%;
-                        height:27px;
-                        // background-color: black;
-                        display: flex;
-                        justify-content: center;
-                        color:#666666;
-                        font-weight: 1000;
-                        font-size: 24px;
-                    }
-
-                    .signinClose{
-                        position: relative;
-                        // background-color: red;
-                        left:75px;
-                    }
-
-                    input{
-                        width:310px;
-                        height:47px;
-                        left:15px;
-                        border-radius:5px;
-                        padding:15px;
-                        border:1px Gray solid;
-                        font-weight:600;
-                        
-                    }
-                    .signinEmail{
-                        position: relative;
-                        top: 30px;
-                    }
-                    .signinPassword{
-                        position: relative;
-                        top: 40px;
-                    }
-                    .signinBtn{
-                        position: relative;
-                        top: 50px;
-                        left:15px;
-                        width:310px;
-                        height:47px;
-                        background-color:#448899;
-                        border-radius:6px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        font-size: 20px;
-                        font-weight: 1000px;
-                        color:white;
-                    }
-                    .signinCreateAccount{
-                        position: relative;
-                        top: 60px;
-                        // left:15px;
-                        color:#666666;
-                        display: flex;
-                        justify-content: center;
-                        font-size: 16px;
-                        font-weight: 1000px;
-                    }
-                    .signinMessage{
-                        position: relative;
-                        top: 40px;
-                        // display: flex;
-                        display: none;
-                        justify-content: center;
-                        font-size: 16px;
-                        font-weight: 1000px;
-                        color:red;
-                    }
-                }
-            }
-        }
-        .registerBlock{
-            width:100%;
-            height:332px;
-            margin-top: 26px;
-            // background-color: #666666;
-            // position: absolute;
-            position:fixed;
-            z-index: 101;
-            display: none;
-            // display: flex;
-            justify-content: center;
-            
-            .registerBackground{
-                width:340px;
-                height:100%;
-                background-color: #448899;
-                border-radius:6px;
-                .registerContent{
-                    width: 100%;
-                    // height:350px;
-                    height:322px;
-                    margin-top: 10px;
-                    background-color: #FFFFFF;
-                    border-radius:0 0 6px 6px;
-                    .registerTitle{
-                        position: relative;
-                        top: 15px;
-                        width: 100%;
-                        height:27px;
-                        // background-color: black;
-                        display: flex;
-                        justify-content: center;
-                        color:#666666;
-                        font-weight: 1000;
-                        font-size: 24px;
-                    }
-
-                    .registerClose{
-                        position: relative;
-                        // background-color: red;
-                        left:75px;
-                    }
-
-                    input{
-                        width:310px;
-                        height:47px;
-                        left:15px;
-                        border-radius:5px;
-                        padding:15px;
-                        border:1px Gray solid;
-                        font-weight:600;
-                        
-                    }
-                    .registerName{
-                        position: relative;
-                        top: 30px;
-                    }
-
-                    .registerEmail{
-                        position: relative;
-                        top: 40px;
-                    }
-                    .registerPassword{
-                        position: relative;
-                        top: 50px;
-                    }
-                    .registerBtn{
-                        position: relative;
-                        top: 60px;
-                        left:15px;
-                        width:310px;
-                        height:47px;
-                        background-color:#448899;
-                        border-radius:6px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        font-size: 20px;
-                        font-weight: 1000px;
-                        color:white;
-                        border:0px
-                    }
-                    .registerSignInTo{
-                        position: relative;
-                        top: 70px;
-                        // left:15px;
-                        color:#666666;
-                        display: flex;
-                        justify-content: center;
-                        font-size: 16px;
-                        font-weight: 1000px;
-                    }
-                    .registerMessage{
-                        position: relative;
-                        top: 80px;
-                        display: none;
-                        justify-content: center;
-                        font-size: 16px;
-                        font-weight: 1000px;
-                        color:red;
-                    }
-                }
-            }
-        }
-
-
-
         .sectionPicture{
             margin: 0 auto;
             justify-content: center;
             width:1200px;
             height:480px;
-            // background-color: rgb(94, 91, 91);
             display: flex;
-            @include screen1300(){
+            @include screen1250(){
                 width:90%;
             }
             @include screen1000(){
@@ -369,19 +142,17 @@ body{
                 height: 406px;
                 margin-top: 37px;
                 margin-left: 5px;
-                // background-color: rgb(227, 190, 141);
                 position: relative;
                 
                 @include screen750(){
                     margin: 0px auto;
-                    width:100%;
+                    width:95%;
                 }
                 
                 .imgBackground{
                     width:100%;
                     height:100%;
                     position:absolute;
-                    // background-color: #448899;
                     object-position: center center;
                     object-fit:cover;   /*裁切縮放*/
                 }
@@ -389,16 +160,16 @@ body{
                     width: 540px;
                     height: 36px;
                     margin-top: 185px;
-                    // background-color: red;
                     position:absolute;
                     display: flex;
                     align-items: center;/* 垂直置中 */
                     justify-content: space-between;
-                    @include screen1300(){
+                    @include screen1250(){
                         width:100%;
                     }
                     
                     .carouselBtn{
+                        cursor: pointer;
                         margin:0 10px;
                         height: 36px;
                         width: 36px;
@@ -420,22 +191,27 @@ body{
                             }
                         }
                     }
+                    .carouselBtn:hover{
+                        opacity: 0.7;
+                        background-color:rgb(62, 61, 61);
+                        color:white;
+                        border-color:#262525; 
+                        border-style:solid;
+                    }
                 }
                 .carouselUnderBlock{
-                    // margin-top: 154px;
                     width:100%;
                     height:12px;
                     display: flex;
-                    // background-color: green;
                     justify-content: center;
                     position:absolute;
                     bottom: 7px;
                     .carouselInturn{
+                        cursor: pointer;
                         margin:0 3px;
                         height: 12px;
                         width: 12px;
                         border-radius: 50%;
-                        // border:solid 2px white;
                         background-color: white;
                         opacity: 0.7;
                         display: flex;
@@ -445,11 +221,16 @@ body{
                             height: 10px;
                             width: 10px;
                             border-radius: 50%;
-                            background-color: black;
+                            background-color: #262525;
                             display:none;
-                            // display:block;
                         }
                         
+                    }
+                    .carouselInturn:hover{
+                        opacity: 0.5;
+                        background-color:rgb(62, 61, 61);
+                        border-color:#050505; 
+                        border-style:solid;
                     }
                 }
                 
@@ -460,7 +241,6 @@ body{
                 height: 406px;
                 margin-top: 37px;
                 margin-left: 30px;
-                // background-color: antiquewhite;
                 color: #666666;
                 @include screen750(){
                     margin: 20px auto;
@@ -471,20 +251,22 @@ body{
                     height:33px;
                     font-weight: 700;
                     font-size: 24px;
+                    @include screen910(){
+                        font-size: 20px;
+                    }
                     
                 }
                 .attractionSort{
                     width: 100%;
                     height:22px;
                     margin-top: 20px;
-                    // background-color: white;
                     font-weight: 700;
                     font-size: 16px;
+                    letter-spacing: 1px;
                 }
                 .orderDirect{
                     width:100%;
                     height: 310px;
-                    // height: 302px;
                     margin-top: 20px;
                     background-color: #E8E8E8;
                     
@@ -566,6 +348,7 @@ body{
                         display:none;
                     }
                     .orderBtn{
+                        cursor: pointer;
                         margin-left: 20px;
                         margin-top: 25px;
                         padding:5px 20px;
@@ -576,6 +359,10 @@ body{
                         color: white;
                         border-radius: 6px 6px 6px 6px;
                     }
+                    .orderBtn:hover{
+                        opacity: 0.8;
+                        background-color:rgb(62, 61, 61);
+                    }
                 }
 
             }
@@ -583,7 +370,7 @@ body{
         hr{
             max-width: 1200px;
             margin:0 auto;
-            @include screen1300(){
+            @include screen1250(){
                 width:90%;
             }
             @include screen1000(){
@@ -605,14 +392,12 @@ body{
             p{
                 width: 1180px;
                 margin:0 auto;
-                // height:200px;
-                // background-color:rgba(255, 255, 255, 0.8);
-                // background-color:yellow;
+                letter-spacing: 1px;
                 font-weight: 400;
                 font-size: 16px;
                 line-height: 23px;
                 // border:solid 1px #666666;
-                @include screen1300(){
+                @include screen1250(){
                     width:90%;
                 }
                 @include screen1000(){
@@ -622,15 +407,18 @@ body{
             
             
             .describe{
+                letter-spacing: 1px;
                 margin-top: 50px;
             }
             .addressTitle{
+                letter-spacing: 1px;
                 height: 32px;
                 line-height: 32px;
                 font-weight: 700;
                 margin-top: 20px;
             }
             .transportTitle{
+                letter-spacing: 1px;
                 height: 32px;
                 line-height: 32px;
                 font-weight: 700;
@@ -640,35 +428,9 @@ body{
 
 
         }
-    // .filmBackground{
-    //     width:100%;
-    //     height:100%;
-    //     background-color: black;
-    //     z-index: 100;
-    //     // position: absolute;
-    //     position:fixed;                 //固定在視窗同個位置，捲動時跟著移動
-    //     top:0;
-    //     opacity: 0.25;
-    //     // display: none;
-    // }
+ 
 
 
-
-    }
-    footer{
-        width: 100%;
-        height: 104px;
-        margin-top: 224px;
-        background: #757575;
-
-        p{
-        color: #FFFFFF;
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 104px;
-        text-align: center;
-
-        }
     }
 
 

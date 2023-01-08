@@ -1,3 +1,13 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  border: none;
+  outline: none;
+}
+
 main {
   display: flex;
   justify-content: center;
@@ -12,6 +22,20 @@ main .thankYouPage {
 main .thankYouPage div {
   text-align: center;
   margin-top: 5px;
+  color: #757575;
+}
+main .errorPage {
+  display: none;
+  width: 90%;
+  height: 50px;
+  margin-top: 100px;
+  font-size: 26px;
+  font-weight: 1000;
+  align-items: center;
+  justify-content: center;
+}
+main .errorPage div {
+  text-align: center;
   color: #757575;
 }
 

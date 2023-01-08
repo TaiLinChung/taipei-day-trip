@@ -32,7 +32,7 @@ function getData(){
     }).then(function(data){
 
         if (data["error"]===true){
-            console.log("the end");
+            // console.log("the end");
         }else{
             // console.log("continue")
             attractions = data["data"];
@@ -73,7 +73,9 @@ function loadingPicture(){
         attractionId=attractions[i]["id"]
         attractionLocation=attractions[i]["mrt"]
         attractionSort=attractions[i]["category"]
-        
+        if(attractionLocation==null){
+            attractionLocation="無捷運站";
+        }
         //createItemBlock
         let item = document.createElement('div');
         item.setAttribute('class','item') ;
@@ -171,7 +173,7 @@ function loadmore(){
         }
 
     }else{
-        console.log("結束loadmore");
+        // console.log("結束loadmore");
     }
 }
 
@@ -252,3 +254,36 @@ function icon(){
     },false);
 }
 icon();
+
+
+
+const checkEyeSignin = document.getElementById("checkEyeSignin");
+      const floatingSigninPassword =  document.getElementById("floatingSigninPassword");
+      checkEyeSignin.addEventListener("click", function(e){
+        if(e.target.classList.contains('fa-eye')){
+        //換class 病患 type
+          e.target.classList.remove('fa-eye');
+          e.target.classList.add('fa-eye-slash');
+          floatingSigninPassword.setAttribute('type','text')
+        }else{
+            floatingSigninPassword.setAttribute('type','password');
+          e.target.classList.remove('fa-eye-slash');
+          e.target.classList.add('fa-eye')
+        }
+      });
+
+
+const checkEyeRegister = document.getElementById("checkEyeRegister");
+      const floatingRegisterPassword =  document.getElementById("floatingRegisterPassword");
+      checkEyeRegister.addEventListener("click", function(e){
+        if(e.target.classList.contains('fa-eye')){
+        //換class 病患 type
+          e.target.classList.remove('fa-eye');
+          e.target.classList.add('fa-eye-slash');
+          floatingRegisterPassword.setAttribute('type','text')
+        }else{
+            floatingRegisterPassword.setAttribute('type','password');
+          e.target.classList.remove('fa-eye-slash');
+          e.target.classList.add('fa-eye')
+        }
+      });

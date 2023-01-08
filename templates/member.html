@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="../static/css/member.css">
+{% endblock %}
+
+
+{% block inmain %}
+<main>
+    <section class="all">
+        <div class="informationBlock">
+            <!-- <div class="informationTitle">會員資料</div> -->
+            <div class="informationContain">
+                <div class="informationDetail">
+                    <div>會員資料</div>
+                    <div>姓名：<input class="memberName" type="text" ></div>
+                    <div>信箱：<input class="memberEmail" type="text" ></div>
+                    <div>密碼：<input class="memberPassword" id="floatingMemberPassword" type="password" ></div>
+                    <i id="checkEyeMember" class="fas fa-eye"></i>
+                    <div class="memberMessageTitle"><i class="memberMessage"></i></div>
+                    <div class="changeInformationBTN">變更上述資料</div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+</main>
+
+
+
+
+{% endblock %}
+
+{% block javascript %}
+<script src="../static/member.js" defer></script>
+{% endblock %}

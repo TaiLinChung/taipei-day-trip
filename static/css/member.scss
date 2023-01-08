@@ -1,0 +1,244 @@
+*{
+    box-sizing:border-box;          //reset
+    margin:0;                       //reset
+    padding:0;                      //reset
+    font-family: 'Noto Sans TC';    //網頁字體
+    font-style: normal;             //網頁字體
+    border: none;
+    outline: none;
+}
+
+
+@mixin screen1250{
+    @media(max-width:1250px){
+      @content;
+    }
+}
+
+@mixin screen550{
+    @media(max-width:550px){
+      @content;
+    }
+}
+
+@mixin screen410{
+    @media(max-width:410px){
+      @content;
+    }
+}
+
+
+
+
+main{
+    display: flex;
+    justify-content: center;
+    .all{
+        margin-top: 80px;
+        width: 1200px;
+        // background-color: antiquewhite;
+        @include screen1250{
+            width:90%;
+        }
+        .informationBlock{
+            width:100%;
+            // background-color: antiquewhite;
+            font-size: 25px;
+            font-weight: 1000;
+
+            .informationTitle{
+                height:50px;
+                line-height: 50px;
+                text-align: center;
+                // background-color: #448899;
+            }
+            .informationContain{
+                // background-color: rgb(77, 77, 79);
+                display: flex;
+                justify-content: center;
+                .informationDetail{
+                    width:360px;
+                    // background-color: #448899;
+                    border-radius: 5px;
+                    position: relative;
+                    div{
+                        line-height: 38px;
+                        text-align: center;
+                        // color: white;
+                        input{
+                            margin:5px;
+                            height:38px;
+                            width:200px;
+                            font-size: 20px;
+                            font-weight: 1000;
+                            padding-left: 10px;
+                            border:2px #E8E8E8 solid;
+                            border-radius: 5px;
+                            
+                        }
+                    
+                    }
+                    #checkEyeMember{
+                        cursor: pointer;
+                        position: absolute;
+                        color:gray;
+                        top: 145px;
+                        right:20%;
+                    }
+                    #checkEyeMember:hover{
+                        opacity: 0.5;
+                        color:rgb(62, 61, 61);
+                    }
+
+                    .changeInformationBTN{
+                        cursor: pointer;
+                    }
+                    .changeInformationBTN:hover{
+                        border-radius: 5px;
+                        opacity: 0.6;
+                    }
+                }
+            }
+        }
+        .orderBlock{
+            margin-top: 50px;
+            width:100%;
+            height:200px;
+            font-size: 20px;
+            font-weight: 1000;
+            background-color: burlywood;
+            .orderTitle{
+                height:50px;
+                line-height: 50px;
+                text-align: center;
+                background-color: #448899;
+            }
+            // .orderContain{
+            //     height:150px;
+            //     background-color: rgb(77, 77, 79);
+            // }
+            .messageDownBlock{
+                height:220px;
+                width: 960px;
+                // margin-top: 30px;
+                // margin-left: 10px;
+                background-color: red;
+                display:flex;
+                // // position: relative;
+                // @include screen1250{
+                //     width:90%;
+                // }
+                // @include screen580{
+                //     width:90%;
+
+                //     height:395px;
+                //     display:block;
+                // }
+                
+                .imageBlock{
+                    width:266px;
+                    height: 200px;
+                    display:flex;
+                    margin-top: 5px;
+                    object-position: center center;
+                    object-fit:cover;   /*裁切縮放*/
+                    background-color: rgb(249, 249, 203);
+                    // @include screen580{
+                    //     width:100%;
+                    //     display:block;
+                    // }
+                }
+                .attractionIntroduceBlock{
+                    margin-left: 22px;
+                    width:100%;
+                    background-color: wheat;
+                    // position: relative;
+                    // @include screen580{
+                    //     margin-left: 0px;
+                    //     height:190px;
+                    // }
+
+                //     p{
+                //         color:#666666;
+                //         font-weight: 700;
+                //         font-size: 16px;
+                //     }
+                //     i{
+                //         margin-left: 5px;
+                //     }
+                    
+                //     .attractionName{
+                //         margin-top: 5px;
+                //         color:#448899;
+                //         // font-weight: 700;
+                //     }
+                //     .orderDate{
+                //         margin-top: 20px;
+                //         i{
+                //             font-weight: 500;
+                //         }
+                //     }
+                //     .orderTime{
+                //         margin-top: 10px;
+                //         i{
+                //             font-weight: 500;
+                //         }
+                //     }
+                //     .orderFee{
+                //         margin-top: 10px;
+                //         i{
+                //             font-weight: 500;
+                //         }
+                //     }
+                //     .attractionAddress{
+                //         margin-top: 10px;
+                //         i{
+                //             font-weight: 500;
+                //         }
+                //     }
+                //     .trashcan{
+                //         cursor: pointer;
+                //         position: absolute;
+                //         width:30px;
+                //         height: 30px;
+                //         bottom: 190px;
+                //         right:0px;
+                //         background-image: url("../img/icon_delete.png");
+                //         background-repeat: no-repeat;
+                //         border:0;
+                //         @include screen850{
+                //             bottom: 0px;
+                //         }
+                //     }
+                //     .trashcan:hover{
+                //         opacity: 0.6;
+                //     }  
+                }
+                
+            }
+        }
+    }
+
+    // width:100%;
+    // margin-top: 80px;
+    // height:300px;
+    // background-color: blue;
+    // display: flex;
+    // justify-content: center;
+    // .memberInformationPage{
+    //     width:400px;
+    //     .information{
+    //         background-color: #448899;
+    //         div{
+    //             padding-left: 20px;
+    //             margin-top: 20px;
+    //             height:40px;
+    //             line-height: 40px;
+    //             font-size: 20px;
+    //             font-weight: 1000;
+    //             background-color: white;
+    //         }
+    //     }
+        
+    // }
+}

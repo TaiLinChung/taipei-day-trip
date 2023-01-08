@@ -1,10 +1,18 @@
+
+# ========================	read.env	========================
+
+import os
+from dotenv import load_dotenv
+load_dotenv()
+sql_password=os.getenv("sql_password")
+
 from flask import *
 from flask import jsonify
 import mysql.connector
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
-    password="Bb0970662139")
+    password=sql_password)
 
 
 mycursor2=mydb.cursor()
@@ -59,17 +67,15 @@ mycursor2.execute(sql)
 # mycursor2.execute(sql)
 
 
-
 mycursor2.close()
 mydb.close()
-
 
 
 import mysql.connector.pooling
 import mysql.connector.pooling
 dbconfig={
 	"user":"root",
-	"password":"Bb0970662139",
+	"password":sql_password,
 	"host":"localhost",
 	"database":"taipei_day_trip",
 }
@@ -79,6 +85,7 @@ connection_pool = mysql.connector.pooling.MySQLConnectionPool(
 	pool_reset_session=True,
 	**dbconfig
 )
+
 
 
 
