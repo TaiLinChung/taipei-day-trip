@@ -5,9 +5,21 @@
 ### SKILLS
 - Front-end
   - HTML
+  - SCSS
+  - JavaScript
 - Back-end
-
+  - Python
+  - Python Flask
 - Database
+  - MySQL
+- Cloud Service
+  - AWS EC2
+- Cloud Operating System
+  - ubuntu
+- User Authenticate
+  - JWT
+- Payment
+  - TayPay
 
 - Use Flask as server framework
 - Responsive Web Design
