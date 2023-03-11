@@ -1,4 +1,6 @@
 # taipei-day-trip
+## E-commerce Tourism website
+
 - Use Flask as server framework
 - Responsive Web Design
 - Infinite scroll loading & image carousel
@@ -9,4 +11,3 @@
 - Third-Party Payment System: TapPay
 
 
-​![images](https://user-images.githubusercontent.com/112619621/224494942-78a879e4-d9f2-4435-af62-2632ead38242.png)
