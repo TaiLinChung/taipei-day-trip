@@ -34,3 +34,7 @@
 - TapPay
 
 ![taipei4](https://user-images.githubusercontent.com/112619621/224502316-736e507c-df44-4d2a-9aa5-c426f8d419ef.gif)
+
+- Attraction pictures carousel
+
+![taipei5](https://user-images.githubusercontent.com/112619621/224503071-6011befd-3ddb-4aab-82db-322d1e196563.gif)
