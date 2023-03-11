@@ -25,6 +25,7 @@
 - Payment
   - Third-Party Payment System: TapPay
 
+![taipei4](https://user-images.githubusercontent.com/112619621/224502316-736e507c-df44-4d2a-9aa5-c426f8d419ef.gif)
 ### Features
 - Keyword Search for attraction category
 
