@@ -4,7 +4,7 @@
 
 ### SKILLS
 - Front-end
-
+  - HTML
 - Back-end
 
 - Database
