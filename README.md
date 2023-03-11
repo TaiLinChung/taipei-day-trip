@@ -15,7 +15,7 @@
   - Python
   - Python Flask
 - Database
-  - MySQL
+  - MySQL uses the connection pool and set index to optimize the query
 - Cloud Service
   - AWS EC2
 - Cloud Operating System
@@ -23,7 +23,7 @@
 - User Authenticate
   - JWT
 - Payment
-  - TayPay
+  - Third-Party Payment System: TapPay
 
 - Responsive Web Design
 - Infinite scroll loading & image carousel
