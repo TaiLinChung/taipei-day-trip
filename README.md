@@ -27,6 +27,7 @@
 
 ### Features
 - Keyword Search for attraction category
+
 ![taipei3](https://user-images.githubusercontent.com/112619621/224500972-50c3fff6-e4c3-4829-b279-2e4205fe3795.gif)
 
 
