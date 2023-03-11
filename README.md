@@ -7,6 +7,7 @@
   - HTML
   - SCSS
   - JavaScript
+  - RWD
 - Back-end
   - Python
   - Python Flask
@@ -21,7 +22,6 @@
 - Payment
   - TayPay
 
-- Use Flask as server framework
 - Responsive Web Design
 - Infinite scroll loading & image carousel
 - Authenticate user with JSON Web Token
