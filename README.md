@@ -2,6 +2,12 @@
 ### E-commerce Tourism website
 ![taipei1](https://user-images.githubusercontent.com/112619621/224496302-f2a62879-a370-4e59-81b8-58a6a41b9552.gif)
 
+### SKILLS
+- Front-end
+
+- Back-end
+
+- Database
 
 - Use Flask as server framework
 - Responsive Web Design
