@@ -8,6 +8,7 @@
   - SCSS
   - JavaScript
   - RWD
+![taipei2](https://user-images.githubusercontent.com/112619621/224497153-92a3b3db-49ce-439b-8121-c15049d5765a.gif)
 - Back-end
   - Python
   - Python Flask
