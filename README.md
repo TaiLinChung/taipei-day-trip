@@ -38,3 +38,7 @@
 - Attraction pictures carousel
 
 ![taipei5](https://user-images.githubusercontent.com/112619621/224503071-6011befd-3ddb-4aab-82db-322d1e196563.gif)
+
+-Change member information
+
+![taipei6](https://user-images.githubusercontent.com/112619621/224503671-4b178393-74ff-4d39-9627-9ccbf3524327.gif)
