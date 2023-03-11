@@ -1,6 +1,6 @@
 # taipei-day-trip 台北一日遊電商專案
 ### E-commerce Tourism website
-
+![taipei1](https://user-images.githubusercontent.com/112619621/224496302-f2a62879-a370-4e59-81b8-58a6a41b9552.gif)
 
 
 - Use Flask as server framework
