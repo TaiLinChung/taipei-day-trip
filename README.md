@@ -10,7 +10,7 @@
   - RWD
 - Back-end
   - Python
-  - Python Flask
+  - Python Flask as server framework
 - Database
   - MySQL uses the connection pool and set index to optimize the query
 - Cloud Service
