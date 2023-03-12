@@ -57,11 +57,11 @@ for item in data["result"]["results"]:
     # print()
     # print()
 # ##----------------------
-    # mycursor=mydb.cursor()
-    # sql="INSERT INTO datas3(id,name,category,description,address,transport,mrt,latitude,longitude,images) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    # val=(item["_id"],item["name"],item["CAT"],item["description"],item["address"],item["direction"],item["MRT"],item["latitude"],item["longitude"],item["file"])
-    # mycursor.execute(sql,val)
-    # mydb.commit()
+    mycursor=mydb.cursor()
+    sql="INSERT INTO datas3(id,name,category,description,address,transport,mrt,latitude,longitude,images) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    val=(item["_id"],item["name"],item["CAT"],item["description"],item["address"],item["direction"],item["MRT"],item["latitude"],item["longitude"],item["file"])
+    mycursor.execute(sql,val)
+    mydb.commit()
 # ##----------------------
 
     # sql="INSERT INTO datas(name,category) VALUES(%s,%s)
